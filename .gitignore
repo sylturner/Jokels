@@ -1,0 +1,9 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/**/*
+config/database.yml
+config/environments/development.rb
+config/environments/production.rb
+config/environments/test.rb
+config/application.yml
