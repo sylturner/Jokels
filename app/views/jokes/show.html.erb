@@ -1,11 +1,3 @@
-<p id="notice"><%= notice %></p>
-
-<p class="question">
-  <%= @joke.question %>
-</p>
-<p class="answer">
-  <%= @joke.answer %>
-</p>
-
-<%= link_to 'Edit', edit_joke_path(@joke) %> |
-<%= link_to 'Back', jokes_path %>
+<div id="joke" class="joke">
+  <%= render :partial => "home/joke", :locals => {:joke => @joke}%>
+  </div>

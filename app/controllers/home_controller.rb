@@ -12,6 +12,10 @@ class HomeController < ApplicationController
   
   def add_joke
     @joke = Joke.new
+    respond_to do |format|
+      format.html
+      format.js {render :layout => false}
+    end
   end
   
   

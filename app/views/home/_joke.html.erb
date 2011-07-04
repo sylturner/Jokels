@@ -1,8 +1,9 @@
+<div id="notice"><%= notice %></div>
 <p id="question" class="question">
-  <%= @joke.question %>
+  <%= joke.question %>
 </p>
 <p id="click-for-punchline">(click for the punchline)</p>
 <p id="answer" class="answer">
-  <%= @joke.answer %>
+  <%= joke.answer %>
 </p>
-<p id="refresh-joke"><%= link_to "(click for another joke)", refresh_joke_home_path, :id=>"joke", :method => :get, :remote => true%></p>
+<p id="refresh-joke"><%= link_to "(click for a random joke)", refresh_joke_home_path, :id=>"joke", :method => :get, :remote => true%></p>

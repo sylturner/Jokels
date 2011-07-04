@@ -35,6 +35,7 @@ class JokesController < ApplicationController
   # GET /jokes/1/edit
   def edit
     @joke = Joke.find(params[:id])
+    redirect_to(@joke, :notice => "Sorry! Editing jokes isn't allowed yet")
   end
 
   # POST /jokes
@@ -73,11 +74,12 @@ class JokesController < ApplicationController
   # DELETE /jokes/1.xml
   def destroy
     @joke = Joke.find(params[:id])
-    @joke.destroy
+    redirect_to(@joke, :notice => "Sorry! Deleting jokes isn't allowed yet")
+    #@joke.destroy
 
-    respond_to do |format|
-      format.html { redirect_to(jokes_url) }
-      format.xml  { head :ok }
-    end
+    #respond_to do |format|
+    #  format.html { redirect_to(jokes_url) }
+    #  format.xml  { head :ok }
+    #end
   end
 end

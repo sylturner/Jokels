@@ -3,12 +3,14 @@
 <head>
   <title>Jokels</title>
   <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag "/stylesheets/smoothness/jquery-ui-1.8.14.custom.css"%>
   <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js" %>
   <%=javascript_include_tag 'rails'%>
   <%= csrf_meta_tag %>
   <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
 </head>
 <body>
+  <div id="add-joke"></div>    
   <div class="wrapper">
 
     <div id="header">
@@ -16,7 +18,7 @@
         <a href="/"><h1>jokels</h1></a>
       </div>
       <div class="right">
-        <%= link_to "Add joke", add_joke_home_path %>
+        <%= link_to "+ Add new joke", add_joke_home_path, :method => :get, :remote => true %> | <%= link_to "View all jokes", jokes_path %>
       </div>
     </div>
 
