@@ -1,2 +1,3 @@
 $("#add-joke").dialog({modal: true, title: "Add a new joke!", width: 450});
 $("#add-joke").html("<%= escape_javascript(render :partial => 'jokes/form') %>");
+$("#joke_question").focus();
