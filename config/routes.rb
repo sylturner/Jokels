@@ -1,6 +1,13 @@
 Jokels::Application.routes.draw do
+  resources :categories
   resources :jokes
+  
+  resource :home, :controller => "home" do
+    get :add_joke, :action => "add_joke"
+  end
+  root :to => "home#index"
 
+  match "/atl" => redirect("http://atl.jokels.com")
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -2,6 +2,7 @@
 
 <table>
   <tr>
+    <th>Question</th>
     <th></th>
     <th></th>
     <th></th>
@@ -9,6 +10,7 @@
 
 <% @jokes.each do |joke| %>
   <tr>
+    <td><%= joke.question %></td>
     <td><%= link_to 'Show', joke %></td>
     <td><%= link_to 'Edit', edit_joke_path(joke) %></td>
     <td><%= link_to 'Destroy', joke, :confirm => 'Are you sure?', :method => :delete %></td>

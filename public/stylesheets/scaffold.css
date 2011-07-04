@@ -1,3 +1,10 @@
+* {
+	margin: 0;
+}
+html, body {
+	height: 100%;
+}
+
 body { background-color: #fff; color: #333; }
 
 body, p, ol, ul, td {
@@ -53,4 +60,96 @@ div.field, div.actions {
 #error_explanation ul li {
   font-size: 12px;
   list-style: square;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	background: #FFF;
+}
+
+.wrapper {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -100px; 
+}
+#footer, .push {
+	height: 97px;
+}
+
+#header {
+	padding-top: 10px;
+	background-color: #777;
+	color: #FFF;
+	line-height: 40pt;
+	border-bottom: 3px solid #333;
+	
+}
+#header .left {
+	padding-left: 10%;
+	display: inline-block;
+	width: 50%;
+}
+#header .right {
+	padding-right: 10%;
+	display: inline-block;
+	float: right;
+}
+#header a {
+	color: #FFF;
+	text-decoration: none;
+}
+
+#header h1 {
+	font-family: 'Chewy', arial, serif;
+	font-size: 48pt;
+}
+
+#main {
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+#main .joke {
+	padding-top: 0px;
+}
+#main .joke p {
+	width: 100%;
+	margin: 0;
+	background: #EFEFEF;
+	text-align: center;
+	font-size: 24pt;
+	line-height: 28pt;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+#main .joke p#click-for-punchline {
+	background: #EFEFEF;
+	font-size: 10pt;
+	line-height: 10pt;
+	cursor: pointer;
+}
+
+#main .joke p.notice:hover {
+	background: #;
+}
+
+#main .joke p.question {
+	background: #DD99AA;
+	cursor: pointer;
+}
+
+#main .joke p.question:hover {
+	background: #DD99CC;
+}
+
+#main .joke p.answer {
+	background: #FFDDDD;
+	display:none;
+}
+
+#footer {
+	border-top: 3px solid #333;
+	background-color: #000;
 }
