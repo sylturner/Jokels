@@ -124,15 +124,14 @@ body {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
-#main .joke p#click-for-punchline {
+#main .joke p#click-for-punchline, #main .joke p#refresh-joke {
 	background: #EFEFEF;
 	font-size: 10pt;
 	line-height: 10pt;
 	cursor: pointer;
 }
-
-#main .joke p.notice:hover {
-	background: #;
+#main .joke p#click-for-punchline:hover, #main .joke p#refresh-joke:hover, #main .joke p#refresh-joke a:hover  {
+	background: #DFDFDF;
 }
 
 #main .joke p.question {
@@ -140,16 +139,37 @@ body {
 	cursor: pointer;
 }
 
-#main .joke p.question:hover {
-	background: #DD99CC;
-}
-
 #main .joke p.answer {
 	background: #FFDDDD;
 	display:none;
 }
 
+#main .joke p#refresh-joke {
+	display:none;
+	padding: 0;
+}
+
+#main .joke p#refresh-joke a {
+	display:block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-decoration: none;
+}
+#main .joke p#refresh-joke a:hover {
+	color: #333;
+}
+
 #footer {
 	border-top: 3px solid #333;
 	background-color: #000;
+	color: #CCC;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+#footer a {
+	color: #CCC;
+}
+
+.field input {
+	width: 100%;
 }

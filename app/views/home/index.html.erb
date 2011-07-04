@@ -1,9 +1,3 @@
-<div class="joke">
-  <p id="question" class="question" title="Click for the answer!">
-    <%= @joke.question %>
-  </p>
-  <p id="click-for-punchline">(click for the punchline)</p>
-  <p id="answer" class="answer">
-    <%= @joke.answer %>
-  </p>
+<div id="joke" class="joke">
+  <%= render :partial => "joke" %>
 </div>

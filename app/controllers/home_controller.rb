@@ -6,13 +6,12 @@ class HomeController < ApplicationController
     
     respond_to do |format|
       format.html 
-      format.xml  { render :xml => @jokes }
+      format.js {render :layout => false}
     end
   end
   
   def add_joke
     @joke = Joke.new
-    
   end
   
   
