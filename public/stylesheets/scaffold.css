@@ -138,13 +138,39 @@ body {
 }
 
 #main .joke p.question {
-	background: #DD99AA;
+	/*background: #DD99AA;*/
+	background: #99CC99;
 	cursor: pointer;
 }
 
 #main .joke p.answer {
-	background: #FFDDDD;
+	/*background: #FFDDDD;*/
+	background: #BBDDBB;
 	display:none;
+}
+#main .joke p#share {
+	display: none;
+	border-top: 3px solid #333;
+	background: #777;
+	font-size: 10pt;
+	text-align: left;
+	color: #DDD;
+	line-height: 10pt;
+	vertical-align: middle;
+}
+#main .joke p#share span {
+	margin-left: 10px;	
+}
+#main .joke p#share a {
+	color: #FFF;
+}
+
+#main .joke p#share iframe { 
+	vertical-align:middle; 
+	padding-bottom: 2px; 
+}
+#main .joke p#share iframe.twitter-share-button {
+	padding-bottom: 3px;
 }
 
 #main .joke p#refresh-joke {
@@ -165,12 +191,12 @@ body {
 #footer {
 	border-top: 3px solid #333;
 	background-color: #000;
-	color: #CCC;
+	color: #DDD;
 	padding-left: 10%;
 	padding-right: 10%;
 }
 #footer a {
-	color: #CCC;
+	color: #FFF;
 }
 
 #jokes-list {

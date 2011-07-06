@@ -9,5 +9,6 @@ function enable_joke_stuff()
 	$('#click-for-punchline').hide();
 	$('#answer').slideDown('fast');
 	$('#question').css('cursor', 'default');
-	$('#refresh-joke').delay(1000).slideDown();
+	$("#share").delay(750).slideDown('fast');
+	$('#refresh-joke').delay(750).slideDown('fast');
 }
