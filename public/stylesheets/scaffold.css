@@ -72,10 +72,10 @@ body {
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	margin: 0 auto -50px; 
+	margin: 0 auto -68px; 
 }
 #footer, .push {
-	height: 47px;
+	height: 65px;
 }
 
 #header {
@@ -197,6 +197,12 @@ body {
 }
 #footer a {
 	color: #FFF;
+}
+#footer .left {
+	float: left;
+}
+#footer .right {
+	float: right;
 }
 
 #jokes-list {
