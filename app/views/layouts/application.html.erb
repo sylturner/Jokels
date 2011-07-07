@@ -11,6 +11,7 @@
 </head>
 <body>
   <div id="add-joke"></div>    
+  <div id="why"><p>Logging in with Twitter will give you credit for your jokes! You can still submit your terribly embarrassing ones anonymously, if you'd like.</p><p>Jokels only uses <em>Read Access</em> on your account to grab your account name and will not post anything without you knowing.</p></div>
   <div class="wrapper">
 
     <div id="header">
@@ -18,6 +19,13 @@
         <a href="/"><h1>jokels</h1></a>
       </div>
       <div class="right">
+        <% if current_user %>
+          Welcome @<%= current_user.name %>!
+          <%= link_to "Sign Out", signout_path %>
+        <% else %>
+          Sign in with <a href="/auth/twitter">Twitter</a> (<a href="#" id="question-mark">?</a>)
+        <% end %>
+        <br/>
         <%= link_to "+ Add new joke", add_joke_home_path, :method => :get, :remote => true %> | <%= link_to "View all jokes", jokes_path %>
       </div>
     </div>

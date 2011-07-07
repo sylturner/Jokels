@@ -7,8 +7,15 @@ Jokels::Application.routes.draw do
     get :refresh_joke, :action => "index"
   end
   root :to => "home#index"
-
+  
+  # omniauth stuff
+  match "/auth/:provider/callback" => "sessions#create"
+  match "/signout" => "sessions#destroy", :as => :signout
+  
+  # which tweet is from atlanta redirect
   match "/atl" => redirect("http://atl.jokels.com")
+  
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

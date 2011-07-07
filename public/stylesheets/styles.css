@@ -81,9 +81,9 @@ body {
 #header {
 	padding-top: 10px;
 	background-color: #777;
-	color: #FFF;
-	line-height: 40pt;
+	color: #DDD;
 	border-bottom: 3px solid #333;
+	height: 80px;
 	
 }
 #header .left {
@@ -95,6 +95,7 @@ body {
 	padding-right: 10%;
 	display: inline-block;
 	float: right;
+	text-align: right;
 }
 #header a {
 	color: #FFF;
@@ -107,6 +108,7 @@ body {
 #header h1 {
 	font-family: 'Chewy', arial, serif;
 	font-size: 48pt;
+	line-height: 40pt;
 }
 
 #main {
@@ -158,8 +160,12 @@ body {
 	line-height: 10pt;
 	vertical-align: middle;
 }
-#main .joke p#share span {
+#main .joke p#share span.left {
 	margin-left: 10px;	
+}
+#main .joke p#share span.right {
+	float: right;
+	margin-right: 10px;
 }
 #main .joke p#share a {
 	color: #FFF;
@@ -224,4 +230,8 @@ body {
 
 .field input {
 	width: 100%;
+}
+
+#why {
+	display:none;
 }

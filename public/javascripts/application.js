@@ -2,6 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 $(document).ready(function() {
 	$('#click-for-punchline, #question').click(enable_joke_stuff);
+	$('#question-mark').click(function(){$("#why").dialog({modal: true, title: "Why login with Twitter?", width: 450});})
 });
 
 function enable_joke_stuff()

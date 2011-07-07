@@ -9,3 +9,5 @@ config/environments/test.rb
 config/application.yml
 config/deploy.rb
 .config.ru
+vendor/cache
+tmp/restart.txt

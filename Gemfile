@@ -7,6 +7,7 @@ gem 'rails', '3.0.3'
 
 gem 'mysql'
 gem 'jquery-rails'
+gem 'omniauth', :git => 'git://github.com/intridea/omniauth.git'
 
 # Use unicorn as the web server
 # gem 'unicorn'

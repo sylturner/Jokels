@@ -42,7 +42,9 @@ class JokesController < ApplicationController
   # POST /jokes.xml
   def create
     @joke = Joke.new(params[:joke])
-
+    if current_user
+      @joke.user = current_user
+    end
     respond_to do |format|
       if @joke.save
         format.html { redirect_to(@joke, :notice => 'Joke was successfully created.') }
