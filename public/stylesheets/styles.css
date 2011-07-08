@@ -178,6 +178,9 @@ body {
 #main .joke p#share iframe.twitter-share-button {
 	padding-bottom: 3px;
 }
+#main div#joke.joke p#share span.right img {
+	vertical-align: middle;
+}
 
 #main .joke p#refresh-joke {
 	display:none;

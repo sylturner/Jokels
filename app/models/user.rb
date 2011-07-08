@@ -7,15 +7,18 @@ class User < ActiveRecord::Base
       user.provider = auth["provider"]
       user.uid = auth["uid"]
       
+      user.name = auth["user_info"]["name"]
+      user.image_url = auth["user_info"]["image"]
+      
       # use their twitter name as their name
       if auth["provider"] == "twitter"
+        #use the @name for twitter accounts. it's more trendy
         user.name = auth["user_info"]["nickname"]
         user.url = auth["user_info"]["urls"]["Twitter"]        
-      else
-        user.name = auth["user_info"]["name"]
-      end
-      
-      user.image_url = auth["user_info"]["image"]
+      elsif auth["provider"] == "facebook"
+        user.url = auth["user_info"]["urls"]["Facebook"]        
+      end      
     end
-  end  
+  end
+  
 end

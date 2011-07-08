@@ -10,6 +10,7 @@ Jokels::Application.routes.draw do
   
   # omniauth stuff
   match "/auth/:provider/callback" => "sessions#create"
+  match "/auth/failure" => "sessions#failure"
   match "/signout" => "sessions#destroy", :as => :signout
   
   # which tweet is from atlanta redirect
