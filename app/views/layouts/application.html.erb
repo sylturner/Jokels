@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Jokels</title>
+  <title>Jokels - Share your jokes!</title>
   <%= stylesheet_link_tag :all %>
   <%= stylesheet_link_tag "/stylesheets/smoothness/jquery-ui-1.8.14.custom.css"%>
   <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js" %>
@@ -20,7 +20,7 @@
       </div>
       <div class="right">
         <% if current_user %>
-          Welcome <%="@" if current_user.provider == "twitter"%><%= current_user.name %>!
+          Welcome <%=link_to user_name(current_user), current_user %>!
           <%= link_to "Sign Out", signout_path %>
         <% else %>
           Sign in with <a href="/auth/twitter">Twitter</a> or <a href="/auth/facebook">Facebook</a> (<a href="#" id="question-mark">?</a>)

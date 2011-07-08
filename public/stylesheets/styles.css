@@ -216,11 +216,12 @@ body {
 
 #jokes-list {
 	padding-top: 10px;
-}
-#jokes-list h1 {
 	padding-bottom: 10px;
 }
-#jokes-list ul {
+#jokes-list h2 {
+	padding-bottom: 10px;
+}
+#jokes-list ul, #user ul {
 	padding: 0;
 	margin: 0;
 	list-style: none;
@@ -229,6 +230,19 @@ body {
 	background: #447700;
 	color: #FFF;
 	text-align: center;
+}
+#user h2 {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+#user-info {
+	background: #EFEFEF;
+	padding: 10px;
+}
+
+#user-info img {
+	vertical-align: top;
 }
 
 .field input {

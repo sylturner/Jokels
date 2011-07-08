@@ -1,6 +1,7 @@
 Jokels::Application.routes.draw do
   resources :categories
   resources :jokes
+  resources :users
   
   resource :home, :controller => "home" do
     get :add_joke, :action => "add_joke"
