@@ -35,7 +35,7 @@ class JokesController < ApplicationController
   # GET /jokes/1/edit
   def edit
     @joke = Joke.find(params[:id])
-    redirect_to(@joke, :notice => "Sorry! Editing jokes isn't allowed yet")
+    redirect_to(@joke, :notice => "Sorry! You can't edit this joke.") unless @joke.user == current_user
   end
 
   # POST /jokes
