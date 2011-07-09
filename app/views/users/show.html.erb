@@ -5,7 +5,7 @@
     <h2><%=user_name @user %>'s jokes</h2>
     <ul>
     <% @jokes.each do |joke| %>
-      <li><%= link_to joke.question, joke %> [<%= link_to "Edit", edit_joke_path(joke) %>]</li>
+      <li><%= link_to joke.question, joke %> <% if @user == current_user %>[<%= link_to "Edit", edit_joke_path(joke) %>]</li><% end %>
     <% end %>
     </ul>
   <% end %>
