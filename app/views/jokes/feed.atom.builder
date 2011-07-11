@@ -5,13 +5,16 @@ atom_feed do |feed|
   @jokes.each do |joke|
     feed.entry joke do |entry|
       entry.title joke.question
-
-      if joke.user
-        entry.author do |author|
+      entry.content joke.answer
+  
+      entry.author do |author|
+        writer = "Anonymous"
+        if joke.user
           writer = joke.user.name + " via " + joke.user.provider.capitalize
-          author.name writer
         end
+        author.name writer
       end
+   
     end
   end
 end
