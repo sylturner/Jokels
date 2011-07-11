@@ -124,6 +124,13 @@ class JokesController < ApplicationController
       format.html 
       format.js {render :layout => false}
     end
+  end
+  
+  def feed
+    @jokes = Joke.find(:all, :order => "id DESC", :limit => 10)
+    respond_to do |format|
+       format.atom
+     end
     
   end
 end

@@ -14,6 +14,8 @@ Jokels::Application.routes.draw do
   end
   root :to => "home#index"
   
+  match '/feed' => 'jokes#feed', :as => :feed, :defaults => { :format => 'atom' }
+  
   # omniauth stuff
   match "/auth/:provider/callback" => "sessions#create"
   match "/auth/failure" => "sessions#failure"
