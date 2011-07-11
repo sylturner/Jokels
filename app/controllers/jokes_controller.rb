@@ -127,7 +127,7 @@ class JokesController < ApplicationController
   end
   
   def feed
-    @jokes = Joke.find(:all, :order => "id DESC", :limit => 10)
+    @jokes = Joke.find(:all, :order => "id DESC", :limit => 25)
     respond_to do |format|
        format.atom
      end
