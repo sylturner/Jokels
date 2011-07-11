@@ -68,14 +68,15 @@ body {
 	background: #FFF;
 }
 
+/* bottom footer stuff */
 .wrapper {
 	min-height: 100%;
 	height: auto !important;
 	height: 100%;
-	margin: 0 auto -70px; 
+	margin: 0 auto -45px; 
 }
 #footer, .push {
-	height: 67px;
+	height: 42px;
 }
 
 #header {
@@ -163,10 +164,12 @@ body {
 #main .joke p#share span.left {
 	margin-left: 10px;	
 }
+
 #main .joke p#share span.right {
 	float: right;
 	margin-right: 10px;
 }
+
 #main .joke p#share a {
 	color: #FFF;
 }
@@ -251,4 +254,37 @@ body {
 
 #why {
 	display:none;
+}
+.add-joke-button {
+	background: url(add.png) no-repeat scroll transparent 0 60%;
+	padding-left: 18px;
+	padding-top: 1px;
+	padding-bottom: 2px;
+}
+#votes {
+	display: inline-block;
+}
+#share-site {
+	margin-top: 10px;
+}
+#share-site span {
+	height: 26px;
+	display: block;
+	float: left;
+}
+#share-site .share {
+	display: block;
+}
+
+.arrow {
+	vertical-align: middle;
+	cursor: pointer;
+}
+/* hide the 'alt text' */
+.thumb_up span, .thumb_down span {
+	display:none;
+}
+
+.thumb_up, .thumb_down, #vote-total {
+	display: inline-block;
 }

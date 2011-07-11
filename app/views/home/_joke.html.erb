@@ -1,3 +1,8 @@
+<% if refresh %>
+<% #must re-include javascripts on refresh %>
+<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+<% end %>
 <div id="notice"><%= notice %></div>
 <p id="question" class="question">
   <%= joke.question %>
@@ -6,9 +11,35 @@
 <p id="answer" class="answer">
   <%= joke.answer %>
 </p>
-<p id="share"><span class="left">Share with friends! | <%= link_to "Permalink", url_for (:action => "show", :controller => "jokes", :id => joke.id, :only_path => false) %> | <iframe src="http://www.facebook.com/plugins/like.php?app_id=168063983260429&amp;href=<%=CGI.escape(url_for (:action => "show", :controller => "jokes", :id => joke.id, :only_path => false))%>&amp;send=false&amp;layout=button_count&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px;" allowTransparency="true"></iframe> | <a href="http://twitter.com/share" class="twitter-share-button" data-url="<%=url_for (:action => "show", :controller => "jokes", :id => joke.id, :only_path => false)%>" data-text="<%=joke.question%>" data-count="horizontal" data-via="jokelscom">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></span>
-<span class="right"><% if joke.user %>
+<p id="share">
+  
+  <span class="left"><span id="votes">
+    
+     <% up_img = "arrow_up_faded.png"%> 
+     <% if current_user && current_user.up_voted?(joke) %>
+       <% up_img = "arrow_up.png"%>
+     <% end %>
+     <%= link_to image_tag(up_img, :class=>"arrow", :id => "up_arrow"), upvote_joke_path(joke), :method => :get, :remote => true, :title => "Vote up" %>
+       <span id="vote_total" title="Total votes"><%= joke.votes %></span>
+       
+      <% down_img = "arrow_down_faded.png"%> 
+      <% if current_user && current_user.down_voted?(joke) %>
+        <% down_img = "arrow_down.png"%>
+      <% end %>
+      <%= link_to image_tag(down_img, :class=>"arrow", :id => "down_arrow"), downvote_joke_path(joke), :method => :get, :remote => true, :title => "Vote down" %>
+    </span>  
+  |<% permalink = url_for (:action => "show", :controller => "jokes", :id => joke.id, :only_path => false)%> 
+  <%= link_to "Permalink", permalink, :title => permalink %> 
+  
+  | <span><fb:like href="<%=permalink%>" send="false" width="50" show_faces="false" layout="button_count" font="" style="width: 50px"></fb:like></span>
+  
+  | <span><a href="http://twitter.com/share" class="twitter-share-button" data-url="<%=permalink%>" data-text="<%=joke.question%>" data-count="horizontal" data-via="jokelscom" style="width:90px">Tweet</a></span>
+  
+  
+<span class="right">
+<% if joke.user %>
+  <% if joke.user == current_user %>[<%= link_to "Edit your joke", edit_joke_path(joke), :method => :get, :remote => true %>]<% end %>
   written by <%= link_to image_tag (joke.user.image_url, :size => "23x23"), joke.user %> <%= link_to user_name(joke.user), joke.user %> via <%=joke.user.provider.capitalize %>
 <% end %></span>
-<p id="refresh-joke"><%= link_to "(click for a random joke)", refresh_joke_home_path, :id=>"joke", :method => :get, :remote => true%>
+<p id="refresh-joke"><%= link_to "(click for a random joke)", refresh_joke_home_path, :method => :get, :remote => true %>
 </p>

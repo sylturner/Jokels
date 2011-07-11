@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  
+  make_voter
   has_many :jokes
   
   def self.create_with_omniauth(auth)

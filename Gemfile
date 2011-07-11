@@ -8,6 +8,7 @@ gem 'rails', '3.0.3'
 gem 'mysql'
 gem 'jquery-rails'
 gem 'omniauth'
+gem 'make_voteable', :git => 'git://github.com/medihack/make_voteable.git'
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -1,0 +1,8 @@
+<% if current_user %>
+	$("#up_arrow").unbind('mouseenter mouseleave');
+	$("#up_arrow").attr("src", "/images/arrow_up.png");
+	$("#down_arrow").attr("src", "/images/arrow_down_faded.png");
+	$("#vote_total").html("<%= @joke.votes %>");
+<% else %>
+	$("#notice").html("Please login to vote.");
+<% end %>

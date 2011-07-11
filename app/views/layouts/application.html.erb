@@ -8,8 +8,22 @@
   <%=javascript_include_tag 'rails'%>
   <%= csrf_meta_tag %>
   <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
+  <!-- facebook crap -->
+  <meta property="og:title" content="Jokels" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://jokels.com" />
+  <meta property="og:image" content="http://i.imgur.com/5nNRs.jpg" />
+  <meta property="og:site_name" content="Jokels" />
+  <meta property="fb:admins" content="75400017" />
+  
+  <!-- social media scripts -->
+  <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+  <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+  
 </head>
 <body>
+  <div id="fb-root"></div>
   <div id="add-joke"></div>    
   <div id="why"><p>Logging in with Twitter or Facebook will give you credit for your jokes! You can still submit your terribly embarrassing ones anonymously, if you'd like.</p><p>The Twitter and Facebook apps only grant Jokels <em>read access</em> to your basic account information. All we use is your name, url, and picture to give you credit for your hard work writing jokels.</p></div>
   <div class="wrapper">
@@ -26,7 +40,7 @@
           Sign in with <a href="/auth/twitter">Twitter</a> or <a href="/auth/facebook">Facebook</a> (<a href="#" id="question-mark">?</a>)
         <% end %>
         <br/>
-        <%= link_to "+ Add new joke", add_joke_home_path, :method => :get, :remote => true %> | <%= link_to "View all jokes", jokes_path %>
+        <%= link_to "Add new joke", add_joke_home_path, :method => :get, :remote => true, :class=>"add-joke-button" %> | <%= link_to "All jokes", jokes_path %>
       </div>
     </div>
 
@@ -41,9 +55,10 @@
     Jokels is so beta.<br/>
     Check out our <a href="http://twitter.com/jokelscom">Twitter</a> | <a href="https://www.facebook.com/pages/Jokels/180394185353937">Facebook</a>
     </div>
-    <div class="right">
-      <iframe src="http://www.facebook.com/plugins/like.php?app_id=168063983260429&amp;href=http%3A%2F%2Fjokels.com&amp;send=false&amp;layout=box_count&amp;width=55&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=90" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:55px; height:60px;vertical-align:top" allowTransparency="true"></iframe> 
-      <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://jokels.com" data-text="Jokels!" data-count="vertical" data-via="jokelscom">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <div class="right" id="share-site">      
+      <span class="bottom-fb-button"><fb:like href="http://jokels.com" send="false" show_faces="false" layout="button_count" font=""></span>
+      <span class="bottom-tweet-button"><a href="http://twitter.com/share" class="twitter-share-button" data-url="http://jokels.com" data-text="Jokels!" data-count="horizontal" data-via="jokelscom">Tweet</a></span>
+      <span class="button-gplus-button"><g:plusone size="medium" href="http://jokels.com"></g:plusone></span>
     </div>
   </div>
   <%- if Rails.env == "production" -%>

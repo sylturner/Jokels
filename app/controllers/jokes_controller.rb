@@ -84,4 +84,46 @@ class JokesController < ApplicationController
     #  format.xml  { head :ok }
     #end
   end
+  
+  def upvote
+    if current_user
+      vote "up"
+    else
+      respond_to do |format|
+        format.html { redirect_to(Joke.find(params[:id]), :notice => 'Please login to vote') }
+        format.js { render :layout => false }
+      end
+    end
+  end
+  
+  def downvote
+    if current_user
+      vote "down"
+    else
+      respond_to do |format|
+        format.html { redirect_to(Joke.find(params[:id]), :notice => 'Please login to vote') }
+        format.js { render :layout => false }
+      end
+    end
+  end
+  
+  def vote dir
+    @joke = Joke.find(params[:id])
+          
+    begin
+      if dir == "up"
+        current_user.up_vote(@joke)
+      else
+        current_user.down_vote(@joke)
+      end
+    rescue MakeVoteable::Exceptions::AlreadyVotedError
+      redirect_to(@joke, :notice => "You already voted this way. Who are you trying to fool?")
+    end
+    
+    respond_to do |format|
+      format.html 
+      format.js {render :layout => false}
+    end
+    
+  end
 end

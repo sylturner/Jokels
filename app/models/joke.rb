@@ -1,4 +1,5 @@
 class Joke < ActiveRecord::Base
+  make_voteable
   
   has_many :categories
   

@@ -3,6 +3,11 @@ Jokels::Application.routes.draw do
   resources :jokes
   resources :users
   
+  resources :jokes, :controller => "jokes" do
+    get :upvote, :on => :member, :action => "upvote"
+    get :downvote,:on => :member, :action => "downvote"
+  end
+  
   resource :home, :controller => "home" do
     get :add_joke, :action => "add_joke"
     get :refresh_joke, :action => "index"

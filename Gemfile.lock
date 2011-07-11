@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/medihack/make_voteable.git
+  revision: 106adecfad30175ce0ecd741ed4a9ee02f7cfa91
+  specs:
+    make_voteable (0.1.0)
+      activerecord (~> 3.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -145,6 +152,7 @@ PLATFORMS
 DEPENDENCIES
   capistrano
   jquery-rails
+  make_voteable!
   mysql
   omniauth
   rails (= 3.0.3)

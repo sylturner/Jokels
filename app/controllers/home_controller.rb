@@ -6,7 +6,7 @@ class HomeController < ApplicationController
     
     respond_to do |format|
       format.html 
-      format.js {render :layout => false}
+      format.js {render :layout => false }
     end
   end
   
@@ -16,7 +16,5 @@ class HomeController < ApplicationController
       format.html
       format.js {render :layout => false}
     end
-  end
-  
-  
+  end   
 end
