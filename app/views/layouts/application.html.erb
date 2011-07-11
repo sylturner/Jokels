@@ -20,6 +20,8 @@
   <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
   <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+  
+  <%= auto_discovery_link_tag(:atom, {:controller => "jokes", :action => "feed"}) %>
 
 </head>
 <body>

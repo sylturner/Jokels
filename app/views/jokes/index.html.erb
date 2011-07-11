@@ -1,5 +1,5 @@
 <div id="jokes-list">
-  <h2>All jokes</h2>
+  <h2>All jokes <%=link_to image_tag("feed.png", :style=>"vertical-align: middle"), feed_path %></h2> 
   <ul>
   <% @jokes.each do |joke| %>
     <li><%= link_to joke.question, joke %></li>
