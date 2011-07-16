@@ -11,3 +11,4 @@ config/deploy.rb
 .config.ru
 vendor/cache
 tmp/restart.txt
+tmp/jokels-backup.sql

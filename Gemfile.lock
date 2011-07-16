@@ -1,9 +1,23 @@
 GIT
+  remote: git://github.com/grosser/random_records.git
+  revision: a6049cddef8ad54adf04795fdd12a2e181513fb3
+  specs:
+    random_records (0.2.0)
+      activerecord
+
+GIT
   remote: git://github.com/medihack/make_voteable.git
   revision: 106adecfad30175ce0ecd741ed4a9ee02f7cfa91
   specs:
     make_voteable (0.1.0)
       activerecord (~> 3.0)
+
+GIT
+  remote: git://github.com/raid5/paths_of_glory.git
+  revision: 434079d38e1c2621c4defd403ed65fcf818164dd
+  branch: rails3
+  specs:
+    paths_of_glory (0.2.0)
 
 GEM
   remote: http://rubygems.org/
@@ -155,4 +169,6 @@ DEPENDENCIES
   make_voteable!
   mysql
   omniauth
+  paths_of_glory!
   rails (= 3.0.3)
+  random_records!

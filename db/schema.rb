@@ -10,7 +10,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110709125311) do
+ActiveRecord::Schema.define(:version => 20110715032154) do
+
+  create_table "achievements", :force => true do |t|
+    t.string   "type"
+    t.integer  "level"
+    t.integer  "achievable_id"
+    t.string   "achievable_type"
+    t.integer  "ref_id"
+    t.string   "ref_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "name"
