@@ -1,7 +1,6 @@
 class HomeController < ApplicationController
   
   def index
-
     # easiest 'randomizing' we can do right now - grab 30 random, unique ids from jokes
     if !session[:joke_ids] || session[:joke_ids].empty?
       # store 30 random joke ids in the user's session with no dupes

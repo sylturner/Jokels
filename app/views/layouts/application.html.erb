@@ -43,6 +43,11 @@
         <% end %>
         <br/>
         <%= link_to "Add new joke", add_joke_home_path, :method => :get, :remote => true, :class=>"add-joke-button" %> | <%= link_to "All jokes", jokes_path %>
+        <br/>
+        <% if daily_word %>
+          <span title="This is a random word of the day to help inspire your jokes" style="cursor:help">Today's inspiration: <%= daily_word %></span>
+          <% end %>
+        
       </div>
     </div>
 

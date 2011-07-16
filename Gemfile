@@ -10,9 +10,8 @@ gem 'jquery-rails'
 gem 'omniauth'
 gem 'make_voteable', :git => 'git://github.com/medihack/make_voteable.git'
 gem 'paths_of_glory', :git => 'git://github.com/raid5/paths_of_glory.git', :branch => 'rails3'
-gem 'random_records', :git => 'git://github.com/grosser/random_records.git'
 
-#gem 'random-word', :git => 'git://github.com/pezra/random-word.git'
+gem 'rufus-scheduler', :git => 'git://github.com/jmettraux/rufus-scheduler.git'
 
 # Use unicorn as the web server
 # gem 'unicorn'

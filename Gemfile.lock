@@ -1,9 +1,9 @@
 GIT
-  remote: git://github.com/grosser/random_records.git
-  revision: a6049cddef8ad54adf04795fdd12a2e181513fb3
+  remote: git://github.com/jmettraux/rufus-scheduler.git
+  revision: 8385011e639fe15618a71741faece3b7f061b83c
   specs:
-    random_records (0.2.0)
-      activerecord
+    rufus-scheduler (2.0.10)
+      tzinfo (>= 0.3.23)
 
 GIT
   remote: git://github.com/medihack/make_voteable.git
@@ -171,4 +171,4 @@ DEPENDENCIES
   omniauth
   paths_of_glory!
   rails (= 3.0.3)
-  random_records!
+  rufus-scheduler!

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110715032154) do
+ActiveRecord::Schema.define(:version => 20110716182211) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -25,6 +25,12 @@ ActiveRecord::Schema.define(:version => 20110715032154) do
 
   create_table "categories", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "daily_words", :force => true do |t|
+    t.string   "word"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
