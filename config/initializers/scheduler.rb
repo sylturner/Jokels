@@ -4,7 +4,8 @@ require 'rss/2.0'
 
 scheduler = Rufus::Scheduler.start_new
 
-scheduler.every("1d") do
+# every day at 10:00am
+scheduler.cron '00 10 * * 0-6 America/New_York' do
    	# set random word of the day
    	File.open('wordlist.txt') do |f|
       l = f.readlines
