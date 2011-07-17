@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110716233527) do
+ActiveRecord::Schema.define(:version => 20110717021945) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -41,8 +41,9 @@ ActiveRecord::Schema.define(:version => 20110716233527) do
     t.string   "question"
     t.string   "answer"
     t.integer  "user_id"
-    t.integer  "up_votes",   :default => 0, :null => false
-    t.integer  "down_votes", :default => 0, :null => false
+    t.integer  "up_votes",    :default => 0, :null => false
+    t.integer  "down_votes",  :default => 0, :null => false
+    t.string   "jokeler_url"
   end
 
   create_table "users", :force => true do |t|
