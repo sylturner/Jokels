@@ -36,6 +36,6 @@
 <% if joke.user %>
   <% if joke.user == current_user %>[<%= link_to "Edit your joke", edit_joke_path(joke), :method => :get, :remote => true %>]<% end %>
   written by <%= link_to image_tag (joke.user.image_url, :size => "23x23"), joke.user %> <%= link_to user_name(joke.user), joke.user %> via <%=joke.user.provider.capitalize %>
-<% end %> <% if joke.jokeler_url %> | <%= link_to image_tag("jokeler.jpg", :size => "23x23"), joke.jokeler_url %> <% end %></span>
+<% end %> <% if joke.jokeler_url %> <% if joke.user %>|<% end %> <%= link_to image_tag("jokeler.jpg", :size => "23x23"), joke.jokeler_url %> <% end %></span>
 <p id="refresh-joke"><%= link_to "(click for a random joke)", refresh_joke_home_path, :method => :get, :remote => true %>
 </p>
