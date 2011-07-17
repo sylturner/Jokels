@@ -41,13 +41,29 @@ class JokesController < ApplicationController
   # POST /jokes
   # POST /jokes.xml
   def create
+
     @joke = Joke.new(params[:joke])
     if current_user
       @joke.user = current_user
+      if params[:joke][:auto_tweet]
+      end
     end
     respond_to do |format|
       if @joke.save
-        format.html { redirect_to(@joke, :notice => 'Joke was successfully created.') }
+        notice = 'Joke was successfully created.'
+        
+        format.html { 
+          if current_user && params[:joke][:auto_tweet] == '1'
+           begin
+              tweet_joke
+              notice = 'Joke was updated and sent to Twitter'
+            rescue => e
+              notice = 'Joke was updated, but unable to send to Twitter: ' + e.to_s
+            end
+          end
+          redirect_to(@joke, :notice => notice) 
+          
+          }
         format.xml  { render :xml => @joke, :status => :created, :location => @joke }
       else
         format.html { render :action => "new" }
@@ -63,7 +79,19 @@ class JokesController < ApplicationController
 
     respond_to do |format|
       if @joke.update_attributes(params[:joke])
-        format.html { redirect_to(@joke, :notice => 'Joke was successfully updated.') }
+        format.html { 
+          notice = 'Joke was successfully updated.'
+          if current_user && params[:joke][:auto_tweet] == '1'
+            begin
+              tweet_joke
+              notice = 'Joke was updated and sent to Twitter'
+            rescue => e
+              notice = 'Joke was updated, but unable to send to Twitter: ' + e.to_s
+            end
+            
+          end
+          redirect_to(@joke, :notice => notice) 
+          }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -132,5 +160,11 @@ class JokesController < ApplicationController
        format.atom
      end
     
+  end
+  
+  def tweet_joke
+    # Tweet the joke            
+    client = Twitter::Client.new(:oauth_token => current_user.token, :oauth_token_secret => current_user.secret)
+    client.update(@joke.question + " " + url_for(@joke))
   end
 end

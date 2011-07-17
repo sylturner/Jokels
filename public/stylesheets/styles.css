@@ -252,6 +252,10 @@ body {
 	width: 100%;
 }
 
+#joke_auto_tweet {
+	width: 20px;
+}
+
 #why {
 	display:none;
 }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110716182211) do
+ActiveRecord::Schema.define(:version => 20110716233527) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(:version => 20110716182211) do
     t.string   "url"
     t.integer  "up_votes",   :default => 0, :null => false
     t.integer  "down_votes", :default => 0, :null => false
+    t.string   "token"
+    t.string   "secret"
   end
 
   create_table "votings", :force => true do |t|

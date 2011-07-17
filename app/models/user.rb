@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
         #use the @name for twitter accounts. it's more trendy
         user.name = auth["user_info"]["nickname"]
         user.url = auth["user_info"]["urls"]["Twitter"]        
+        user.token = auth["credentials"]["token"]
+        user.secret = auth["credentials"]["secret"]
       elsif auth["provider"] == "facebook"
         user.url = auth["user_info"]["urls"]["Facebook"]        
       end      

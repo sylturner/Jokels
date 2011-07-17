@@ -17,6 +17,10 @@
     <br/>
     <%= f.label :answer, "Punchline!" %>
     <%= f.text_field :answer %>
+    <% if current_user && current_user.provider == "twitter" %>
+      <br/>
+      <%= f.check_box :auto_tweet %> <%=f.label :auto_tweet, "Automatically tweet your joke?" %> 
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit "Add joke" %>
