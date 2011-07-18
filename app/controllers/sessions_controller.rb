@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
       user.token = auth["credentials"]["token"]
       user.secret = auth["credentials"]["secret"]
       user.save!
-    else
+    elsif !user
       user = User.create_with_omniauth(auth)
     end
     session[:user_id] = user.id
