@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/jamesgolick/always_verify_ssl_certificates.git
+  revision: 6fb657eaec42cf4aeabdaa8ff94ba60ce0daef3b
+  specs:
+    always_verify_ssl_certificates (0.3.0)
+
+GIT
   remote: git://github.com/jmettraux/rufus-scheduler.git
   revision: 8385011e639fe15618a71741faece3b7f061b83c
   specs:
@@ -175,6 +181,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  always_verify_ssl_certificates!
   capistrano
   jquery-rails
   make_voteable!
