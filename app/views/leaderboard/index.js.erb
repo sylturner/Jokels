@@ -1,0 +1,4 @@
+$("#leaderboard").hide();
+$("#leaderboard").html("");
+$("#leaderboard").html("<%= escape_javascript(render :partial => 'joke_list', :locals=>{:jokes => @jokes}) %>");
+$("#leaderboard").fadeIn();

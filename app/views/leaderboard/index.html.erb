@@ -1,0 +1,32 @@
+<div id="jokes-list">
+  <h2>Leaderboards</h2> 
+  
+  <div id="leaderboard">
+    <%if @type == "jokes"%>
+    <div id="leaderboard-jokes">
+      <!-- <a href="?type=jokes" <%if @type == "jokes"%>class="selected"<%end%> >Top Jokes </a> | <a href="?type=users">Top Users</a><br/> -->
+        <strong>Top Jokes</strong><br/>
+        <a href="?time=today" <%if @time == "today" %>class="selected"<% end %>>today</a> | <a href="?time=week" <%if @time == "week" %>class="selected"<%end%>>this week</a> <!--| <a href="?time=month" <%if @time == "month" %>class="selected"<%end%>>this month</a>--> | <a href="?time=all-time" <%if @time == "all-time" %>class="selected"<%end%>>all time</a> | <a href="?time=newest" <%if @time == "newest" %>class="selected"<%end%>>newest</a>
+      <ol>
+        <% @jokes.each_with_index do |joke, index| %>
+          <li id="joke-list-<%=index%>" class="joke-list-item"><%= link_to joke.question, joke %></li>  
+        <% end %>
+      </ol>
+    </div>
+    <% elsif @type =="users" %>
+    
+    <div id="leaderboard-users">
+      Users: <a href="?type=users&amp;user_opts=most">most jokes this week</a> | <a href="?type=users&amp;user_opts=best-week">best jokes this week</a> | <a href="#">worst jokes this week</a> | <a href="#">voted the most</a>
+      <ul>
+        <% @users.each_with_index do |joke, index| %>
+          <% if index == 0 %>
+            <li id="top-user"><%= link_to joke.question, joke %></li>
+          <% else %>
+            <li><%= link_to joke.question, joke %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+    <%end %>
+  </div>
+</div>

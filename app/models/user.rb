@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
       
       # use their twitter name as their name
       if auth["provider"] == "twitter"
-        #use the @name for twitter accounts. it's more trendy
         user.name = auth["user_info"]["nickname"]
         user.url = auth["user_info"]["urls"]["Twitter"]        
         user.token = auth["credentials"]["token"]

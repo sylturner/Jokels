@@ -36,13 +36,13 @@
       </div>
       <div class="right">
         <% if current_user %>
-          Welcome <%=link_to user_name(current_user), current_user %>!
+          Welcome <%=link_to user_name(current_user), current_user %> |
           <%= link_to "Sign Out", signout_path %>
         <% else %>
           Sign in with <a href="/auth/twitter">Twitter</a> or <a href="/auth/facebook">Facebook</a> (<a href="#" id="question-mark">?</a>)
         <% end %>
         <br/>
-        <%= link_to "Add new joke", add_joke_home_path, :method => :get, :remote => true, :class=>"add-joke-button" %> | <%= link_to "All jokes", jokes_path %>
+        <%= link_to "Add new joke", add_joke_home_path, :method => :get, :remote => true, :class=>"add-joke-button" %> | <%= link_to "Leaderboards", leaderboard_path %>
         <br/>
         <% if daily_word %>
           <span title="This is a random word of the day to help inspire your jokes" style="cursor:help">Today's inspiration: <%= daily_word %></span>
@@ -59,7 +59,7 @@
 
   <div id="footer">
     <div class="left">
-    Jokels is so beta.<br/>
+    Jokels is so beta. | <%= link_to "All jokes", jokes_path %><br/>
     Check out our <a href="http://twitter.com/jokelscom">Twitter</a> | <a href="https://www.facebook.com/pages/Jokels/180394185353937">Facebook</a> | <a href="http://jokeler.tumblr.com/">The Jokeler</a>
     </div>
     <div class="right" id="share-site">      

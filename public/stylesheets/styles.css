@@ -292,3 +292,48 @@ body {
 .thumb_up, .thumb_down, #vote-total {
 	display: inline-block;
 }
+
+#leaderboard .selected {
+	font-weight: bold;
+}
+
+.joke-list-item {
+	line-height: 100%;
+	margin: 0;
+}
+
+
+.joke-list-item a {
+	color: #000;
+	width: 100%;
+	display:block;
+	padding: 8px;
+}
+.joke-list-item a:hover {
+		background-color: #EFEFEF;
+}
+
+.joke-list-item a:hover {
+	text-decoration: none;
+}
+
+#joke-list-0 {
+	font-size: 24pt;
+	margin-top: 5px;
+}
+
+#joke-list-1 {
+	font-size: 20pt;
+}
+
+#joke-list-2 {
+	font-size: 18pt;
+}
+#joke-list-3 {
+	font-size: 16pt;
+
+}
+#joke-list-4 {
+	font-size: 14pt;
+}
+

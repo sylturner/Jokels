@@ -5,7 +5,7 @@ Jokels::Application.routes.draw do
   
   resources :jokes, :controller => "jokes" do
     get :upvote, :on => :member, :action => "upvote"
-    get :downvote,:on => :member, :action => "downvote"
+    get :downvote, :on => :member, :action => "downvote"
   end
   
   resource :home, :controller => "home" do
@@ -13,6 +13,8 @@ Jokels::Application.routes.draw do
     get :refresh_joke, :action => "index"
   end
   root :to => "home#index"
+  
+  match "/leaderboard" => "leaderboard#index"
   
   match '/feed' => 'jokes#feed', :as => :feed, :defaults => { :format => 'atom' }
   
