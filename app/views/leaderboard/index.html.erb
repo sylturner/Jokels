@@ -3,15 +3,26 @@
   
   <div id="leaderboard">
     <%if @type == "jokes"%>
+    <h3>
+      <% if @time == "today" %>Top jokes for <%= Date.today.strftime("%B %d") %><% end %>
+      <% if @time == "week" %>Top jokes for the week of <%= Date.today.beginning_of_week.strftime("%B %d") %><% end %>
+      <% if @time == "month" %>Top jokes for the month of <%= Time.now.strftime("%B") %><% end %>
+      <% if @time == "all-time" %>Top jokes of all time<% end %>
+      <% if @time == "newest" %>Newest jokes<% end %>
+    </h3>
     <div id="leaderboard-jokes">
       <!-- <a href="?type=jokes" <%if @type == "jokes"%>class="selected"<%end%> >Top Jokes </a> | <a href="?type=users">Top Users</a><br/> -->
-        <strong>Top Jokes</strong><br/>
+        <!--<strong>Top Jokes</strong><br/>-->
         <a href="?time=today" <%if @time == "today" %>class="selected"<% end %>>today</a> | <a href="?time=week" <%if @time == "week" %>class="selected"<%end%>>this week</a> <!--| <a href="?time=month" <%if @time == "month" %>class="selected"<%end%>>this month</a>--> | <a href="?time=all-time" <%if @time == "all-time" %>class="selected"<%end%>>all time</a> | <a href="?time=newest" <%if @time == "newest" %>class="selected"<%end%>>newest</a>
+        <% if @jokes.empty? %>
+        <p><strong>No jokes yet!</strong></p>
+        <% else %>
       <ol>
         <% @jokes.each_with_index do |joke, index| %>
           <li id="joke-list-<%=index%>" class="joke-list-item"><%= link_to joke.question, joke %></li>  
         <% end %>
       </ol>
+      <% end %>
     </div>
     <% elsif @type =="users" %>
     
