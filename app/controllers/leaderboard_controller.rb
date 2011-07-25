@@ -8,13 +8,13 @@ class LeaderboardController < ApplicationController
      if @type == "jokes"
       case @time
       when "today"
-         @jokes = Joke.where(['created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).limit(10).sort_by{|x| x.votes}.reverse      
+         @jokes = Joke.where(['created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).sort_by{|x| x.votes}.reverse[0...10]
       when "week"    
-        @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.zone.now.beginning_of_week, Time.now]).limit(10).sort_by{|x| x.votes}.reverse
+        @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.zone.now.beginning_of_week, Time.now]).sort_by{|x| x.votes}.reverse[0...10]
       when "month"
-        @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.zone.now.beginning_of_month, Time.now]).limit(10).sort_by{|x| x.votes}.reverse
+        @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.zone.now.beginning_of_month, Time.now]).sort_by{|x| x.votes}.reverse[0...10]
       when "all-time"
-        @jokes = Joke.limit(10).sort_by{|x| x.votes}.reverse
+        @jokes = Joke.all.sort_by{|x| x.votes}.reverse[0...10]
       when "newest"
         @jokes = Joke.all.reverse[0...10]
      end
