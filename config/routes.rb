@@ -11,6 +11,7 @@ Jokels::Application.routes.draw do
   resource :home, :controller => "home" do
     get :add_joke, :action => "add_joke"
     get :refresh_joke, :action => "index"
+    get :privacy_policy, :action => "privacy_policy"
   end
   root :to => "home#index"
   
