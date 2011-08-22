@@ -8,7 +8,7 @@ jokels_user = User.find 1
 @client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
 
 # every day at 10:00am
-scheduler.cron '00 10 * * 0-6 America/New_York' do
+scheduler.cron '00 11 * * *' do
    	# set random word of the day
    	File.open('wordlist.txt') do |f|
       l = f.readlines
