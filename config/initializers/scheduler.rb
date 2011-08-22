@@ -29,7 +29,7 @@ scheduler.cron '00 10 * * 0-6 America/New_York' do
         joke.save!
       end
     end
-    @client.update("Today's inspiration: " + DailyWord.last[:word])
+    @client.update("Today's inspiration: " + DailyWord.last[:word] + " http://jokels.com")
 end
 
 # every day at 12:00pm
