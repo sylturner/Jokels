@@ -11,7 +11,11 @@ class SessionsController < ApplicationController
       user = User.create_with_omniauth(auth)
     end
     session[:user_id] = user.id
-    redirect_to root_url, :notice => "Signed in with #{auth["provider"].capitalize}!"
+    if session[:joke_id]      
+      redirect_to(url_for(:action => "show", :controller => "jokes", :id => session[:joke_id], :only_path => false), :notice => "Signed in with #{auth["provider"].capitalize}!")
+    else
+      redirect_to root_url, :notice => "Signed in with #{auth["provider"].capitalize}!"
+    end
     #uncomment to see what's all in the auth
     #render :text => auth.to_yaml
   end
