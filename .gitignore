@@ -12,3 +12,4 @@ config/deploy.rb
 vendor/cache
 tmp/restart.txt
 tmp/jokels-backup.sql
+config/initializers/airbrake.rb

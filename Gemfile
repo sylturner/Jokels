@@ -13,6 +13,7 @@ gem 'paths_of_glory', :git => 'git://github.com/raid5/paths_of_glory.git', :bran
 gem 'rufus-scheduler', :git => 'git://github.com/jmettraux/rufus-scheduler.git'
 gem 'twitter'
 gem 'always_verify_ssl_certificates', :git => 'git://github.com/jamesgolick/always_verify_ssl_certificates.git'
+gem "airbrake"
 
 # Use unicorn as the web server
 # gem 'unicorn'
