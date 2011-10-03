@@ -56,7 +56,7 @@ GEM
       activesupport (= 3.0.3)
     activesupport (3.0.3)
     addressable (2.2.4)
-    airbrake (3.0)
+    airbrake (3.0.4)
       activesupport
       builder
     arel (2.0.10)
