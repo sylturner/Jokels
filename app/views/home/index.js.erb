@@ -1,5 +1,4 @@
-$("#joke").hide();
 $("#joke").html("");
 $("#joke").html("<%= escape_javascript(render :partial => 'joke', :locals=>{:joke => @joke, :refresh => true}) %>");
-$("#joke").fadeIn();
+$("#joke").slideDown("fast");
 $("#joke").ready(function(){$('#click-for-punchline, #question').click(enable_joke_stuff);})

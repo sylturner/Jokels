@@ -39,3 +39,11 @@
 <% end %> <% if joke.jokeler_url %> <% if joke.user %>|<% end %> <%= link_to image_tag("jokeler.jpg", :size => "23x23", :title =>"The Jokeler strikes again!"), joke.jokeler_url %> <% end %></span>
 <p id="refresh-joke"><%= link_to "(click for a random joke)", refresh_joke_home_path, :method => :get, :remote => true %>
 </p>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#refresh-joke").click(function(){
+      $("#joke").slideUp("fast");
+    })
+  })
+</script>
