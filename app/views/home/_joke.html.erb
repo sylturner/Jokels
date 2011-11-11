@@ -3,6 +3,7 @@
 <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 <% end %>
 <div id="notice"><%= notice %></div>
+
 <p id="question" class="question">
   <%= joke.question %>
 </p>
@@ -44,6 +45,8 @@
   $(document).ready(function(){
     $("#refresh-joke").click(function(){
       $("#joke").slideUp("fast");
+      $("#main").append('<div id="loading">Loading joke...</div>');
+      $("#loading").delay(1000).fadeIn("slow");
     })
   })
 </script>

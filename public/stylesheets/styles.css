@@ -337,3 +337,12 @@ body {
 	font-size: 14pt;
 }
 
+#loading {
+	display:none;
+	width: 150px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	padding: 5px;
+	background: url(ajax-loader.gif) no-repeat scroll #EFEFEF 5% 60%;
+}
