@@ -5,11 +5,12 @@ GIT
     always_verify_ssl_certificates (0.3.0)
 
 GIT
-  remote: git://github.com/jmettraux/rufus-scheduler.git
-  revision: 8385011e639fe15618a71741faece3b7f061b83c
+  remote: git://github.com/javan/whenever.git
+  revision: 1a1313404c9a702288e21a33f42afc08d25323bb
   specs:
-    rufus-scheduler (2.0.10)
-      tzinfo (>= 0.3.23)
+    whenever (0.7.0)
+      activesupport (>= 2.3.4)
+      chronic (~> 0.6.3)
 
 GIT
   remote: git://github.com/medihack/make_voteable.git
@@ -67,6 +68,7 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
+    chronic (0.6.6)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     faraday (0.6.1)
@@ -193,5 +195,5 @@ DEPENDENCIES
   omniauth
   paths_of_glory!
   rails (= 3.0.3)
-  rufus-scheduler!
   twitter
+  whenever!
