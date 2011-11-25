@@ -21,6 +21,7 @@
 
 set :output, File.join("log", "cron.log")
 
-every 1.day, :at => "10:30am" do
-  runner "DailyWord.set_daily_word" #sets the new daily word and tweets it
+every 1.day, :at => "07:00am" do
+  runner "DailyWord.set_daily_word" # sets the new daily word and tweets it
+  runner "Joke.jokeler_update"
 end

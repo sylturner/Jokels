@@ -14,7 +14,7 @@ class DailyWord < ActiveRecord::Base
       DailyWord.new(:word => word).save!
     end
     # and tweet it
-    jokels_user = User.find 41 # user 41 is my test twitter in production
+    jokels_user = User.find 1 # @jokelscom
     client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
     client.update("Today's inspiration: \"#{DailyWord.last.word}\" - http://jokels.com")
   end  
