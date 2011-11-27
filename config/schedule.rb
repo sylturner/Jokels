@@ -25,3 +25,7 @@ every 1.day, :at => "07:00am" do
   runner "DailyWord.set_daily_word" # sets the new daily word and tweets it
   runner "Joke.jokeler_update"
 end
+
+# every 1.day, :at => "09:00am" do
+#   
+# end

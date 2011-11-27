@@ -28,4 +28,33 @@ class Joke < ActiveRecord::Base
     end
   end
   
+  # add bitly urls to jokes that don't have them (more of a fixerupper)
+  # limit to 10 by default so we don't overload bit.ly API request limits
+  def self.add_bitly_urls(count = 10)
+    Joke.where(:bitly_url => nil).limit(count).each do |joke|
+      joke.generate_bitly_url
+    end
+  end
+  
+  def generate_bitly_url
+    bitly = Bitly.client
+    response = bitly.shorten("http://jokels.com/jokes/#{self.id}")
+    self.bitly_url = response.short_url
+    self.save!
+  end
+  
+  # tweet yetserday's top joke
+  # def self.tweet_top_joke
+  #    top_joke = Joke.where(['created_at BETWEEN ? AND ?', Date.yesterday, Time.now]).sort_by{|x| x.votes}.reverse[0]
+  #    if top_joke
+  #      tweet = "Yesterday's top joke: #{top_joke.question}"
+  #      
+  #      user = top_joke.user
+  #      if user
+  # 
+  #      end
+  #      
+  #    end
+  #  end
+  
 end

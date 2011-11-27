@@ -14,7 +14,11 @@ class JokesController < ApplicationController
   # GET /jokes/1.xml
   def show
     @joke = Joke.find(params[:id])
-
+    
+    if @joke.bitly_url.nil?
+      @joke.generate_bitly_url
+    end
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @joke }

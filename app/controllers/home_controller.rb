@@ -6,6 +6,10 @@ class HomeController < ApplicationController
     @joke = Joke.first(:conditions => [ "id >= ?", rand_id])
     session[:joke_id] = @joke.id
 
+    if @joke.bitly_url.nil?
+      @joke.generate_bitly_url
+    end
+
     respond_to do |format|
       format.html 
       format.js {render :layout => false }

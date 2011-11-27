@@ -26,6 +26,15 @@ GIT
   specs:
     paths_of_glory (0.2.0)
 
+GIT
+  remote: git://github.com/sylturner/bitly.git
+  revision: 5a66b03151b34bf050c10abf214c661b7e9a4809
+  specs:
+    bitly (0.6.2)
+      crack (>= 0.1.4)
+      httparty (>= 0.7.6)
+      oauth2 (>= 0.1.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -69,6 +78,7 @@ GEM
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
     chronic (0.6.6)
+    crack (0.3.1)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     faraday (0.6.1)
@@ -79,6 +89,9 @@ GEM
       faraday (~> 0.6.0)
     hashie (1.0.0)
     highline (1.6.2)
+    httparty (0.8.1)
+      multi_json
+      multi_xml
     i18n (0.6.0)
     jquery-rails (1.0.12)
       railties (~> 3.0)
@@ -188,6 +201,7 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   always_verify_ssl_certificates!
+  bitly!
   capistrano
   jquery-rails
   make_voteable!
