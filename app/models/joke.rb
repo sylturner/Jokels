@@ -44,17 +44,54 @@ class Joke < ActiveRecord::Base
   end
   
   # tweet yetserday's top joke
-  # def self.tweet_top_joke
-  #    top_joke = Joke.where(['created_at BETWEEN ? AND ?', Date.yesterday, Time.now]).sort_by{|x| x.votes}.reverse[0]
-  #    if top_joke
-  #      tweet = "Yesterday's top joke: #{top_joke.question}"
-  #      
-  #      user = top_joke.user
-  #      if user
-  # 
-  #      end
-  #      
-  #    end
-  #  end
-  
+  # this method is more disgusting than I imagined
+  def self.tweet_top_joke
+     top_joke = Joke.where(['created_at BETWEEN ? AND ?', Date.yesterday, Time.now]).sort_by{|x| x.votes}.reverse[0]
+     # only tweet if there is a top joke from yesterday
+     if top_joke
+       # generate bitly url if it hasn't been generated yet (probably not an issue)
+       if top_joke.bitly_url.nil?
+         top_joke.generate_bitly_url
+       end
+       
+       # Format: Jan 01 top joke: joke's question - http://jkls.co/url
+       tweet = "#{Date.yesterday.strftime("%b %d")} top joke: #{top_joke.question} - #{top_joke.bitly_url}"
+       
+       jokels_user = User.find 1 # @jokelscom
+       client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
+       
+       user = top_joke.user
+       if user && user.provider == "twitter"
+         twitter_name = "@"+user.name
+         
+         # Format: Jan 01 top joke: joke's question - http://jkls.co/url by @twittername
+         tweet_with_author = "#{tweet} by #{twitter_name}" 
+         
+         if tweet_with_author.length <= 140
+           client.update(tweet_with_author)
+         else
+           # turncate the joke's question, we want the author to be shown every time
+           # formula:
+           # 140 = max tweet length
+           # 45 = the number of characters for date, 'top joke', bit.ly url, dash, and 'by' 
+           # twitter_name.length = the characters for the twitter handle with the @
+           # 1 = room for elipsis character
+           # whatever's left is how long our question can be in the tweet
+           question_length = 140-45-twitter_name.length-1
+           
+           # Format: Jan 01 top joke: joke's questi… - http://jkls.co/url by @twittername
+           tweet_with_author = "#{Date.yesterday.strftime("%b %d")} top joke: #{top_joke.question[0..question_length]}… - #{top_joke.bitly_url} by #{twitter_name}"
+           client.update(tweet_with_author)
+         end
+       elsif tweet.length <= 140
+         client.update(tweet)
+       else
+         # we should have 98 characters for the question
+         # Format: Jan 01 top joke: joke's questi… - http://jkls.co/url
+         tweet = "#{Date.yesterday.strftime("%b %d")} top joke: #{top_joke.question[0..98]}… - #{top_joke.bitly_url}"
+         client.update(tweet)
+       end       
+     end
+   end  
+   
 end

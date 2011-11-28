@@ -23,9 +23,9 @@ set :output, File.join("log", "cron.log")
 
 every 1.day, :at => "07:00am" do
   runner "DailyWord.set_daily_word" # sets the new daily word and tweets it
-  runner "Joke.jokeler_update"
+  runner "Joke.jokeler_update" # check the jokeler
 end
 
-# every 1.day, :at => "09:00am" do
-#   
-# end
+every 1.day, :at => "09:00am" do
+  runner "Joke.tweet_top_joke" #tweet yesterday's top joke
+end
