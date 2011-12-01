@@ -4,7 +4,7 @@
   <title>Jokels - Share your jokes!</title>
   <%= stylesheet_link_tag :all %>
   <%= stylesheet_link_tag "/stylesheets/smoothness/jquery-ui-1.8.14.custom.css"%>
-  <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js" %>
+  <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js","/javascripts/jquery.qtip.min.js" %>
   <%=javascript_include_tag 'rails'%>
   <%= csrf_meta_tag %>
   <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
@@ -45,7 +45,7 @@
         <%= link_to "Add new joke", add_joke_home_path, :method => :get, :remote => true, :class=>"add-joke-button" %> | <%= link_to "Leaderboards", leaderboard_path %>
         <br/>
         <% if daily_word %>
-          <span title="This is a random word of the day to help inspire your jokes" style="cursor:help">Today's inspiration: <%= daily_word %></span>
+          <span id="daily-inspiration" title="Let this random word/phrase/concept help inspire your jokes" style="cursor:help">Today's inspiration: <%= daily_word %></span>
           <% end %>
         
       </div>

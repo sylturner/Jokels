@@ -346,3 +346,12 @@ body {
 	padding: 5px;
 	background: url(ajax-loader.gif) no-repeat scroll #EFEFEF 5% 60%;
 }
+
+/* permalink styling */
+.ui-tooltip-content div {
+	padding-bottom: 3px;
+	padding-top: 3px;
+}
+.ui-tooltip-content input {
+	width: 150px;
+}
