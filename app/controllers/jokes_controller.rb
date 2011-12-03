@@ -14,7 +14,7 @@ class JokesController < ApplicationController
   # GET /jokes/1.xml
   def show
     @joke = Joke.find(params[:id])
-    
+    session[:joke_id] = @joke.id
     if @joke.bitly_url.nil?
       @joke.generate_bitly_url
     end
