@@ -28,6 +28,7 @@ class LeaderboardController < ApplicationController
         
      end
      
+     generate_title "Leaderboards"
         
     respond_to do |format|
       format.html

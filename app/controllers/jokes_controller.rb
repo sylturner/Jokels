@@ -3,7 +3,7 @@ class JokesController < ApplicationController
   # GET /jokes.xml
   def index
     @jokes = Joke.all
-
+    generate_title "All Jokes"
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @jokes }
@@ -18,6 +18,8 @@ class JokesController < ApplicationController
     if @joke.bitly_url.nil?
       @joke.generate_bitly_url
     end
+    
+    generate_title @joke.question
     
     respond_to do |format|
       format.html # show.html.erb
