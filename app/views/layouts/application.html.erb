@@ -88,6 +88,20 @@
     })();
 
   </script>
+  <script type="text/javascript">
+  sAId = "218";
+  sCId = "1026";
+  
+  (function() {
+    function async_load(){
+      var s = document.createElement('script'); s.type = 'text/javascript';
+      s.src = (('https:' == document.location.protocol) ? "https://ssl" : "http://cdn") + ".spectate.com/s.js";
+      var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c);
+    }
+    if(window.attachEvent) { window.attachEvent('onload', async_load); }
+    else { window.addEventListener('load', async_load, false); }
+  })();
+</script>
   <%- elsif Rails.env == "development" %>
     <!-- No analytics in development -->
   <%- end -%>
