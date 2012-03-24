@@ -16,8 +16,8 @@ class SessionsController < ApplicationController
     else
       redirect_to root_url, :notice => "Signed in with #{auth["provider"].capitalize}!"
     end
-    #uncomment to see what's all in the auth
-    #render :text => auth.to_yaml
+    uncomment to see what's all in the auth
+    render :text => auth.to_yaml
   end
 
   def destroy

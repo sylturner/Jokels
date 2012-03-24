@@ -28,7 +28,7 @@
       <% end %>
       <%= link_to image_tag(down_img, :class=>"arrow", :id => "down_arrow"), downvote_joke_path(joke), :method => :get, :remote => true, :title => "Vote down" %>
     </span>  
-  |<% permalink = url_for (:action => "show", :controller => "jokes", :id => joke.id, :only_path => false)%>   
+  |<% permalink = url_for(:action => "show", :controller => "jokes", :id => joke.id, :only_path => false)%>   
   <a href="#" id="permalink">Permalink</a>
   | <span><iframe src="http://www.facebook.com/plugins/like.php?app_id=168063983260429&amp;href=<%=CGI.escape(joke.bitly_url)%>&amp;send=false&amp;layout=button_count&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px;" allowTransparency="true"></iframe></span>
   | <span><a href="http://twitter.com/share" class="twitter-share-button" data-url="<%=joke.bitly_url%>" data-text="<%=joke.question%>" data-count="horizontal" data-via="jokelscom">Tweet</a></span>
@@ -36,7 +36,7 @@
 <span class="right">
 <% if joke.user %>
   <% if joke.user == current_user %>[<%= link_to "Edit your joke", edit_joke_path(joke), :method => :get, :remote => true %>]<% end %>
-  written by <%= link_to image_tag (joke.user.image_url, :size => "23x23"), joke.user %> <%= link_to user_name(joke.user), joke.user %> via <%=joke.user.provider.capitalize %>
+  written by <%= link_to image_tag(joke.user.image_url, :size => "23x23"), joke.user %> <%= link_to user_name(joke.user), joke.user %> via <%=joke.user.provider.capitalize %>
 <% end %> <% if joke.jokeler_url %> <% if joke.user %>|<% end %> <%= link_to image_tag("jokeler.jpg", :size => "23x23", :title =>"The Jokeler strikes again!"), joke.jokeler_url %> <% end %></span>
 <p id="refresh-joke"><%= link_to "(click for a random joke)", refresh_joke_home_path, :method => :get, :remote => true %>
 </p>
