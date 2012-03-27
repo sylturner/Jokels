@@ -8,10 +8,11 @@ gem 'rails', '3.0.3'
 gem 'mysql'
 gem 'jquery-rails'
 gem 'omniauth'
+gem 'fgraph'
 gem 'make_voteable', :git => 'git://github.com/medihack/make_voteable.git'
 gem 'paths_of_glory', :git => 'git://github.com/raid5/paths_of_glory.git', :branch => 'rails3'
 gem 'twitter'
-gem 'always_verify_ssl_certificates', :git => 'git://github.com/jamesgolick/always_verify_ssl_certificates.git'
+#gem 'always_verify_ssl_certificates', :git => 'git://github.com/jamesgolick/always_verify_ssl_certificates.git'
 gem "airbrake"
 gem 'whenever', :git => 'git://github.com/javan/whenever.git', :require => false
 # using my version of the gem until/unless the guy merges my changes
@@ -31,7 +32,7 @@ gem 'capistrano'
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri'
-gem 'ps'
+gem 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for the local environment. Make sure to
