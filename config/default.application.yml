@@ -1,0 +1,29 @@
+---
+development:
+  twitter:
+    consumer_key: 
+    consumer_secret: 
+  facebook:
+    app_id: 
+    app_secret: 
+    page_access_token: 
+    page_name: Jokels Dev Page
+  ssl_ca_path: ''
+  bitly:
+    api_version: 3
+    username: 
+    api_key: 
+production:
+  twitter:
+    consumer_key: 
+    consumer_secret: 
+  facebook:
+    app_id: 
+    app_secret: 
+    page_access_token: 
+    page_name: Jokels
+  ssl_ca_path: /etc/ssl/certs
+  bitly:
+    api_version: 3
+    username: 
+    api_key: 
