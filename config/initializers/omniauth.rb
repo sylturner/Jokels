@@ -2,7 +2,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   Settings = YAML.load_file("#{RAILS_ROOT}/config/application.yml")[RAILS_ENV]
   provider :twitter, Settings["twitter"]["consumer_key"], Settings["twitter"]["consumer_secret"]
-  provider :facebook, Settings["facebook"]["app_id"], Settings["facebook"]["app_secret"], {:scope => "user_about_me"}
+  provider :facebook, Settings["facebook"]["app_id"], Settings["facebook"]["app_secret"], {:scope => "user_about_me,manage_pages,publish_stream,offline_access"}
 end
 
 # uncomment to debug errors from omniauth
