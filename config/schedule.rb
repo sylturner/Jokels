@@ -27,5 +27,5 @@ every 1.day, :at => "07:00am" do
 end
 
 every 1.day, :at => "09:00am" do
-  runner "Joke.tweet_top_joke" #tweet yesterday's top joke
+  runner "Joke.post_top_joke" #tweet yesterday's top joke
 end

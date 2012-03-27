@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Joke < ActiveRecord::Base
   make_voteable
 
@@ -45,7 +47,7 @@ class Joke < ActiveRecord::Base
   
   # tweet yetserday's top joke
   # this method is more disgusting than I imagined
-  def self.tweet_top_joke
+  def self.post_top_joke
      top_joke = Joke.where(['created_at BETWEEN ? AND ?', Date.yesterday, Time.now]).sort_by{|x| x.votes}.reverse[0]
      # only tweet if there is a top joke from yesterday
      if top_joke
@@ -60,12 +62,16 @@ class Joke < ActiveRecord::Base
        jokels_user = User.find 1 # @jokelscom
        client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
        
+       settings = YAML.load_file("#{RAILS_ROOT}/config/application.yml")[RAILS_ENV]
+       
        user = top_joke.user
+       fb_post = tweet
        if user && user.provider == "twitter"
          twitter_name = "@"+user.name
          
          # Format: Jan 01 top joke: joke's question - http://jkls.co/url by @twittername
          tweet_with_author = "#{tweet} by #{twitter_name}" 
+         fb_post = fb_post + " by Twitter User #{twitter_name}"
          
          if tweet_with_author.length <= 140
            client.update(tweet_with_author)
@@ -90,8 +96,10 @@ class Joke < ActiveRecord::Base
          # Format: Jan 01 top joke: joke's questi… - http://jkls.co/url
          tweet = "#{Date.yesterday.strftime("%b %d")} top joke: #{top_joke.question[0..98]}… - #{top_joke.bitly_url}"
          client.update(tweet)
-       end       
+       end     
      end
+     
+     FGraph.publish_feed('me', :message => fb_post, :access_token => settings["facebook"]["page_access_token"])
    end  
    
 end
