@@ -16,6 +16,10 @@ class DailyWord < ActiveRecord::Base
     # and tweet it
     jokels_user = User.find 1 # @jokelscom
     client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
-    client.update("Today's inspiration: \"#{DailyWord.last.word}\" - http://jokels.com")
+    post = "Today's inspiration: \"#{DailyWord.last.word}\" - http://jokels.com"
+    client.update(post)
+    
+    settings = YAML.load_file("#{RAILS_ROOT}/config/application.yml")[RAILS_ENV]
+    FGraph.publish_feed('me', :message => post, :access_token => settings["facebook"]["page_access_token"])
   end  
 end

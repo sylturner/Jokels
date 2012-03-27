@@ -1,6 +1,30 @@
 class SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"]
+    
+    if session[:admin_facebook] 
+      yaml = YAML.load_file("#{RAILS_ROOT}/config/application.yml")
+      session[:admin_facebook] = false
+      
+      pages = FGraph.me_accounts(:access_token => auth["credentials"]["token"])
+
+      pages.each do |i|
+        if i["name"] == yaml[RAILS_ENV]["facebook"]["page_name"] && i["category"] == "Website" then
+          yaml[RAILS_ENV]["facebook"]["page_access_token"] = i["access_token"];
+
+          output = File.new("#{RAILS_ROOT}/config/application.yml", "w")
+          output.puts YAML.dump(yaml)
+          output.close
+          
+          render :text => (RAILS_ENV + " access token updated: " + i["access_token"])
+          return
+        end
+      end
+      
+      render :text => "Unable to find access token for " + yaml[RAILS_ENV]["facebook"]["page_name"]
+      return
+    end
+    
     user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) 
     if user && user.provider == "twitter"
       # update their twitter access token
@@ -18,6 +42,11 @@ class SessionsController < ApplicationController
     end
     #uncomment to see what's all in the auth
     #render :text => auth.to_yaml
+  end
+  
+  def admin_authenicate
+    session[:admin_facebook] = true
+    redirect_to '/auth/facebook'
   end
 
   def destroy
