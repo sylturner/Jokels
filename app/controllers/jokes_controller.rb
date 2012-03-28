@@ -171,6 +171,6 @@ class JokesController < ApplicationController
   def tweet_joke
     # Tweet the joke            
     client = Twitter::Client.new(:oauth_token => current_user.token, :oauth_token_secret => current_user.secret)
-    client.update(@joke.question + " " + url_for(@joke))
+    client.update(@joke.question + " " + @joke.bitly_url)
   end
 end

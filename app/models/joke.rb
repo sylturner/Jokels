@@ -11,6 +11,8 @@ class Joke < ActiveRecord::Base
   
   attr_reader :auto_tweet
   attr_writer :auto_tweet
+
+  after_create :generate_bitly_url
   
   def self.jokeler_update
     require 'rss/2.0'
