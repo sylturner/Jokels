@@ -77,6 +77,8 @@ body {
 }
 #footer, .push {
 	height: 42px;
+	clear:both;
+	margin-top: 5px;
 }
 
 #header {
