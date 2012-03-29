@@ -21,8 +21,10 @@ class ApplicationController < ActionController::Base
   def generate_title text = nil
     if text
       @title = "Jokels - #{text} - Share your jokes!"
+      @meta_description = "#{text}"
     else
       @title = DEFAULT_TITLE
+      @meta_description = "Jokels is a fun place to write jokes and share them with your friends!"
     end
   end
   
