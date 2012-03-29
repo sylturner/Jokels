@@ -119,6 +119,23 @@ class JokesController < ApplicationController
     #end
   end
   
+  def favorite_toggle
+    if current_user
+      @joke = Joke.find(params[:id])
+      current_user.toggle_favorite(@joke)
+      
+      respond_to do |format|
+        format.html
+        format.js {render :layout => false}
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to(Joke.find(params[:id]), :notice => 'Please login to favorite') }
+        format.js { render :layout => false}
+      end
+    end
+  end
+  
   def upvote
     if current_user
       vote "up"

@@ -1,0 +1,5 @@
+<% if current_user %>
+	$(".star").toggleClass("favorited");
+<% else %>
+	$("#notice").html("Please login to favorite!");
+<% end %>

@@ -346,6 +346,19 @@ body {
 	background: url(ajax-loader.gif) no-repeat scroll #EFEFEF 5% 60%;
 }
 
+.star {
+	text-indent: -5000px;
+	display: inline-block;
+	width: 16px; 
+	height: 16px; 
+	background: url(not_favorited.png) no-repeat;
+	background-color: transparent;
+}
+
+.star.favorited {
+	background: url(favorited.png) no-repeat;
+}
+
 /* permalink styling */
 .ui-tooltip-content div {
 	padding-bottom: 3px;

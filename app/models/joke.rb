@@ -4,6 +4,7 @@ class Joke < ActiveRecord::Base
   make_voteable
 
   has_many :categories
+  has_many :favorite_jokes, :dependent => :destroy
   
   belongs_to :user
   

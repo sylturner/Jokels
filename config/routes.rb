@@ -1,4 +1,6 @@
 Jokels::Application.routes.draw do
+  resources :favorite_jokes
+
   resources :categories
   resources :jokes
   resources :users
@@ -6,6 +8,7 @@ Jokels::Application.routes.draw do
   resources :jokes, :controller => "jokes" do
     get :upvote, :on => :member, :action => "upvote"
     get :downvote, :on => :member, :action => "downvote"
+    get :favorite_toggle, :on => :member, :action => "favorite_toggle"
   end
   
   resource :home, :controller => "home" do

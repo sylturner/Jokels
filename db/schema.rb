@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111126143931) do
+ActiveRecord::Schema.define(:version => 20120328030336) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(:version => 20111126143931) do
 
   create_table "daily_words", :force => true do |t|
     t.string   "word"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "favorite_jokes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "joke_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

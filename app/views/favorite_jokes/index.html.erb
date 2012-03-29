@@ -1,0 +1,25 @@
+<h1>Listing favorite_jokes</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Joke</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @favorite_jokes.each do |favorite_joke| %>
+  <tr>
+    <td><%= favorite_joke.user_id %></td>
+    <td><%= favorite_joke.joke_id %></td>
+    <td><%= link_to 'Show', favorite_joke %></td>
+    <td><%= link_to 'Edit', edit_favorite_joke_path(favorite_joke) %></td>
+    <td><%= link_to 'Destroy', favorite_joke, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Favorite joke', new_favorite_joke_path %>

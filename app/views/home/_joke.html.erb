@@ -13,7 +13,11 @@
 </p>
 <p id="share">
   
-  <span class="left"><span id="votes">
+  <span class="left">
+	<% star_class = "star" + (current_user.favorited?(joke) ? " favorited" : "") %>
+	<%= link_to "Favorite Me!", favorite_toggle_joke_path(joke), :class => star_class, :method => :get, :remote => true, :title => "Toggle Favorite"%>
+	|
+	<span id="votes">
     
      <% up_img = "arrow_up_faded.png"%> 
      <% if current_user && current_user.up_voted?(joke) %>
@@ -42,7 +46,6 @@
 </p>
 
 <script type="text/javascript">
-
   $(document).ready(function(){
     $('#permalink').qtip({
       show: 'click',

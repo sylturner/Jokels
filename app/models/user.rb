@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   include Achievements
   
   has_many :jokes
+  has_many :favorite_jokes, :dependent => :destroy
   
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -22,6 +23,25 @@ class User < ActiveRecord::Base
       elsif auth["provider"] == "facebook"
         user.url = auth["user_info"]["urls"]["Facebook"]        
       end      
+    end
+  end
+  
+  def favorited?(joke)
+    logger.debug "Joke empty? " + (favorite_jokes.where(:joke_id => joke.id).empty? ? "true" : "false")
+    logger.debug "Joke size: #{favorite_jokes.where(:joke_id => joke.id).size} "
+    
+    if favorite_jokes.where(:joke_id => joke.id).empty?
+      false
+    else
+      true
+    end
+  end
+  
+  def toggle_favorite(joke)
+    if favorite_jokes.where(:joke_id => joke.id).empty?
+      favorite_jokes.build(:joke_id => joke.id).save
+    else
+      favorite_jokes.where(:joke_id => joke.id).delete_all
     end
   end
   
