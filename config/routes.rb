@@ -26,7 +26,8 @@ Jokels::Application.routes.draw do
   match "/auth/:provider/callback" => "sessions#create"
   match "/auth/failure" => "sessions#failure"
   match "/signout" => "sessions#destroy", :as => :signout
-  match "/admin/facebook" => "sessions#admin_authenicate"
+  # uncommnent to update jokels page auth, also need to update omniauth.rb
+  #match "/admin/facebook" => "sessions#admin_authenicate"
   
   # which tweet is from atlanta redirect
   match "/atl" => redirect("http://atl.jokels.com")

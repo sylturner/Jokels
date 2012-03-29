@@ -14,7 +14,7 @@
 <p id="share">
   
   <span class="left">
-	<% star_class = "star" + (current_user.favorited?(joke) ? " favorited" : "") %>
+	<% star_class = "star" + (current_user && current_user.favorited?(joke) ? " favorited" : "") %>
 	<%= link_to "Favorite Me!", favorite_toggle_joke_path(joke), :class => star_class, :method => :get, :remote => true, :title => "Toggle Favorite"%>
 	|
 	<span id="votes">
