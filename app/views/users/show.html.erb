@@ -1,13 +1,24 @@
 <div id="user">
-  <p id="user-info"><%= link_to image_tag (@user.image_url, :size => "48x48"), @user.url %> <strong><%=link_to user_name(@user), @user.url %></strong> (via <%=@user.provider.capitalize%>)</p>
+  <p id="user-info"><%= link_to image_tag(@user.image_url, :size => "48x48"), @user.url %> <strong><%=link_to user_name(@user), @user.url %></strong> (via <%=@user.provider.capitalize%>)</p>
   
   <% if !@jokes.empty? %>
+	<div class="column left">
     <h2><%=user_name @user %>'s jokes</h2>
     <ul>
     <% @jokes.each do |joke| %>
       <li><%= link_to joke.question, joke %> <% if @user == current_user %>[<%= link_to "Edit", edit_joke_path(joke), :method => :get, :remote => true %>]</li><% end %>
     <% end %>
     </ul>
+	</div>
   <% end %>
-  
+  <% if !@favorite_jokes.empty? %>
+	<div class="column right">
+	<h2><%=user_name @user %>'s favorite jokes</h2>
+	<ul>
+	<% @favorite_jokes.each do |favorite| %>
+      <li><%= link_to favorite.joke.question, favorite.joke %></li>
+    <% end %>
+	</ul>
+	</div>
+  <% end %>
 </div>

@@ -1,6 +1,4 @@
 Jokels::Application.routes.draw do
-  resources :favorite_jokes
-
   resources :categories
   resources :jokes
   resources :users

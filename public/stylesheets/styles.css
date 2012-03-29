@@ -367,3 +367,15 @@ body {
 .ui-tooltip-content input {
 	width: 150px;
 }
+
+.column {
+	width: 47%;
+}
+
+.column.left {
+	float: left;
+}
+
+.column.right {
+	float: right;
+}
