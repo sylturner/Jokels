@@ -33,7 +33,7 @@
       <%= link_to image_tag(down_img, :class=>"arrow", :id => "down_arrow"), downvote_joke_path(joke), :method => :get, :remote => true, :title => "Vote down" %>
     </span>  
   |<% permalink = url_for(:action => "show", :controller => "jokes", :id => joke.id, :only_path => false)%>   
-  <a href="#" id="permalink">Permalink</a>
+  <a href="#" id="permalink">Permalink</a> 
   | <span><iframe src="http://www.facebook.com/plugins/like.php?app_id=168063983260429&amp;href=<%=CGI.escape(joke.bitly_url)%>&amp;send=false&amp;layout=button_count&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px;" allowTransparency="true"></iframe></span>
   | <span><a href="http://twitter.com/share" class="twitter-share-button" data-url="<%=joke.bitly_url%>" data-text="<%=joke.question%>" data-count="horizontal" data-via="jokelscom">Tweet</a></span>
   
@@ -50,7 +50,7 @@
     $('#permalink').qtip({
       show: 'click',
       hide: 'click',
-      content: '<div><span>Permalink:</span> <input value="<%=permalink%>" class="permalink-input"/></div><div><span>Short URL:</span> <input value="<%=joke.bitly_url%>" class="permalink-input"/></div>',
+      content: '<div><span>Permalink:</span> <input value="<%=permalink%>" class="permalink-input"/></div><div><span>Short URL:</span> <input value="<%=joke.bitly_url%>" class="permalink-input"/><%= link_to image_tag("qr-code.png", :class=>"qrcode"), "#{joke.bitly_url}.qrcode", {:title => "QR Code", :target => "_blank"} %></div>',
   		style: {
   		  classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
   		},		

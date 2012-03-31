@@ -381,3 +381,6 @@ body {
 .column.right {
 	float: right;
 }
+.qrcode {
+	vertical-align: middle;
+}
