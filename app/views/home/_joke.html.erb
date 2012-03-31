@@ -50,7 +50,7 @@
     $('#permalink').qtip({
       show: 'click',
       hide: 'click',
-      content: '<div><span>Permalink:</span> <input value="<%=permalink%>" class="permalink-input"/></div><div><span>Short URL:</span> <input value="<%=joke.bitly_url%>" class="permalink-input"/><%= link_to image_tag("qr-code.png", :class=>"qrcode"), "#{joke.bitly_url}.qrcode", {:title => "QR Code", :target => "_blank"} %></div>',
+      content: '<div><span>Permalink:</span> <input value="<%=permalink%>" class="permalink-input"/></div><div><span>Short URL:</span> <input value="<%=joke.bitly_url%>" class="permalink-input short-url"/> <%= link_to image_tag("barcode-2d.png", :class=>"qrcode"), "#{joke.bitly_url}.qrcode", {:title => "QR Code", :target => "_blank"} %></div>',
   		style: {
   		  classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
   		},		

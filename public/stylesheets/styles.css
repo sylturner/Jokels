@@ -381,6 +381,12 @@ body {
 .column.right {
 	float: right;
 }
+
+.ui-tooltip-content input.short-url {
+	width: 128px;
+}
+
 .qrcode {
 	vertical-align: middle;
+	background-color: #FFF;
 }
