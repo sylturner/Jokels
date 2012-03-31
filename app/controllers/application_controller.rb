@@ -1,5 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  has_mobile_fu
+  
+  before_filter :is_mobile
   
   helper_method :current_user
   helper_method :daily_word
@@ -34,6 +37,14 @@ class ApplicationController < ActionController::Base
       return "@"+user.name
     else
       return user.name
+    end
+  end
+  
+  def is_mobile
+    if session[:mobile_view].nil? || session[:mobile_view]
+      request.format = :mobile if is_mobile_device?
+    else
+      request.format = :html
     end
   end
   

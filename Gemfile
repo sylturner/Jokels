@@ -18,6 +18,7 @@ gem 'whenever', :git => 'git://github.com/javan/whenever.git', :require => false
 # using my version of the gem until/unless the guy merges my changes
 #gem 'bitly', :git => 'git://github.com/philnash/bitly.git'
 gem 'bitly', :git => 'git://github.com/sylturner/bitly.git'
+gem 'mobile-fu'
 
 # Use unicorn as the web server
 # gem 'unicorn'

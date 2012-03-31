@@ -57,4 +57,16 @@ class SessionsController < ApplicationController
   def failure
     redirect_to root_url, :notice => "Sorry, something went wrong with authentication."
   end
+  
+  def full_version
+    session[:mobile_view] = false
+    
+    redirect_to root_url
+  end
+  
+  def mobile_version
+    session[:mobile_view] = true
+    
+    redirect_to root_url
+  end
 end

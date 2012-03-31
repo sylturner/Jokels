@@ -2,7 +2,8 @@
 <html>
 <head>
   <title><%=@title%></title>
-  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag "/stylesheets/styles.css" %>
+  <%= stylesheet_link_tag "/stylesheets/jquery.qtip.css" %>
   <%= stylesheet_link_tag "/stylesheets/smoothness/jquery-ui-1.8.14.custom.css"%>
   <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js","/javascripts/jquery.qtip.min.js" %>
   <%=javascript_include_tag 'rails'%>
@@ -65,7 +66,7 @@
 
   <div id="footer">
     <div class="left">
-    Jokels is so beta. | <%= link_to "All jokes", jokes_path %> | <%=link_to "Privacy", privacy_policy_home_path %><br/> 
+    Jokels is so beta. | <%= link_to "All jokes", jokes_path %> | <%=link_to "Privacy", privacy_policy_home_path %> <% if is_mobile_device? %> | <%= link_to "Mobile Version", "/mobile_version"%> <% end%> <br/> 
     Check out our <a href="http://twitter.com/jokelscom">Twitter</a> | <a href="https://www.facebook.com/pages/Jokels/180394185353937">Facebook</a> | <a href="http://jokeler.tumblr.com/">The Jokeler</a> 
     </div>
     <div class="right" id="share-site">      

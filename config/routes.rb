@@ -38,6 +38,9 @@ Jokels::Application.routes.draw do
   # uncommnent to update jokels page auth, also need to update omniauth.rb
   #match "/admin/facebook" => "sessions#admin_authenicate"
   
+  match "/full_version" => "sessions#full_version"
+  match "/mobile_version" => "sessions#mobile_version"
+  
   # which tweet is from atlanta redirect
   match "/atl" => redirect("http://atl.jokels.com")
   
