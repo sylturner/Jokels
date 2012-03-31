@@ -1,0 +1,3 @@
+$("#add-alternate-punchline").dialog({modal: true, title: "Add an alternate punchline!", width: 450});
+$("#add-alternate-punchline").html("<%= escape_javascript(render :partial => 'alternate_punchline_form') %>");
+$("#alternate-punchline").focus();

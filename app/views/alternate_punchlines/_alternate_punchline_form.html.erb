@@ -1,0 +1,23 @@
+<%= form_for(@alternate_punchline, :url => joke_alternate_punchlines_path) do |f| %>
+  <% if @alternate_punchline.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@alternate_punchline.errors.count, "error") %> prohibited this alternate punchline from being saved:</h2>
+
+      <ul>
+      <% @alternate_punchline.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <strong><%= @joke.question %></strong>
+    <br/>
+    <%= f.label :punchline, "Your new punchline" %>
+    <%= f.text_field :punchline %>    
+  </div>
+  <div class="actions">
+    <%= f.submit "Add new punchline" %>
+  </div>
+<% end %>

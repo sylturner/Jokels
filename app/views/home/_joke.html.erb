@@ -1,5 +1,5 @@
 <% if refresh %>
-<% #must re-include javascripts on refresh %>
+<% # must re-include javascripts on refresh %>
 <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 <% end %>
 <div id="notice"><%= notice %></div>
@@ -7,31 +7,20 @@
 <p id="question" class="question">
   <%= joke.question %>
 </p>
-<p id="click-for-punchline">(click for the punchline)</p>
+<p id="click-for-punchline">Click for the <strong>punchline</strong>!</p>
 <p id="answer" class="answer">
   <%= joke.answer %>
 </p>
-<p id="share">
+<p id="share" class="share">
   
   <span class="left">
 	<% star_class = "star" + (current_user && current_user.favorited?(joke) ? " favorited" : "") %>
 	<%= link_to "Favorite Me!", favorite_toggle_joke_path(joke), :class => star_class, :method => :get, :remote => true, :title => "Toggle Favorite"%>
 	|
-	<span id="votes">
-    
-     <% up_img = "arrow_up_faded.png"%> 
-     <% if current_user && current_user.up_voted?(joke) %>
-       <% up_img = "arrow_up.png"%>
-     <% end %>
-     <%= link_to image_tag(up_img, :class=>"arrow", :id => "up_arrow"), upvote_joke_path(joke), :method => :get, :remote => true, :title => "Vote up" %>
-       <span id="vote_total" title="Total votes"><%= joke.votes %></span>
-       
-      <% down_img = "arrow_down_faded.png"%> 
-      <% if current_user && current_user.down_voted?(joke) %>
-        <% down_img = "arrow_down.png"%>
-      <% end %>
-      <%= link_to image_tag(down_img, :class=>"arrow", :id => "down_arrow"), downvote_joke_path(joke), :method => :get, :remote => true, :title => "Vote down" %>
-    </span>  
+  
+  <%= render :partial => "shared/votes", :locals => {:joke => joke, :upvote_path => upvote_joke_path(joke), :downvote_path => downvote_joke_path(joke), :id => "joke_#{joke.id}"} %>
+
+	| <%= link_to "Fork this joke", new_joke_alternate_punchline_path(joke), :method => :get, :remote => true, :title => "Create an alternate punchline", :class => "fork" %>
   |<% permalink = url_for(:action => "show", :controller => "jokes", :id => joke.id, :only_path => false)%>   
   <a href="#" id="permalink">Permalink</a> 
   | <span><iframe src="http://www.facebook.com/plugins/like.php?app_id=168063983260429&amp;href=<%=CGI.escape(joke.bitly_url)%>&amp;send=false&amp;layout=button_count&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px;" allowTransparency="true"></iframe></span>
@@ -42,14 +31,20 @@
   <% if joke.user == current_user %>[<%= link_to "Edit your joke", edit_joke_path(joke), :method => :get, :remote => true %>]<% end %>
   written by <%= link_to image_tag(joke.user.image_url, :size => "23x23"), joke.user %> <%= link_to user_name(joke.user), joke.user %> via <%=joke.user.provider.capitalize %>
 <% end %> <% if joke.jokeler_url %> <% if joke.user %>|<% end %> <%= link_to image_tag("jokeler.jpg", :size => "23x23", :title =>"The Jokeler strikes again!"), joke.jokeler_url %> <% end %></span>
-<p id="refresh-joke"><%= link_to "(click for a random joke)", refresh_joke_home_path, :method => :get, :remote => true %>
-</p>
+
+<% if joke.alternate_punchlines.count > 0 %>
+  <p id="alternate-punchlines-button"><%= link_to raw("This joke has <strong>forked</strong>! Click to see the <strong>alternate punchlines</strong>!"), joke_alternate_punchlines_path(joke), :method => :get, :remote => true %></p>
+  <span id="alternate_punchlines"></span>
+<% end %>
+
+<p id="refresh-joke"><%= link_to raw("See another <strong>random joke!</strong>"), refresh_joke_home_path, :method => :get, :remote => true %></p>
+
 
 <script type="text/javascript">
   $(document).ready(function(){
     $('#permalink').qtip({
       show: 'click',
-      hide: 'click',
+      hide: 'click unfocus',
       content: '<div><span>Permalink:</span> <input value="<%=permalink%>" class="permalink-input"/></div><div><span>Short URL:</span> <input value="<%=joke.bitly_url%>" class="permalink-input short-url"/> <%= link_to image_tag("barcode-2d.png", :class=>"qrcode"), "#{joke.bitly_url}.qrcode", {:title => "QR Code", :target => "_blank"} %></div>',
   		style: {
   		  classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'

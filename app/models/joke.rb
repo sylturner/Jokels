@@ -5,6 +5,7 @@ class Joke < ActiveRecord::Base
 
   has_many :categories
   has_many :favorite_jokes, :dependent => :destroy
+  has_many :alternate_punchlines
   
   belongs_to :user
   

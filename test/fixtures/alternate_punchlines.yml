@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  joke_id: 1
+  punchline: MyText
+  user_id: 1
+  up_votes: 1
+  down_votes: 1
+
+two:
+  joke_id: 1
+  punchline: MyText
+  user_id: 1
+  up_votes: 1
+  down_votes: 1

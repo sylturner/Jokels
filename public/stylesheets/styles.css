@@ -1,3 +1,9 @@
+/*
+	Icon credits: 
+	Silk Icons - http://www.famfamfam.com/lab/icons/silk/
+	Silk Evolved - http://code.google.com/p/famfamfam/
+	Fugue Icons - http://p.yusukekamiyamane.com/
+*/
 * {
 	margin: 0;
 }
@@ -134,25 +140,25 @@ body {
 #main .joke p#click-for-punchline, #main .joke p#refresh-joke {
 	background: #EFEFEF;
 	font-size: 10pt;
-	line-height: 10pt;
+	line-height: 28pt;
 	cursor: pointer;
+	color: #666;
 }
 #main .joke p#click-for-punchline:hover, #main .joke p#refresh-joke:hover, #main .joke p#refresh-joke a:hover  {
 	background: #DFDFDF;
+	color: #333;
 }
 
 #main .joke p.question {
-	/*background: #DD99AA;*/
 	background: #99CC99;
 	cursor: pointer;
 }
 
-#main .joke p.answer {
-	/*background: #FFDDDD;*/
+#main .joke p.answer {	
 	background: #BBDDBB;
 	display:none;
 }
-#main .joke p#share {
+#main .joke p.share {
 	display: none;
 	border-top: 3px solid #333;
 	background: #777;
@@ -162,33 +168,33 @@ body {
 	line-height: 10pt;
 	vertical-align: middle;
 }
-#main .joke p#share span.left {
+#main .joke p.share span.left {
 	margin-left: 10px;	
 }
 
-#main .joke p#share span.right {
+#main .joke p.share span.right {
 	float: right;
 	margin-right: 10px;
 }
 
-#main .joke p#share a {
+#main .joke p.share a {
 	color: #FFF;
 }
 
-#main .joke p#share iframe { 
+#main .joke p.share iframe { 
 	vertical-align:middle; 
 	padding-bottom: 2px; 
 }
-#main .joke p#share iframe.twitter-share-button {
+#main .joke p.share iframe.twitter-share-button {
 	padding-bottom: 3px;
 }
-#main div#joke.joke p#share span.right img {
+#main div#joke.joke p.share span.right img {
 	vertical-align: middle;
 }
 
 #main .joke p#refresh-joke {
 	display:none;
-	padding: 0;
+	padding: 0;	
 }
 
 #main .joke p#refresh-joke a {
@@ -196,6 +202,7 @@ body {
 	padding-top: 5px;
 	padding-bottom: 5px;
 	text-decoration: none;
+	color: #666;
 }
 #main .joke p#refresh-joke a:hover {
 	color: #333;
@@ -266,7 +273,7 @@ body {
 	padding-top: 1px;
 	padding-bottom: 2px;
 }
-#votes {
+.votes {
 	display: inline-block;
 }
 #share-site {
@@ -281,16 +288,12 @@ body {
 	display: block;
 }
 
-.arrow {
+.arrow, .fork {
 	vertical-align: middle;
 	cursor: pointer;
 }
-/* hide the 'alt text' */
-.thumb_up span, .thumb_down span {
-	display:none;
-}
 
-.thumb_up, .thumb_down, #vote-total {
+.vote-total {
 	display: inline-block;
 }
 
@@ -357,8 +360,51 @@ body {
 	background-color: transparent;
 }
 
-.star.favorited {
+.star.favorited, .star:hover {
 	background: url(favorited.png) no-repeat;
+}
+
+.fork {
+	display: inline-block;
+	padding-left: 20px;
+	height: 16px;
+	background: url(arrow_divide_down_faded.png) no-repeat;
+}
+.fork:hover {
+	background: url(arrow_divide_down.png) no-repeat;
+}
+
+#main .joke p#alternate-punchlines-button {
+	font-size:12pt;
+	display:none;
+	padding: 0;
+	background-color: #FFE340;
+}
+
+#main .joke p#alternate-punchlines-button a {
+	display:block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-decoration: none;
+	color: #666;
+}
+#main .joke p#alternate-punchlines-button a:hover {
+	background-color: #FFEB73;
+	color: #333;
+}
+
+#main .joke span#alternate_punchlines {
+	width: 100%;
+}
+
+#main .joke span#alternate_punchlines p.share {
+	display: block;
+	height: 23px;
+	border-top: none;
+}
+#main .joke span#alternate_punchlines p.punchline {
+	background-color: #BBCCAA;
+	border-top: 3px solid #333;
 }
 
 /* permalink styling */

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120328030336) do
+ActiveRecord::Schema.define(:version => 20120331212519) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -22,6 +22,21 @@ ActiveRecord::Schema.define(:version => 20120328030336) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "alternate_punchlines", :force => true do |t|
+    t.integer  "joke_id"
+    t.text     "punchline"
+    t.integer  "user_id"
+    t.integer  "up_votes",   :default => 0
+    t.integer  "down_votes", :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "alternate_punchlines", ["down_votes"], :name => "index_alternate_punchlines_on_down_votes"
+  add_index "alternate_punchlines", ["joke_id"], :name => "index_alternate_punchlines_on_joke_id"
+  add_index "alternate_punchlines", ["up_votes"], :name => "index_alternate_punchlines_on_up_votes"
+  add_index "alternate_punchlines", ["user_id"], :name => "index_alternate_punchlines_on_user_id"
 
   create_table "categories", :force => true do |t|
     t.string   "name"
@@ -54,6 +69,10 @@ ActiveRecord::Schema.define(:version => 20120328030336) do
     t.string   "bitly_url"
   end
 
+  add_index "jokes", ["down_votes"], :name => "index_jokes_on_down_votes"
+  add_index "jokes", ["up_votes"], :name => "index_jokes_on_up_votes"
+  add_index "jokes", ["user_id"], :name => "index_jokes_on_user_id"
+
   create_table "users", :force => true do |t|
     t.string   "uid"
     t.string   "name"
@@ -67,6 +86,8 @@ ActiveRecord::Schema.define(:version => 20120328030336) do
     t.string   "token"
     t.string   "secret"
   end
+
+  add_index "users", ["uid"], :name => "index_users_on_uid"
 
   create_table "votings", :force => true do |t|
     t.string   "voteable_type"

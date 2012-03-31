@@ -1,0 +1,13 @@
+<span class="votes">
+  <% up_img = "arrow_up_faded.png"%> 
+  <% if current_user && current_user.up_voted?(joke) %>
+    <% up_img = "arrow_up.png"%>
+  <% end %>
+  <%= link_to image_tag(up_img, :class=>"arrow up_arrow", :id => "up_arrow_#{id}", "data-orig-src" => "/images/#{up_img}"), upvote_path, :method => :get, :remote => true, :title => "Vote up" %>
+  <span class="vote_total" title="Total votes" id="vote_total_<%=id%>"><%= joke.votes %></span>
+  <% down_img = "arrow_down_faded.png"%> 
+  <% if current_user && current_user.down_voted?(joke) %>
+  <% down_img = "arrow_down.png"%>
+  <% end %>
+  <%= link_to image_tag(down_img, :class=>"arrow down_arrow", :id => "down_arrow_#{id}", "data-orig-src" => "/images/#{down_img}"), downvote_path, :method => :get, :remote => true, :title => "Vote down" %>
+</span>

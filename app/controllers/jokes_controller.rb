@@ -1,4 +1,8 @@
 class JokesController < ApplicationController
+
+  # set the @joke instance variable for certain methods
+  before_filter :attach_joke, :only => [:new, :show, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote]
+
   # GET /jokes
   # GET /jokes.xml
   def index
@@ -12,8 +16,7 @@ class JokesController < ApplicationController
 
   # GET /jokes/1
   # GET /jokes/1.xml
-  def show
-    @joke = Joke.find(params[:id])
+  def show    
     session[:joke_id] = @joke.id
     if @joke.bitly_url.nil?
       @joke.generate_bitly_url
@@ -30,8 +33,6 @@ class JokesController < ApplicationController
   # GET /jokes/new
   # GET /jokes/new.xml
   def new
-    @joke = Joke.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @joke }
@@ -39,15 +40,13 @@ class JokesController < ApplicationController
   end
 
   # GET /jokes/1/edit
-  def edit
-    @joke = Joke.find(params[:id])
+  def edit    
     redirect_to(@joke, :notice => "Sorry! You can't edit this joke.") unless @joke.user == current_user
   end
 
   # POST /jokes
   # POST /jokes.xml
   def create
-
     @joke = Joke.new(params[:joke])
     if current_user
       @joke.user = current_user
@@ -81,8 +80,6 @@ class JokesController < ApplicationController
   # PUT /jokes/1
   # PUT /jokes/1.xml
   def update
-    @joke = Joke.find(params[:id])
-
     respond_to do |format|
       if @joke.update_attributes(params[:joke])
         format.html { 
@@ -109,7 +106,6 @@ class JokesController < ApplicationController
   # DELETE /jokes/1
   # DELETE /jokes/1.xml
   def destroy
-    @joke = Joke.find(params[:id])
     redirect_to(@joke, :notice => "Sorry! Deleting jokes isn't allowed yet")
     #@joke.destroy
 
@@ -121,7 +117,6 @@ class JokesController < ApplicationController
   
   def favorite_toggle
     if current_user
-      @joke = Joke.find(params[:id])
       current_user.toggle_favorite(@joke)
       
       respond_to do |format|
@@ -138,7 +133,8 @@ class JokesController < ApplicationController
   
   def upvote
     if current_user
-      vote "up"
+      set_voting_element_ids "joke_#{@joke.id}"      
+      vote @joke, "up"
     else
       respond_to do |format|
         format.html { redirect_to(Joke.find(params[:id]), :notice => 'Please login to vote') }
@@ -149,7 +145,8 @@ class JokesController < ApplicationController
   
   def downvote
     if current_user
-      vote "down"
+      set_voting_element_ids "joke_#{@joke.id}"
+      vote @joke, "down"
     else
       respond_to do |format|
         format.html { redirect_to(Joke.find(params[:id]), :notice => 'Please login to vote') }
@@ -158,15 +155,14 @@ class JokesController < ApplicationController
     end
   end
   
-  def vote dir
-    @joke = Joke.find(params[:id])
-          
+  def vote joke, dir          
     begin
       if dir == "up"
-        current_user.up_vote(@joke)
+        current_user.up_vote(joke)
       else
-        current_user.down_vote(@joke)
+        current_user.down_vote(joke)
       end
+      @vote_total = joke.votes
     rescue MakeVoteable::Exceptions::AlreadyVotedError
       redirect_to(@joke, :notice => "You already voted this way. Who are you trying to fool?")
     end
@@ -175,6 +171,12 @@ class JokesController < ApplicationController
       format.html 
       format.js {render :layout => false}
     end
+  end
+
+  def set_voting_element_ids id
+    @up_arrow_id = "up_arrow_#{id}"
+    @down_arrow_id = "down_arrow_#{id}"
+    @vote_total_id = "vote_total_#{id}"
   end
   
   def feed
@@ -189,5 +191,10 @@ class JokesController < ApplicationController
     # Tweet the joke            
     client = Twitter::Client.new(:oauth_token => current_user.token, :oauth_token_secret => current_user.secret)
     client.update(@joke.question + " " + @joke.bitly_url)
+  end
+
+  # set the joke from the params, returns a new one if there is no joke with that id
+  def attach_joke
+    @joke = Joke.find(params[:id]) || Joke.new
   end
 end
