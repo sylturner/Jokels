@@ -4,16 +4,22 @@
   <div id="leaderboard">
     <%if @type == "jokes"%>
     <h3>
-      <% if @time == "today" %>Top jokes for <%= Date.today.strftime("%B %d") %><% end %>
-      <% if @time == "week" %>Top jokes for the week of <%= Date.today.beginning_of_week.strftime("%B %d") %><% end %>
-      <% if @time == "month" %>Top jokes for the month of <%= Time.now.strftime("%B") %><% end %>
-      <% if @time == "all-time" %>Top jokes of all time<% end %>
-      <% if @time == "newest" %>Newest jokes<% end %>
+	  <% if @time == "newest" %>Newest <% elsif @sort == "top" %>Top <% else %>Bottom <% end%>
+      <% if @time == "today" %>jokes for <%= Date.today.strftime("%B %d") %><% end %>
+      <% if @time == "week" %>jokes for the week of <%= Date.today.beginning_of_week.strftime("%B %d") %><% end %>
+      <% if @time == "month" %>jokes for the month of <%= Time.now.strftime("%B") %><% end %>
+      <% if @time == "all-time" %>jokes of all time<% end %>
+      <% if @time == "newest" %>jokes<% end %>
     </h3>
+	<% if @time != "newest" %>  
+		<% if @sort == "top" %> 
+		(<%= link_to "?sort=bottom&time=#{@time}" do%>See the <b>bottom</b> Jokes<% end %>)
+			<% else %> 
+		(<%= link_to "?sort=top&time=#{@time}" do%>See the <b>top</b> Jokes<% end %>)
+		<% end %> 
+	<% end %>
     <div id="leaderboard-jokes">
-      <!-- <a href="?type=jokes" <%if @type == "jokes"%>class="selected"<%end%> >Top Jokes </a> | <a href="?type=users">Top Users</a><br/> -->
-        <!--<strong>Top Jokes</strong><br/>-->
-        <a href="?time=today" <%if @time == "today" %>class="selected"<% end %>>today</a> | <a href="?time=week" <%if @time == "week" %>class="selected"<%end%>>this week</a> <!--| <a href="?time=month" <%if @time == "month" %>class="selected"<%end%>>this month</a>--> | <a href="?time=all-time" <%if @time == "all-time" %>class="selected"<%end%>>all time</a> | <a href="?time=newest" <%if @time == "newest" %>class="selected"<%end%>>newest</a>
+        <%= link_to "today", "?time=today&sort=#{@sort}", :class => (@time == "today" ? "selected" : "") %> | <%= link_to "week", "?time=week&sort=#{@sort}", :class => (@time == "week" ? "selected" : "") %> | <%= link_to "all time", "?time=all-time&sort=#{@sort}", :class => (@time == "all-time" ? "selected" : "") %> | <%= link_to "newest", "?time=newest", :class => (@time == "newest" ? "selected" : "") %>
         <% if @jokes.empty? %>
         <p><strong>No jokes yet!</strong></p>
         <% else %>

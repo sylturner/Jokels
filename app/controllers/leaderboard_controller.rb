@@ -4,17 +4,20 @@ class LeaderboardController < ApplicationController
      #sorting from highest to lowest for the past week is the default behavior    
      @time = params[:time] || "week"
      @type = params[:type] || "jokes"
+     @sort = params[:sort] || "top"
      @user_opts = params[:user_opts] || "most"
      if @type == "jokes"
+      sort_direction = @sort == "top" ? 1 : -1
+       
       case @time
       when "today"
-         @jokes = Joke.where(['created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).sort_by{|x| x.votes}.reverse[0...10]
+         @jokes = Joke.where(['created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
       when "week"    
-        @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now]).sort_by{|x| x.votes}.reverse[0...10]
+        @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now]).sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
       when "month"
-        @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).sort_by{|x| x.votes}.reverse[0...10]
+        @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
       when "all-time"
-        @jokes = Joke.all.sort_by{|x| x.votes}.reverse[0...10]
+        @jokes = Joke.all.sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
       when "newest"
         @jokes = Joke.all.reverse[0...10]
      end

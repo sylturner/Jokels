@@ -32,7 +32,7 @@ class HomeController < ApplicationController
   def random_joke
 
     rand_id = rand(Joke.count)
-    @joke = Joke.first(:conditions => [ "id >= ?", rand_id])
+    @joke = Joke.first(:conditions => [ "id >= ? and (up_votes - down_votes) >= -2", rand_id])
     session[:joke_id] = @joke.id
 
     if @joke.bitly_url.nil?

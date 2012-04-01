@@ -52,7 +52,7 @@ class Joke < ActiveRecord::Base
   # tweet yetserday's top joke
   # this method is more disgusting than I imagined
   def self.post_top_joke
-     top_joke = Joke.where(['created_at BETWEEN ? AND ?', Date.yesterday, Time.now]).sort_by{|x| x.votes}.reverse[0]
+     top_joke = Joke.where(['created_at BETWEEN ? AND ? AND (up_votes - down_votes) >= -2 ', Date.yesterday, Time.now]).sort_by{|x| x.votes}.reverse[0]
      # only tweet if there is a top joke from yesterday
      if top_joke
        # generate bitly url if it hasn't been generated yet (probably not an issue)
