@@ -1,0 +1,40 @@
+html, body {
+	height: 100%;
+}
+body { background-color: #F9F9F9; color: #333; }
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;	
+	font-size: 14px;
+  line-height: 14px;
+}
+a { color: #000;}
+a:visited { color: #666; }
+#notice {
+  color: green;
+}
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+body {
+	padding: 0;
+	margin: 0;
+	background: #FFF;
+}
+#header {
+	color: #DDD;
+	border-bottom: 3px solid #333;
+}
+#header a {
+	color: #FFF;
+	text-decoration: none;
+	font-size: 20px;
+}
+#header a:hover {
+	color: #EDEDED;
+}
+
+#header h1 {
+	font-family: 'Chewy', arial, serif;
+}
