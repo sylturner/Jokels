@@ -51,7 +51,7 @@ class Joke < ActiveRecord::Base
   
   # tweet yetserday's top joke
   # this method is more disgusting than I imagined
-  def self.post_top_joke]
+  def self.post_top_joke
      # Time.now - 1.day makes me feel like I'm using a language made for six year olds
      top_joke = Joke.where(['created_at BETWEEN ? AND ? AND (up_votes - down_votes) >= -2 ', Time.now-1.day-2.hour, Time.now-2.hour]).sort_by{|x| x.votes}.reverse[0]
      # only tweet if there is a top joke from yesterday
