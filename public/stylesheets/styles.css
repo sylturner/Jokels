@@ -169,12 +169,17 @@ body {
 	vertical-align: middle;
 }
 #main .joke p.share span.left {
-	margin-left: 10px;	
+	/*margin-left: 10px;*/
 }
 
 #main .joke p.share span.right {
 	float: right;
-	margin-right: 10px;
+	margin-right: 10px;	
+	margin-top: -20px;
+}
+
+#main .joke p.share span.right span {
+	vertical-align: middle;
 }
 
 #main .joke p.share a {
@@ -402,6 +407,12 @@ body {
 	height: 23px;
 	border-top: none;
 }
+#main .joke span#alternate_punchlines p.share span.left {
+	padding-left: 10px;
+}
+#main .joke span#alternate_punchlines p.share span.right{
+	margin-top: 0;}
+
 #main .joke span#alternate_punchlines p.punchline {
 	background-color: #BBCCAA;
 	border-top: 3px solid #333;
@@ -422,6 +433,12 @@ body {
 }
 .disclaimer {
 	font-size: 8pt;
+}
+
+.actions, .sharing {
+	margin-top:5px;
+	padding-left: 10px;
+	display: inline-block;
 }
 /* permalink styling */
 .ui-tooltip-content div {
