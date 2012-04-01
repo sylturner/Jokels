@@ -19,6 +19,7 @@ gem 'whenever', :git => 'git://github.com/javan/whenever.git', :require => false
 #gem 'bitly', :git => 'git://github.com/philnash/bitly.git'
 gem 'bitly', :git => 'git://github.com/sylturner/bitly.git'
 gem 'mobile-fu'
+gem 'twilio-ruby'
 
 # Use unicorn as the web server
 # gem 'unicorn'

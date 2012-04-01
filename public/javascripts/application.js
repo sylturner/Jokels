@@ -29,4 +29,9 @@ function enable_joke_stuff()
 	$('.down_arrow').hover(
 		function(){$(this).attr("src","/images/arrow_down.png")}, 
 		function(){$(this).attr("src", $(this).attr("data-orig-src"))});
+	$('#show-original').click(function(){
+		$("#answer").slideDown("fast");
+		$("#share").slideDown("fast");
+		$(this).slideUp("fast");
+	})
 }

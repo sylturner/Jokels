@@ -48,6 +48,23 @@ class Joke < ActiveRecord::Base
     self.bitly_url = response.short_url
     self.save!
   end
+
+  def sms_joke to
+    config = YAML.load_file("#{RAILS_ROOT}/config/application.yml")[RAILS_ENV]
+    account_sid = config["twilio"]["account_sid"]
+    auth_token = config["twilio"]["auth_token"]
+    from = config["twilio"]["from"]
+    body = "Q: #{self.question} A: #{self.answer} - jokels.com"
+    if body.length > 160
+      body = "Q: #{self.question} A: #{self.bitly_url}"
+      if body.length > 160
+        body = "Someone sent you a joke from Jokels.com! It's too long for SMS. View online at #{self.bitly_url}"
+      end
+    end
+
+    twilio = Twilio::REST::Client.new account_sid, auth_token
+    twilio.account.sms.messages.create(:from => from,:to => to,:body => body)
+  end
   
   # tweet yetserday's top joke
   # this method is more disgusting than I imagined

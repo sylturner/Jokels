@@ -1,3 +1,4 @@
-$("#alternate-punchlines-button").slideUp("fast");
+$("#show-original").slideDown("fast");
+$("#answer, #share, #alternate-punchlines-button").slideUp("fast");
 $("#alternate_punchlines").html("<%= escape_javascript(render :partial => 'alternate_punchlines') %>");
 $("#alternate_punchlines").slideDown("fast");

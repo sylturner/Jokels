@@ -13,6 +13,10 @@ development:
     api_version: 3
     username: 
     api_key: 
+  twilio:
+    account_sid: 
+    auth_token: 
+    from: 
 production:
   twitter:
     consumer_key: 
@@ -26,4 +30,8 @@ production:
   bitly:
     api_version: 3
     username: 
-    api_key: 
+    api_key:
+  twilio:
+    account_sid: 
+    auth_token: 
+    from: 

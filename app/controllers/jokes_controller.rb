@@ -1,7 +1,7 @@
 class JokesController < ApplicationController
 
   # set the @joke instance variable for certain methods
-  before_filter :attach_joke, :only => [:new, :show, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote]
+  before_filter :attach_joke, :only => [:new, :show, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote, :new_sms_joke, :send_sms_joke]
 
   # GET /jokes
   # GET /jokes.xml
@@ -201,4 +201,31 @@ class JokesController < ApplicationController
   def attach_joke
     @joke = Joke.find(params[:id]) || Joke.new
   end
+
+  def new_sms_joke
+    respond_to do |format|
+      format.html
+      format.js {render :layout => false}
+    end
+  end
+
+  def send_sms_joke
+    if params[:phone].length > 10 || params[:phone] =~ /\D/
+      respond_to do |format|
+        format.html { redirect_to(@joke, :notice => "Invalid phone number. Only use numbers. Don't use spaces, symbols, animals, or letters.") }
+      end
+    else
+      #begin
+        @joke.sms_joke params[:phone]        
+        respond_to do |format|
+          format.html { redirect_to(@joke, :notice => "Joke sent through SMS!") }          
+        end
+      # rescue => e
+      #   respond_to do |format|
+      #     format.html { redirect_to(@joke, :notice => "Sorry. There was some kind of problem sending your SMS. You can try again, see if that works.") }
+      #   end
+      # end
+    end
+  end
+    
 end

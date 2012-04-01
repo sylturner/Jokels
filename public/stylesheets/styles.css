@@ -288,7 +288,7 @@ body {
 	display: block;
 }
 
-.arrow, .fork {
+.arrow, .fork, .phone {
 	vertical-align: middle;
 	cursor: pointer;
 }
@@ -375,8 +375,8 @@ body {
 }
 
 #main .joke p#alternate-punchlines-button {
-	font-size:12pt;
-	display:none;
+	font-size: 12pt;
+	display: none;
 	padding: 0;
 	background-color: #FFE340;
 }
@@ -407,6 +407,22 @@ body {
 	border-top: 3px solid #333;
 }
 
+#main .joke p#show-original {
+	display:none;
+	font-size:10pt;
+	line-height:12pt;
+	display:none;
+	cursor: pointer;
+	padding: 0;
+	background-color: #FFE340;
+}
+#main .joke p#show-original:hover {
+	background-color: #FFEB73;
+	color: #333;
+}
+.disclaimer {
+	font-size: 8pt;
+}
 /* permalink styling */
 .ui-tooltip-content div {
 	padding-bottom: 3px;

@@ -1,0 +1,13 @@
+<%= form_tag(sms_joke_joke_path, :method => "post", :id=>"sms_form") do %>
+
+  <div class="field">
+    <label for="phone">Phone (just use the numbers, no dashes)
+    <input id="phone" name="phone" size="10" maxlength="10" />
+
+  </div>
+  <div class="actions">
+    <input type="submit" value="Send!" %>
+  </div>
+  <div class="disclaimer">Jokels won't charge you, but standard message and data rates charged by your wireless provider will apply.</div>
+
+<% end %>

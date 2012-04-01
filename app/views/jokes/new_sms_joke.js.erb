@@ -1,0 +1,3 @@
+$("#sms-joke").dialog({modal: true, title: "Send through text message!", width: 450});
+$("#sms-joke").html("<%= escape_javascript(render :partial => 'jokes/sms_form') %>");
+$("#phone").focus();

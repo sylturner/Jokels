@@ -7,6 +7,8 @@ Jokels::Application.routes.draw do
     get :upvote, :on => :member, :action => "upvote"
     get :downvote, :on => :member, :action => "downvote"
     get :favorite_toggle, :on => :member, :action => "favorite_toggle"
+    get :sms_joke, :on => :member, :action => "new_sms_joke"
+    post :sms_joke, :on => :member, :action => "send_sms_joke"
 
     resources :alternate_punchlines, :controller => "alternate_punchlines" do
       get :upvote, :on => :member, :action => "upvote"
