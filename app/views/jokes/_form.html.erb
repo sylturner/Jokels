@@ -17,9 +17,9 @@
     <br/>
     <%= f.label :answer, "Punchline!" %>
     <%= f.text_field :answer %>
-    <% if current_user && current_user.provider == "twitter" %>
+    <% if current_user && !current_user.token.nil? %>
       <br/>
-      <%= f.check_box :auto_tweet %> <%=f.label :auto_tweet, "Automatically tweet your joke?" %> 
+      <%= f.check_box :auto_post %> <%=f.label :auto_post, (current_user.provider == "facebook" ? "Automatically post your joke to Facebook?" : "Automatically tweet your joke?") %> 
     <% end %>
   </div>
   <div class="actions">

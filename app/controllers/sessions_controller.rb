@@ -26,10 +26,14 @@ class SessionsController < ApplicationController
     end
     
     user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) 
+    
     if user && user.provider == "twitter"
       # update their twitter access token
       user.token = auth["credentials"]["token"]
       user.secret = auth["credentials"]["secret"]
+      user.save!
+    elsif user && user.provider == "facebook"
+      user.token = auth["credentials"]["token"]
       user.save!
     elsif !user
       user = User.create_with_omniauth(auth)

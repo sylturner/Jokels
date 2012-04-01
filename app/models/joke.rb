@@ -11,8 +11,8 @@ class Joke < ActiveRecord::Base
   
   validates_presence_of :question, :answer
   
-  attr_reader :auto_tweet
-  attr_writer :auto_tweet
+  attr_reader :auto_post
+  attr_writer :auto_post
 
   after_create :generate_bitly_url
   

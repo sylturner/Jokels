@@ -50,7 +50,7 @@ class JokesController < ApplicationController
     @joke = Joke.new(params[:joke])
     if current_user
       @joke.user = current_user
-      if params[:joke][:auto_tweet]
+      if params[:joke][:auto_post]
       end
     end
     respond_to do |format|
@@ -58,12 +58,12 @@ class JokesController < ApplicationController
         notice = 'Joke was successfully created.'
         
         format.html { 
-          if current_user && params[:joke][:auto_tweet] == '1'
+          if current_user && params[:joke][:auto_post] == '1'
            begin
               tweet_joke
-              notice = 'Joke was updated and sent to Twitter'
+              notice = "Joke was updated and sent to #{current_user.provider.capitalize}"
             rescue => e
-              notice = 'Joke was updated, but unable to send to Twitter: ' + e.to_s
+              notice = "Joke was updated, but unable to post to #{current_user.provider.capitalize}: " + e.to_s
             end
           end
           redirect_to(@joke, :notice => notice) 
@@ -188,9 +188,13 @@ class JokesController < ApplicationController
   end
   
   def tweet_joke
-    # Tweet the joke            
-    client = Twitter::Client.new(:oauth_token => current_user.token, :oauth_token_secret => current_user.secret)
-    client.update(@joke.question + " " + @joke.bitly_url)
+    if current_user.provider == "twitter"
+      # Tweet the joke            
+      client = Twitter::Client.new(:oauth_token => current_user.token, :oauth_token_secret => current_user.secret)
+      client.update(@joke.question + " " + @joke.bitly_url)
+    elsif current_user.provider == "facebook"
+      FGraph.publish_feed('me', :message => @joke.question + " " + @joke.bitly_url, :access_token => current_user.token)
+    end
   end
 
   # set the joke from the params, returns a new one if there is no joke with that id
