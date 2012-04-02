@@ -11,8 +11,7 @@ class User < ActiveRecord::Base
       user.provider = auth["provider"]
       user.uid = auth["uid"]
       
-      user.name = auth["user_info"]["name"]
-      user.image_url = auth["user_info"]["image"]
+      user.name = auth["user_info"]["name"]      
       
       # use their twitter name as their name
       if auth["provider"] == "twitter"
@@ -20,9 +19,18 @@ class User < ActiveRecord::Base
         user.url = auth["user_info"]["urls"]["Twitter"]        
         user.token = auth["credentials"]["token"]
         user.secret = auth["credentials"]["secret"]
+        user.image_url = "https://api.twitter.com/1/users/profile_image?screen_name=#{user.name}&size=normal"
       elsif auth["provider"] == "facebook"
         user.url = auth["user_info"]["urls"]["Facebook"]        
+        user.image_url = auth["user_info"]["image"]
       end      
+    end
+  end
+
+  def self.update_twitter_user_profile_images
+    User.where(:provider => "twitter").each do |user|
+      user.image_url = "https://api.twitter.com/1/users/profile_image?screen_name=#{user.name}&size=normal"
+      user.save
     end
   end
   
