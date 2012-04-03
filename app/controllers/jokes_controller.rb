@@ -28,6 +28,7 @@ class JokesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @joke }
+      format.json { render :json => @joke }
     end
   end
 

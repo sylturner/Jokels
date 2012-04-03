@@ -29,6 +29,8 @@ Jokels::Application.routes.draw do
   end
   root :to => "home#index"
   
+  match "/random_joke_mobile" => 'home#random_joke_mobile'
+  
   match "/sms/receive" => 'jokes#receive_sms_request'
   
   match "/leaderboard" => "leaderboard#index"

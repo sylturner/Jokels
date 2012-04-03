@@ -19,6 +19,15 @@ class HomeController < ApplicationController
     end
   end
   
+  def random_joke_mobile
+    @joke = Joke.random_joke
+    session[:joke_id] = @joke.id
+    
+    respond_to do |format|
+      format.mobile {render :layout => false}
+    end
+  end
+  
   def refresh_joke
     random_joke
     generate_title @joke.question    

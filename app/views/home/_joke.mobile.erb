@@ -1,9 +1,41 @@
-<div data-role="collapsible" data-content-theme="c" data-iconpos="right" data-collapsed="false" data-icon="none">
-   <h3>Jokel <% if joke.user %> by <%= user_name(joke.user) %><% end %></h3>
-   <p><%= joke.question %></p>
-   <div data-role="collapsible" data-collapsed="true" data-content-theme="d" data-iconpos="right">
-	<h3>Punchline!</h3>
-	<p><%= joke.answer %></p>
+<div data-role="collapsible" data-content-theme="c" data-iconpos="right" data-collapsed="false" data-icon="none" id="jokel_block" data-content-theme="d">
+   <h3><span id="jokel_title">Jokel <% if joke.user %> by <%= user_name(joke.user) %><% end %></span></h3>
+   <p id="jokel_question"><%= joke.question %></p>
+   <div data-role="collapsible-set" data-content-theme="c">
+   	 <div data-role="collapsible" data-collapsed="true" data-content-theme="d" data-iconpos="right" id="punchline_div">
+		<h3>Punchline!</h3>
+		<p id="jokel_answer"><%= joke.answer %></p>
+	 </div>  
+     <% joke.alternate_punchlines.each_with_index do |alt_punchline, index| %>
+		<div data-role="collapsible" data-iconpos="right" data-collapsed="true" data-content-theme="d" >
+			<h3>Alternate Punchline <% if joke.alternate_punchlines.count > 1 %>#<%= index+1%><% end %></h3>
+			<p><%= alt_punchline.punchline %> <%if alt_punchline.user %> <strong><br/><br/>-by <%= user_name(alt_punchline.user)%></strong><% end %></p>
+		</div>
+     <% end %>
    </div>
-   <a href="/" data-role="button" data-ajax="false">Random Joke</a>
+   <a id="random_joke" href="#" data-role="button">Random Joke</a>
 </div>
+<script type="text/javascript">	
+
+	$( '#mobile_page' ).live( 'pageinit',function(event){
+	  	$("#random_joke").live("click", function(){
+			$.mobile.showPageLoadingMsg();
+			
+			$("#mobile-joke").fadeOut("medium", function(){
+				$.ajax({
+					  url: '/random_joke_mobile',
+					  success: function(data) {
+						$("#mobile-joke").html(data);
+						$("#mobile-joke").find('div[data-role=collapsible]').collapsible();
+						$("#mobile-joke").find('div[data-role=collapsible-set]').collapsibleset();
+						$("#mobile-joke").find('a[data-role=button]').button();
+						$("#mobile-joke").fadeIn("medium", function(){
+							$.mobile.hidePageLoadingMsg();
+						});
+					  }
+				});
+			});
+		});
+	});
+	
+</script>

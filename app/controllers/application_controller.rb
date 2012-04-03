@@ -37,7 +37,9 @@ class ApplicationController < ActionController::Base
   
   # puts an @ in front of Twitter names  
   def user_name user
-    if user.provider == "twitter"
+    if user.nil?
+      return nil
+    elsif user.provider == "twitter"
       return "@"+user.name
     else
       return user.name
@@ -45,8 +47,14 @@ class ApplicationController < ActionController::Base
   end
   
   def is_mobile
-    if session[:mobile_view].nil? || session[:mobile_view]
+    logger.debug params[:format]
+    
+    if (session[:mobile_view].nil? || session[:mobile_view]) && params[:format] != "json" && params[:format] != "js"
       request.format = :mobile if is_mobile_device?
+    elsif params[:format] == "json"
+      request.format = :json
+    elsif params[:format] == "js"
+      request.format = :js
     else
       request.format = :html
     end
