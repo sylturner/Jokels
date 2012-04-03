@@ -2,6 +2,7 @@ class JokesController < ApplicationController
 
   # set the @joke instance variable for certain methods
   before_filter :attach_joke, :only => [:new, :show, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote, :new_sms_joke, :send_sms_joke]
+  skip_before_filter :verify_authenticity_token, :only => [:receive_sms_request]
 
   # GET /jokes
   # GET /jokes.xml
@@ -225,6 +226,27 @@ class JokesController < ApplicationController
       #     format.html { redirect_to(@joke, :notice => "Sorry. There was some kind of problem sending your SMS. You can try again, see if that works.") }
       #   end
       # end
+    end
+  end
+  
+  def receive_sms_request
+    body = params[:Body]
+    number = params[:From]
+    
+    logger.debug "Body of text: " + body
+    logger.debug "From number: " + number
+    
+    body.downcase! #to lower case
+    message_sent = false
+    
+    if (body.include? "jokel me") || (body.include? "joke me")
+      joke = Joke.random_joke
+      joke.sms_joke number
+      message_sent = true
+    end
+    
+    respond_to do |format|
+      format.html {render :layout => false, :notice => message_sent ? "Message Sent" : "Message not sent, body is probably wrong fromat."}
     end
   end
     

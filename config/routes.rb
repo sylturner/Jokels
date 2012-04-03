@@ -29,6 +29,8 @@ Jokels::Application.routes.draw do
   end
   root :to => "home#index"
   
+  match "/sms/receive" => 'jokes#receive_sms_request'
+  
   match "/leaderboard" => "leaderboard#index"
   
   match '/feed' => 'jokes#feed', :as => :feed, :defaults => { :format => 'atom' }

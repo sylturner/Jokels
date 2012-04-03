@@ -122,6 +122,17 @@ class Joke < ActiveRecord::Base
 
         FGraph.publish_feed('me', :message => fb_post, :access_token => settings["facebook"]["page_access_token"])
      end
-   end  
+   end
+   
+   def self.random_joke
+     result_joke = nil
+     
+     while result_joke.nil?
+      rand_id = rand(Joke.count)
+      result_joke = Joke.first(:conditions => [ "id >= ? and (up_votes - down_votes) >= -2", rand_id])
+     end
+     
+     result_joke
+   end
    
 end
