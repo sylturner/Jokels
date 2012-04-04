@@ -1,0 +1,24 @@
+<div data-role="collapsible" data-content-theme="c" data-iconpos="right" data-collapsed="false" data-icon="none" id="user_block" data-content-theme="d">
+   <h3><%= user_name(@user)%>'s Profile</h3>
+   <p>
+	<ul data-role="listview" data-theme="c" data-inset="true">
+		<li>Authored Jokes
+			<ul data-role="listview" data-theme="c">
+				<% @jokes.each do |joke| %>
+			      <li><%= link_to joke.question, joke, :role => "button" %></li>
+			    <% end %>
+			</ul>
+		</li>
+		<li>Favorite Jokes
+			<ul data-role="listview" data-theme="c">
+				<% @favorite_jokes.each do |favorite| %>
+			      <li><%= link_to favorite.joke.question, favorite.joke, :role => "button" %></li>
+			    <% end %>
+			</ul>
+		</li>
+	</ul>
+	<%= image_tag(@user.image_url, :class => "profile_pic")%> 
+	<a id="profile_link" data-role="button" data-inline="true" data-iconpos="right" data-icon="arrow-r" data-theme="b" href="<%= @user.url %>"><%= @user.provider.capitalize %> Profile</a>
+   </p>
+</div>
+

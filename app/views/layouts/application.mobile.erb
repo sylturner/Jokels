@@ -26,7 +26,7 @@
 		<h1><a href="/">Jokels</a><%if Rails.env == "development"%> - dev <% end %></h1>
 		</div>
 
-		<div data-role="content" class="wrapper">
+		<div data-role="content" class="wrapper" data-content-theme="c">
 	      <%= yield %>
 		</div>
 
@@ -40,6 +40,33 @@
 
 	</div>
 	
+	<script type="text/javascript">	
+
+		$( '#mobile_page' ).live( 'pageinit',function(event){
+			currentPage = event.currentTarget;
+		  	$(currentPage).find("#random_joke").live("click", function(){
+				$.mobile.showPageLoadingMsg();
+
+				var jokeDiv = $(currentPage).find("#mobile-joke")
+				jokeDiv.fadeOut("medium", function(){
+					$.ajax({
+						  url: '/random_joke_mobile',
+						  success: function(data) {
+							jokeDiv.html(data);
+							jokeDiv.find('div[data-role=collapsible]').collapsible();
+							jokeDiv.find('div[data-role=collapsible-set]').collapsibleset();
+							jokeDiv.find('div[data-role=controlgroup]').controlgroup();
+							jokeDiv.find('a[data-role=button]').button();
+							jokeDiv.fadeIn("medium", function(){
+								$.mobile.hidePageLoadingMsg();
+							});
+						  }
+					});
+				});
+			});
+		});
+
+	</script>
   <%- if Rails.env == "production" -%>
   <script type="text/javascript">
 

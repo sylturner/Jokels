@@ -5,7 +5,6 @@ body { background-color: #F9F9F9; color: #333; }
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;	
 	font-size: 14px;
-  line-height: 14px;
 }
 a { color: #000;}
 a:visited { color: #666; }
@@ -37,4 +36,10 @@ body {
 
 #header h1 {
 	font-family: 'Chewy', arial, serif;
+}
+
+.profile_pic
+{
+	position: relative;
+	top:17px;
 }

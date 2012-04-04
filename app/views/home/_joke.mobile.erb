@@ -13,29 +13,6 @@
 		</div>
      <% end %>
    </div>
-   <a id="random_joke" href="#" data-role="button">Random Joke</a>
+   	<a id="random_joke" href="#" data-role="button" data-icon="refresh" data-iconpos ="right">Random Joke</a>
+   	<%if joke.user %> <%= link_to "Author Profile", joke.user, "data-role" => "button", "data-icon" => "arrow-r", "data-iconpos" => "right" %> <% end %>
 </div>
-<script type="text/javascript">	
-
-	$( '#mobile_page' ).live( 'pageinit',function(event){
-	  	$("#random_joke").live("click", function(){
-			$.mobile.showPageLoadingMsg();
-			
-			$("#mobile-joke").fadeOut("medium", function(){
-				$.ajax({
-					  url: '/random_joke_mobile',
-					  success: function(data) {
-						$("#mobile-joke").html(data);
-						$("#mobile-joke").find('div[data-role=collapsible]').collapsible();
-						$("#mobile-joke").find('div[data-role=collapsible-set]').collapsibleset();
-						$("#mobile-joke").find('a[data-role=button]').button();
-						$("#mobile-joke").fadeIn("medium", function(){
-							$.mobile.hidePageLoadingMsg();
-						});
-					  }
-				});
-			});
-		});
-	});
-	
-</script>
