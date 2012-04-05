@@ -35,8 +35,8 @@
 		<div data-role="footer" class="ui-bar" data-position="fixed">
 			<div data-role="controlgroup" data-type="horizontal">
 				<a href="/" data-role="button" data-icon="home" data-ajax="false">Home</a>
-				<%= link_to "All jokes", jokes_path %>
-				<!-- <a href="/full_version" data-role="button" data-ajax="false">Full Version</a> -->
+				<!-- <%= link_to "All jokes", jokes_path %> -->
+				<a href="/full_version" data-role="button" data-ajax="false">Full Version</a>
 				<% if current_user %> 
 					<%=link_to "My Profile", current_user, "data-role" => "button" %>
 				<% else %>
