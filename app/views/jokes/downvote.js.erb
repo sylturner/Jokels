@@ -1,8 +1,18 @@
-<% if current_user %>
-	$("#<%= @down_arrow_id %>").unbind('mouseenter mouseleave');
-	$("#<%= @down_arrow_id %>").attr("src", "/images/arrow_down.png");
-	$("#<%= @up_arrow_id %>").attr("src", "/images/arrow_up_faded.png");
-	$("#<%= @vote_total_id %>").html("<%= @vote_total %>");
+<% if is_mobile_device? %>
+	<% if current_user %>
+		$(".ui-page-active").find("#vote-down").addClass("ui-btn-active");
+		$(".ui-page-active").find("#vote-up").removeClass("ui-btn-active");
+		$(".ui-page-active").find("#vote-total").html("<%= @vote_total %>")
+	<% else %>
+		// notice that the user should be logged in
+	<% end %>
 <% else %>
-	$("#notice").html("Please login to vote.");
+	<% if current_user %>
+		$("#<%= @down_arrow_id %>").unbind('mouseenter mouseleave');
+		$("#<%= @down_arrow_id %>").attr("src", "/images/arrow_down.png");
+		$("#<%= @up_arrow_id %>").attr("src", "/images/arrow_up_faded.png");
+		$("#<%= @vote_total_id %>").html("<%= @vote_total %>");
+	<% else %>
+		$("#notice").html("Please login to vote.");
+	<% end %>
 <% end %>

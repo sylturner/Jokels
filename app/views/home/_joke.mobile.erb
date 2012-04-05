@@ -14,5 +14,19 @@
      <% end %>
    </div>
    	<a id="random_joke" href="#" data-role="button" data-icon="refresh" data-iconpos ="right">Random Joke</a>
+	<% if current_user %>
+		<div align="center">
+			<% downvoteClass = current_user.down_voted?(joke) ? "ui-btn-active" : "" %>
+			<% upvoteClass = current_user.up_voted?(joke) ? "ui-btn-active" : "" %>
+			<% favoriteClass = current_user.favorited?(joke) ? "ui-btn-active" : "" %>
+			<strong> Score: <span id="vote-total"> <%= joke.votes %> </span> </strong> 
+			<span id="upvote_path" style="display:none"><%= upvote_joke_path(joke) %></span>
+			<span id="downvote_path" style="display:none"><%= downvote_joke_path(joke) %></span>
+			<span id="favorite_path" style="display:none"><%= favorite_toggle_joke_path(joke)%></span><br/>
+			<a href="#" data-role="button" data-icon="arrow-u" data-inline="true" data-mini="true" id="vote-up" data-inline="true" class="<%= upvoteClass%>" > Vote Up</a>
+			<a href="#" data-role="button" data-icon="arrow-d" data-inline="true" data-iconpos="right" data-mini="true" id="vote-down" data-inline="true" class="<%= downvoteClass%>"> Vote Down</a>
+			<a href="#" data-role="button" data-icon="star" id="favorite-button" class="<%= favoriteClass %>" > Favorite </a>	
+		</div>
+	<% end %>
    	<%if joke.user %> <%= link_to "Author Profile", joke.user, "data-role" => "button", "data-icon" => "arrow-r", "data-iconpos" => "right" %> <% end %>
 </div>

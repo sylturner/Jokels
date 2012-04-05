@@ -47,13 +47,12 @@ class ApplicationController < ActionController::Base
   end
   
   def is_mobile
-    logger.debug params[:format]
+    logger.debug "in is_mobile"
+    logger.debug "is_mobile format: " + request.format
     
-    if (session[:mobile_view].nil? || session[:mobile_view]) && params[:format] != "json" && params[:format] != "js"
+    if (session[:mobile_view].nil? || session[:mobile_view]) && request.format != "text/javascript"
       request.format = :mobile if is_mobile_device?
-    elsif params[:format] == "json"
-      request.format = :json
-    elsif params[:format] == "js"
+    elsif request.format == "text/javascript"
       request.format = :js
     else
       request.format = :html

@@ -1,5 +1,9 @@
-<% if current_user %>
-	$(".star").toggleClass("favorited");
+<% if is_mobile_device? %>
+	$(".ui-page-active").find("#favorite-button").toggleClass("ui-btn-active");
 <% else %>
-	$("#notice").html("Please login to favorite!");
+	<% if current_user %>
+		$(".star").toggleClass("favorited");
+	<% else %>
+		$("#notice").html("Please login to favorite!");
+	<% end %>
 <% end %>

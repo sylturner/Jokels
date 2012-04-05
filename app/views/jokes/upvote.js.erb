@@ -1,9 +1,14 @@
-<% if current_user %>
-	$("#<%= @up_arrow_id %>").unbind('mouseenter mouseleave');
-	$("#<%= @up_arrow_id %>").attr("src", "/images/arrow_up.png");
-	$("#<%= @down_arrow_id %>").attr("src", "/images/arrow_down_faded.png");
-	$("#<%= @vote_total_id %>").html("<%= @vote_total %>");
+<% if is_mobile_device? %>
+	$(".ui-page-active").find("#vote-up").addClass("ui-btn-active");
+	$(".ui-page-active").find("#vote-down").removeClass("ui-btn-active");
+	$(".ui-page-active").find("#vote-total").html("<%= @vote_total %>")
 <% else %>
-	$("#notice").html("Please login to vote.");
+	<% if current_user %>
+		$("#<%= @up_arrow_id %>").unbind('mouseenter mouseleave');
+		$("#<%= @up_arrow_id %>").attr("src", "/images/arrow_up.png");
+		$("#<%= @down_arrow_id %>").attr("src", "/images/arrow_down_faded.png");
+		$("#<%= @vote_total_id %>").html("<%= @vote_total %>");
+	<% else %>
+		$("#notice").html("Please login to vote.");
+	<% end %>
 <% end %>
-

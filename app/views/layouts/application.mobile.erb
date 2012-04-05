@@ -3,10 +3,12 @@
 <head>
   <title><%=@title%></title>
   <link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+  <link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" />
   <%= stylesheet_link_tag "/stylesheets/styles.mobile.css"%>
 
   <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
   <script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js" > </script>
+  <script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.min.js"></script>
   <%= javascript_include_tag "/javascripts/application.js" %>
   <%= csrf_meta_tag %>
   <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
@@ -34,7 +36,12 @@
 			<div data-role="controlgroup" data-type="horizontal">
 				<a href="/" data-role="button" data-icon="home" data-ajax="false">Home</a>
 				<%= link_to "All jokes", jokes_path %>
-				<a href="/full_version" data-role="button" data-ajax="false">Full Version</a>
+				<!-- <a href="/full_version" data-role="button" data-ajax="false">Full Version</a> -->
+				<% if current_user %> 
+					<%=link_to "My Profile", current_user, "data-role" => "button" %>
+				<% else %>
+					<a href="#" data-role="button" id="mobile-signin">Sign In</a>
+				<% end %> 
 			</div>
 		</div>
 
@@ -44,6 +51,43 @@
 
 		$( '#mobile_page' ).live( 'pageinit',function(event){
 			currentPage = event.currentTarget;
+			
+			$(currentPage).find("#vote-up").live("click", function(){
+				if ( $(this).hasClass("ui-btn-active") )
+					return;
+					
+				var upvote_path = $("#upvote_path").html();
+				
+				$.ajax({
+				  type: "GET",
+				  url: upvote_path,
+				  dataType: "script"
+				});
+			});
+			
+			$(currentPage).find("#vote-down").live("click", function(){
+				if ( $(this).hasClass("ui-btn-active") )
+					return;
+					
+				var downvote_path = $("#downvote_path").html();
+				
+				$.ajax({
+				  type: "GET",
+				  url: downvote_path,
+				  dataType: "script"
+				});
+			});
+			
+			$(currentPage).find("#favorite-button").live("click", function(){
+				var favorite_path = $("#favorite_path").html();
+				
+				$.ajax({
+				  type: "GET",
+				  url: favorite_path,
+				  dataType: "script"
+				});
+			});
+			
 		  	$(currentPage).find("#random_joke").live("click", function(){
 				$.mobile.showPageLoadingMsg();
 
@@ -64,6 +108,28 @@
 					});
 				});
 			});
+		});
+		
+		$("#mobile-signin").live("click", function(){
+			$('<div>').simpledialog2({
+			    mode: 'button',
+			    headerText: 'Sign In',
+			    headerClose: true,
+			    buttonPrompt: 'Please choose a sign in method:',
+			    buttons : {
+			      'Twitter': {
+			        click: function () { 
+			          window.location.href = "/auth/twitter";
+			        }
+			      },
+			      'Facebook': {
+			        click: function () { 
+			          window.location.href = "/auth/facebook";
+			          $('#buttonoutput').text('Cancel');
+			        }
+			      }
+			    }
+			  });
 		});
 
 	</script>

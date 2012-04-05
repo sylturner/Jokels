@@ -18,7 +18,10 @@
 		</li>
 	</ul>
 	<%= image_tag(@user.image_url, :class => "profile_pic")%> 
-	<a id="profile_link" data-role="button" data-inline="true" data-iconpos="right" data-icon="arrow-r" data-theme="b" href="<%= @user.url %>"><%= @user.provider.capitalize %> Profile</a>
+	<a id="profile_link" data-role="button" data-inline="true" data-iconpos="right" data-icon="arrow-r" data-theme="b" href="<%= @user.url %>"><%= @user.provider.capitalize %> Profile</a> <br/>
+	<% if current_user && @user == current_user %>
+		<%= link_to "Sign Out", signout_path, "data-role" => "button", "data-icon" => "delete" %>
+	<% end%>
    </p>
 </div>
 
