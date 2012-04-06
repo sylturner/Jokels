@@ -9,7 +9,7 @@ class LeaderboardController < ApplicationController
      @jokes = Array.new
      @users = Array.new
     
-     sort_direction = @sort == "top" ? 1 : -1
+     sort_direction = @sort == "bottom" ? -1 : 1
      if @sort_type == "joke"
        
       case @time
@@ -31,13 +31,13 @@ class LeaderboardController < ApplicationController
        if @sort == "most"
          case @time
           when "today"
-            user_jokes = Joke.select("user_id, count(id) as total_jokes").where(['user_id is not null and created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).group("user_id").having("count(1) > 0").sort_by{|x| (x.total_jokes)}.reverse[0...10]
+            user_jokes = Joke.select("user_id, count(id) as total_jokes").where(['user_id is not null and created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).group("user_id").having("count(1) > 0").sort_by{|x| (x.total_jokes.to_i())}.reverse[0...10]
           when "week"
-            user_jokes = Joke.select("user_id, count(id) as total_jokes").where(['user_id is not null and created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now]).group("user_id").having("count(1) > 0").sort_by{|x| (x.total_jokes)}.reverse[0...10]
+            user_jokes = Joke.select("user_id, count(id) as total_jokes").where(['user_id is not null and created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now]).group("user_id").having("count(1) > 0").sort_by{|x| (x.total_jokes.to_i())}.reverse[0...10]
           when "month"
-            user_jokes = Joke.select("user_id, count(id) as total_jokes").where(['user_id is not null and created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).group("user_id").having("count(1) > 0").sort_by{|x| (x.total_jokes)}.reverse[0...10]
+            user_jokes = Joke.select("user_id, count(id) as total_jokes").where(['user_id is not null and created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).group("user_id").having("count(1) > 0").sort_by{|x| (x.total_jokes.to_i())}.reverse[0...10]
           when "all-time"
-            user_jokes = Joke.select("user_id, count(id) as total_jokes").where("user_id is not null").group("user_id").sort_by{|x| (x.total_jokes)}.reverse[0...10]
+            user_jokes = Joke.select("user_id, count(id) as total_jokes").where("user_id is not null").group("user_id").sort_by{|x| (x.total_jokes.to_i())}.reverse[0...10]
           end
        else
          case @time
