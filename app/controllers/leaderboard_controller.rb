@@ -1,13 +1,16 @@
 class LeaderboardController < ApplicationController
 
   def index 
-     #sorting from highest to lowest for the past week is the default behavior    
+     #sorting from highest to lowest for the past week is the default behavior  
      @time = params[:time] || "week"
-     @type = params[:type] || "jokes"
+     @sort_type = params[:sort_type] || "joke"
      @sort = params[:sort] || "top"
-     @user_opts = params[:user_opts] || "most"
-     if @type == "jokes"
-      sort_direction = @sort == "top" ? 1 : -1
+     
+     @jokes = Array.new
+     @users = Array.new
+    
+     sort_direction = @sort == "top" ? 1 : -1
+     if @sort_type == "joke"
        
       case @time
       when "today"
@@ -21,16 +24,32 @@ class LeaderboardController < ApplicationController
       when "newest"
         @jokes = Joke.all.reverse[0...10]
      end
-     elsif @type == "users"
-       case @user_opts
-       when "most"
-         @users = User.all.sort_by{|u| u.jokes.size}.reverse
-       when "best-week"
-         # user with most best vote total for jokes written this week
-       end
+     elsif @sort_type == "user"
+       @users = nil
+       user_jokes = Array.new
+       case @time
+       when "today"
+         user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").where(['created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).group("user_id").having("sum(up_votes + down_votes) > 0").sort_by{|x| (sort_direction*(x.total_votes||=0))}.reverse[0...10]
+       when "week"
+         user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now]).group("user_id").having("sum(up_votes + down_votes) > 0").sort_by{|x| (sort_direction*(x.total_votes||=0))}.reverse[0...10]
+       when "month"
+         user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).group("user_id").having("sum(up_votes + down_votes) > 0").sort_by{|x| (sort_direction*(x.total_votes||=0))}.reverse[0...10]
+       when "all-time"
+         user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").sort_by{|x| (sort_direction*x.total_votes)}.reverse[0...10]
+       when "newest"
+         @users = User.all.reverse[0...10]
+      end
+      
+      if @users.nil? 
+        @users = Array.new
+        user_jokes.each do |user_joke|
+          @users.push(user_joke.user)
+        end
+      end
         
      end
      
+     logger.debug "Sort type: " + @sort_type
      generate_title "Leaderboards"
         
     respond_to do |format|

@@ -1,49 +1,51 @@
 <div id="jokes-list">
-  <h2>Leaderboards</h2> 
+  <% sort_type_plural = @sort_type + "s" %>
+  <% sort_type_title = @sort_type.capitalize %>
+  <% alternate_title = @sort_type == "joke" ? "User" : "Joke" %>
+  <% alternate_type = alternate_title.downcase%>
+  <h2 style="padding-bottom:0px"><%= sort_type_title %> Leaderboards</h2>
+  (<%= link_to "?time=#{@time}&sort=#{@sort}&sort_type=#{alternate_type}" do%>Go to the <b><%= alternate_title %></b> Leaderboards<% end%>)<br/> <br/>
+  
   
   <div id="leaderboard">
-    <%if @type == "jokes"%>
     <h3>
 	  <% if @time == "newest" %>Newest <% elsif @sort == "top" %>Top <% else %>Bottom <% end%>
-      <% if @time == "today" %>jokes for <%= Date.today.strftime("%B %d") %><% end %>
-      <% if @time == "week" %>jokes for the week of <%= Date.today.beginning_of_week.strftime("%B %d") %><% end %>
-      <% if @time == "month" %>jokes for the month of <%= Time.now.strftime("%B") %><% end %>
-      <% if @time == "all-time" %>jokes of all time<% end %>
-      <% if @time == "newest" %>jokes<% end %>
+      <% if @time == "today" %><%= sort_type_plural %> for <%= Date.today.strftime("%B %d") %><% end %>
+      <% if @time == "week" %><%= sort_type_plural %> for the week of <%= Date.today.beginning_of_week.strftime("%B %d") %> - <%= Date.today.end_of_week.strftime("%B %d") %><% end %>
+      <% if @time == "month" %><%= sort_type_plural %> for the month of <%= Time.now.strftime("%B") %><% end %>
+      <% if @time == "all-time" %><%= sort_type_plural %> of all time<% end %>
+      <% if @time == "newest" %><%= sort_type_plural %><% end %>
     </h3>
 	<% if @time != "newest" %>  
 		<% if @sort == "top" %> 
-		(<%= link_to "?sort=bottom&time=#{@time}" do%>See the <b>bottom</b> Jokes<% end %>)
+		(<%= link_to "?sort=bottom&time=#{@time}&sort_type=#{@sort_type}" do%>See the <b>bottom</b> <%= sort_type_plural %><% end %>)
 			<% else %> 
-		(<%= link_to "?sort=top&time=#{@time}" do%>See the <b>top</b> Jokes<% end %>)
+		(<%= link_to "?sort=top&time=#{@time}&sort_type=#{@sort_type}" do%>See the <b>top</b> <%= sort_type_plural %><% end %>)
 		<% end %> 
 	<% end %>
     <div id="leaderboard-jokes">
-        <%= link_to "today", "?time=today&sort=#{@sort}", :class => (@time == "today" ? "selected" : "") %> | <%= link_to "week", "?time=week&sort=#{@sort}", :class => (@time == "week" ? "selected" : "") %> | <%= link_to "all time", "?time=all-time&sort=#{@sort}", :class => (@time == "all-time" ? "selected" : "") %> | <%= link_to "newest", "?time=newest", :class => (@time == "newest" ? "selected" : "") %>
-        <% if @jokes.empty? %>
-        <p><strong>No jokes yet!</strong></p>
-        <% else %>
-      <ol>
-        <% @jokes.each_with_index do |joke, index| %>
-          <li id="joke-list-<%=index%>" class="joke-list-item"><%= link_to joke.question, joke %></li>  
-        <% end %>
-      </ol>
-      <% end %>
+        <%= link_to "today", "?time=today&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "today" ? "selected" : "") %> | <%= link_to "week", "?time=week&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "week" ? "selected" : "") %> | <%= link_to "month", "?time=month&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "month" ? "selected" : "") %> | <%= link_to "all time", "?time=all-time&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "all-time" ? "selected" : "") %> | <%= link_to "newest", "?time=newest&sort_type=#{@sort_type}", :class => (@time == "newest" ? "selected" : "") %>
+		<% if @sort_type == "joke"%>		
+	        <% if @jokes.empty? %>
+	        	<p><strong>No jokes for this time frame yet!</strong></p>
+		        <% else %>
+		      <ol>
+		        <% @jokes.each_with_index do |joke, index| %>
+		          <li id="joke-list-<%=index%>" class="joke-list-item"><%= link_to joke.question, joke %></li>  
+		        <% end %>
+		      </ol>
+		    <% end %>
+		<% else %>
+	        <% if @users.empty? %>
+	        	<p><strong>No users for this time frame yet!</strong></p>
+		        <% else %>
+		      <ol>
+		        <% @users.each_with_index do |user, index| %>
+		          <li id="joke-list-<%=index%>" class="joke-list-item"><%= link_to user_name(user), user %></li>  
+		        <% end %>
+		      </ol>
+		    <% end %>		
+		<% end %>
     </div>
-    <% elsif @type =="users" %>
-    
-    <div id="leaderboard-users">
-      Users: <a href="?type=users&amp;user_opts=most">most jokes this week</a> | <a href="?type=users&amp;user_opts=best-week">best jokes this week</a> | <a href="#">worst jokes this week</a> | <a href="#">voted the most</a>
-      <ul>
-        <% @users.each_with_index do |joke, index| %>
-          <% if index == 0 %>
-            <li id="top-user"><%= link_to joke.question, joke %></li>
-          <% else %>
-            <li><%= link_to joke.question, joke %></li>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>
-    <%end %>
   </div>
 </div>
