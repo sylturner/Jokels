@@ -27,18 +27,32 @@ class LeaderboardController < ApplicationController
      elsif @sort_type == "user"
        @users = nil
        user_jokes = Array.new
-       case @time
-       when "today"
-         user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").where(['created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).group("user_id").having("sum(up_votes + down_votes) > 0").sort_by{|x| (sort_direction*(x.total_votes||=0))}.reverse[0...10]
-       when "week"
-         user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now]).group("user_id").having("sum(up_votes + down_votes) > 0").sort_by{|x| (sort_direction*(x.total_votes||=0))}.reverse[0...10]
-       when "month"
-         user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).group("user_id").having("sum(up_votes + down_votes) > 0").sort_by{|x| (sort_direction*(x.total_votes||=0))}.reverse[0...10]
-       when "all-time"
-         user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").sort_by{|x| (sort_direction*x.total_votes)}.reverse[0...10]
-       when "newest"
-         @users = User.all.reverse[0...10]
-      end
+       
+       if @sort == "most"
+         case @time
+          when "today"
+            user_jokes = Joke.select("user_id, count(1) as total_jokes").where(['created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).group("user_id").having("count(1) > 0").sort_by{|x| (x.total_jokes)}.reverse[0...10]
+          when "week"
+            user_jokes = Joke.select("user_id, count(1) as total_jokes").where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now]).group("user_id").having("count(1) > 0").sort_by{|x| (x.total_jokes)}.reverse[0...10]
+          when "month"
+            user_jokes = Joke.select("user_id, count(1) as total_jokes").where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).group("user_id").having("count(1) > 0").sort_by{|x| (x.total_jokes)}.reverse[0...10]
+          when "all-time"
+            user_jokes = Joke.select("user_id, count(1) as total_jokes").sort_by{|x| (x.total_jokes)}.reverse[0...10]
+          end
+       else
+         case @time
+         when "today"
+           user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").where(['created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).group("user_id").having("sum(up_votes + down_votes) > 0").sort_by{|x| (sort_direction*(x.total_votes||=0))}.reverse[0...10]
+         when "week"
+           user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now]).group("user_id").having("sum(up_votes + down_votes) > 0").sort_by{|x| (sort_direction*(x.total_votes||=0))}.reverse[0...10]
+         when "month"
+           user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).group("user_id").having("sum(up_votes + down_votes) > 0").sort_by{|x| (sort_direction*(x.total_votes||=0))}.reverse[0...10]
+         when "all-time"
+           user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").sort_by{|x| (sort_direction*x.total_votes)}.reverse[0...10]
+         when "newest"
+           @users = User.all.reverse[0...10]
+         end
+       end
       
       if @users.nil? 
         @users = Array.new

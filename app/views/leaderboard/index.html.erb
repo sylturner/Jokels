@@ -9,22 +9,32 @@
   
   <div id="leaderboard">
     <h3>
-	  <% if @time == "newest" %>Newest <% elsif @sort == "top" %>Top <% else %>Bottom <% end%>
+	  <% if @time == "newest" %>Newest <% elsif @sort == "top" %>Top <% elsif @sort == "most" %>Most prolific <% else %>Bottom <% end%>
       <% if @time == "today" %><%= sort_type_plural %> for <%= Date.today.strftime("%B %d") %><% end %>
       <% if @time == "week" %><%= sort_type_plural %> for the week of <%= Date.today.beginning_of_week.strftime("%B %d") %> - <%= Date.today.end_of_week.strftime("%B %d") %><% end %>
       <% if @time == "month" %><%= sort_type_plural %> for the month of <%= Time.now.strftime("%B") %><% end %>
       <% if @time == "all-time" %><%= sort_type_plural %> of all time<% end %>
       <% if @time == "newest" %><%= sort_type_plural %><% end %>
     </h3>
-	<% if @time != "newest" %>  
-		<% if @sort == "top" %> 
-		(<%= link_to "?sort=bottom&time=#{@time}&sort_type=#{@sort_type}" do%>See the <b>bottom</b> <%= sort_type_plural %><% end %>)
-			<% else %> 
-		(<%= link_to "?sort=top&time=#{@time}&sort_type=#{@sort_type}" do%>See the <b>top</b> <%= sort_type_plural %><% end %>)
-		<% end %> 
+	<% if @time != "newest" %>
+	    <% if @sort_type == "user" %>
+			<% if @sort == "top" %> 
+				(See the <b><%= link_to "bottom", "?sort=bottom&time=#{@time}&sort_type=#{@sort_type}" %></b> or <b><%= link_to "most prolific", "?sort=most&time=#{@time}&sort_type=#{@sort_type}" %></b> <%= sort_type_plural %>)
+			<% elsif @sort == "bottom" %> 
+				(See the <b><%= link_to "top", "?sort=top&time=#{@time}&sort_type=#{@sort_type}" %></b> or <b><%= link_to "most prolific", "?sort=most&time=#{@time}&sort_type=#{@sort_type}" %></b> <%= sort_type_plural %>)
+			<% else %>
+				(See the <b><%= link_to "top", "?sort=top&time=#{@time}&sort_type=#{@sort_type}" %></b> or <b><%= link_to "bottom", "?sort=bottom&time=#{@time}&sort_type=#{@sort_type}" %></b> <%= sort_type_plural %>)
+			<% end %>
+		<% else %>
+			<% if @sort == "top" %> 
+			(<%= link_to "?sort=bottom&time=#{@time}&sort_type=#{@sort_type}" do%>See the <b>bottom</b> <%= sort_type_plural %><% end %>)
+				<% else %> 
+			(<%= link_to "?sort=top&time=#{@time}&sort_type=#{@sort_type}" do%>See the <b>top</b> <%= sort_type_plural %><% end %>)
+			<% end %> 
+		<% end %>
 	<% end %>
     <div id="leaderboard-jokes">
-        <%= link_to "today", "?time=today&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "today" ? "selected" : "") %> | <%= link_to "week", "?time=week&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "week" ? "selected" : "") %> | <%= link_to "month", "?time=month&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "month" ? "selected" : "") %> | <%= link_to "all time", "?time=all-time&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "all-time" ? "selected" : "") %> | <%= link_to "newest", "?time=newest&sort_type=#{@sort_type}", :class => (@time == "newest" ? "selected" : "") %>
+        <%= link_to "today", "?time=today&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "today" ? "selected" : "") %> | <%= link_to "week", "?time=week&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "week" ? "selected" : "") %> | <%= link_to "month", "?time=month&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "month" ? "selected" : "") %> | <%= link_to "all time", "?time=all-time&sort=#{@sort}&sort_type=#{@sort_type}", :class => (@time == "all-time" ? "selected" : "") %> <% if @sort != "most" %> | <%= link_to "newest", "?time=newest&sort_type=#{@sort_type}", :class => (@time == "newest" ? "selected" : "") %> <% end %>
 		<% if @sort_type == "joke"%>		
 	        <% if @jokes.empty? %>
 	        	<p><strong>No jokes for this time frame yet!</strong></p>
