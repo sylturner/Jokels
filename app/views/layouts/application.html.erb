@@ -67,7 +67,7 @@
 
   <div id="footer">
     <div class="left">
-    Jokels is so beta. | <%= link_to "All jokes", jokes_path %> | <%=link_to "Privacy", privacy_policy_home_path %> <% if is_mobile_device? %> | <%= link_to "Mobile Version", "/mobile_version"%> <% end%> <br/> 
+    Jokels is so beta. | <%= link_to "All jokes", jokes_path %> | <%=link_to image_tag("feed.png", :style=>"vertical-align: middle"), feed_path %> <%= link_to "RSS", feed_path %> | <%=link_to "Privacy", privacy_policy_home_path %> <% if is_mobile_device? %> | <%= link_to "Mobile Version", "/mobile_version"%> <% end%> <br/> 
     Check out our <a href="http://twitter.com/jokelscom">Twitter</a> | <a href="https://www.facebook.com/pages/Jokels/180394185353937">Facebook</a> | <a href="http://jokeler.tumblr.com/">The Jokeler</a> 
     </div>
     <div class="right" id="share-site">      
