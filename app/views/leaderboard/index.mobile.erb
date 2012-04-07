@@ -6,23 +6,27 @@
 	<span data-role="controlgroup" data-type="horizontal">	
 		<%= leaderboard_sorting_button @time, 'top', @sort_type, "Top", @sort == "top" %>
 		<%= leaderboard_sorting_button @time, 'bottom', @sort_type, "Bottom", @sort == "bottom" %>		
+		<% if @sort_type=="user" %>
+			<%= leaderboard_sorting_button @time, 'most', @sort_type, "Most", @sort == "most" %>		
+		<% end %>
 	</span>	
 </div>
+<br/>
 <div data-role="controlgroup" data-type="horizontal">	
 	<%= leaderboard_sorting_button "today", @sort, @sort_type, "Today", @time == "today" %>
 	<%= leaderboard_sorting_button "week", @sort, @sort_type, "Week", @time == "week" %>
 	<%= leaderboard_sorting_button "month", @sort, @sort_type, "Month", @time == "month" %>
 	<%= leaderboard_sorting_button "all-time", @sort, @sort_type, "All Time", @time == "all-time" %>
-
 </div>
-<ol data-role="listview" data-theme="c">
-	<% if @sort_type == "joke" %>	
-		<% @jokes.each do |joke| %>
-		  <li><%= link_to joke.question, joke, :role => "button"  %></li>
+	<h3><%="#{@sort.titleize} #{@sort_type.pluralize.titleize} of "%><%= "the " if @time == 'week' || @time == 'month'%> <%= @time.titleize %></h3>
+	<ol data-role="listview" data-theme="c">
+		<% if @sort_type == "joke" %>	
+			<% @jokes.each do |joke| %>
+			  <li><%= link_to joke.question, joke, :role => "button"  %></li>
+			<% end %>
+		<% else %>
+			<% @users.each do |user| %>
+			  <li><%= link_to user_name(user), user, :role => "button"  %></li>
+			<% end %>
 		<% end %>
-	<% else %>
-		<% @users.each do |user| %>
-		  <li><%= link_to user_name(user), user, :role => "button"  %></li>
-		<% end %>
-	<% end %>
-</ol>
+	</ol>

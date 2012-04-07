@@ -24,28 +24,28 @@
 <body>
 	<div data-role="page" id="mobile_page">
 
-		<div id="header" data-role="header">
+		<div id="header" data-role="header" data-fullscreen="true" data-fixed="true">
 		<a href="/" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
 		<h1><a href="/">Jokels</a><%if Rails.env == "development"%> - dev <% end %></h1>
-		</div>
-
-		<div data-role="content" class="wrapper" data-content-theme="c">
-	      <%= yield %>
-		</div>
-
-		<div data-role="footer" class="ui-bar" data-position="fixed">
+		<%= yield :subheader %>
 			<div data-role="controlgroup" data-type="horizontal">
 				<% if current_user %> 
 					<%=link_to user_name(current_user), current_user, "data-role" => "button"%>
 				<% else %>
 					<a href="#" data-role="button" id="mobile-signin">Sign In</a>
 				<% end %> 
-				<a href="/leaderboard" data-role="button" data-ajax="false">Leaderboard</a>				
-				<a href="/full_version" data-role="button" data-ajax="false">Full Version</a>				
+				<a href="/leaderboard" data-role="button" data-ajax="false">Leaderboards</a>								
 			</div>
 		</div>
 
-	</div>		
+		<div data-role="content" class="wrapper" data-content-theme="c">
+	      <%= yield %>
+		</div>
+
+	<br/>
+	<a href="/full_version" data-ajax="false" style="padding:1em">Switch to Desktop Site</a>
+	</div>
+
 	<%= render :partial => "layouts/javascript" %>	
 </body>
 </html>
