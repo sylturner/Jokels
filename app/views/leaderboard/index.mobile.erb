@@ -18,7 +18,12 @@
 	<%= leaderboard_sorting_button "month", @sort, @sort_type, "Month", @time == "month" %>
 	<%= leaderboard_sorting_button "all-time", @sort, @sort_type, "All Time", @time == "all-time" %>
 </div>
-	<h3><%="#{@sort.titleize} #{@sort_type.pluralize.titleize} of "%><%= "the " if @time == 'week' || @time == 'month'%> <%= @time.titleize %></h3>
+	<h3><% if @sort == "most" && @sort_type == "user"%>
+			<%="Users with the most jokes of "%><%= "the " if @time == 'week' || @time == 'month'%> <%= @time.titleize %>
+		<% else %>
+			<%="#{@sort.titleize} #{@sort_type.pluralize.titleize} of "%><%= "the " if @time == 'week' || @time == 'month'%> <%= @time.titleize %>
+		<% end %>
+	</h3>
 	<ol data-role="listview" data-theme="c">
 		<% if @sort_type == "joke" %>	
 			<% @jokes.each do |joke| %>
