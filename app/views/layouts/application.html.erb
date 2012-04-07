@@ -76,7 +76,8 @@
       <span class="button-gplus-button"><g:plusone size="medium" href="http://jokels.com"></g:plusone></span>
     </div>
   </div>
-  <%- if Rails.env == "production" -%>
+
+  <% if Rails.env == "production" %>
   <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -105,9 +106,7 @@
     if(window.attachEvent) { window.attachEvent('onload', async_load); }
     else { window.addEventListener('load', async_load, false); }
   })();
-</script>
-  <%- elsif Rails.env == "development" %>
-    <!-- No analytics in development -->
-  <%- end -%>
+</script>  
+<% end %>
 </body>
 </html>

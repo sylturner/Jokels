@@ -14,12 +14,6 @@ Jokels::Application.routes.draw do
       get :upvote, :on => :member, :action => "upvote"
       get :downvote, :on => :member, :action => "downvote"
     end
-
-    # get :show_alternate_punchlines, :on => :member, :action => "show_alternate_punchlines"
-    # get :add_alternate_punchline, :on => :member, :action => "add_alternate_punchline"
-    # post :create_alternate_punchline, :on => :member, :action => "create_alternate_punchline"
-    # get :upvote_alternate_punchline, :on => :member, :action => "upvote_alternate_punchline"
-    # get :downvote_alternate_punchline, :on => :member, :action => "downvote_alternate_punchline"
   end
   
   resource :home, :controller => "home" do

@@ -68,6 +68,7 @@ class LeaderboardController < ApplicationController
         
     respond_to do |format|
       format.html
+      format.mobile
       format.xml  { render :xml => @jokes }
     end
   end

@@ -1,0 +1,117 @@
+<script type="text/javascript">	
+
+		$( '#mobile_page' ).live( 'pageinit',function(event){
+			currentPage = event.currentTarget;
+			
+			$(currentPage).find("#vote-up").live("click", function(){
+				if ( $(this).hasClass("ui-btn-active") )
+					return;
+					
+				var upvote_path = $("#upvote_path").html();
+				
+				$.ajax({
+				  type: "GET",
+				  url: upvote_path,
+				  dataType: "script"
+				});
+			});
+			
+			$(currentPage).find("#vote-down").live("click", function(){
+				if ( $(this).hasClass("ui-btn-active") )
+					return;
+					
+				var downvote_path = $("#downvote_path").html();
+				
+				$.ajax({
+				  type: "GET",
+				  url: downvote_path,
+				  dataType: "script"
+				});
+			});
+			
+			$(currentPage).find("#favorite-button").live("click", function(){
+				var favorite_path = $("#favorite_path").html();
+				
+				$.ajax({
+				  type: "GET",
+				  url: favorite_path,
+				  dataType: "script"
+				});
+			});
+			
+		  	$(currentPage).find("#random_joke").live("click", function(){
+				$.mobile.showPageLoadingMsg();
+
+				var jokeDiv = $(currentPage).find("#mobile-joke")
+				jokeDiv.fadeOut("medium", function(){
+					$.ajax({
+						  url: '/random_joke_mobile',
+						  success: function(data) {
+							jokeDiv.html(data);
+							jokeDiv.find('div[data-role=collapsible]').collapsible();
+							jokeDiv.find('div[data-role=collapsible-set]').collapsibleset();
+							jokeDiv.find('div[data-role=controlgroup]').controlgroup();
+							jokeDiv.find('a[data-role=button]').button();
+							jokeDiv.fadeIn("medium", function(){
+								$.mobile.hidePageLoadingMsg();
+							});
+						  }
+					});
+				});
+			});
+		});
+		
+		$("#mobile-signin").live("click", function(){
+			$('<div>').simpledialog2({
+			    mode: 'button',
+			    headerText: 'Sign In',
+			    headerClose: true,
+			    buttonPrompt: 'Please choose a sign in method:',
+			    buttons : {
+			      'Twitter': {
+			        click: function () { 
+			          window.location.href = "/auth/twitter";
+			        }
+			      },
+			      'Facebook': {
+			        click: function () { 
+			          window.location.href = "/auth/facebook";
+			          $('#buttonoutput').text('Cancel');
+			        }
+			      }
+			    }
+			  });
+		});
+
+	</script>
+	<% if Rails.env == "production" %>
+	  <script type="text/javascript">
+
+	    var _gaq = _gaq || [];
+	    _gaq.push(['_setAccount', 'UA-2861444-5']);
+	    _gaq.push(['_setDomainName', 'jokels.com']);
+	    _gaq.push(['_setAllowHash', 'false']);
+	    _gaq.push(['_trackPageview']);
+
+	    (function() {
+	      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	    })();
+
+	  </script>
+	  <script type="text/javascript">
+	  sAId = "218";
+	  sCId = "1026";
+	  
+	  (function() {
+	    function async_load(){
+	      var s = document.createElement('script'); s.type = 'text/javascript';
+	      s.src = (('https:' == document.location.protocol) ? "https://ssl" : "http://cdn") + ".spectate.com/s.js";
+	      var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c);
+	    }
+	    if(window.attachEvent) { window.attachEvent('onload', async_load); }
+	    else { window.addEventListener('load', async_load, false); }
+	  })();
+	</script>  
+	<% end %>
