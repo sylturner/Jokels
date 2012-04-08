@@ -28,6 +28,7 @@ Jokels::Application.routes.draw do
   match "/sms/receive" => 'jokes#receive_sms_request'
   
   match "/leaderboard" => "leaderboard#index"
+  match "/leaderboard/:time/:sort/:sort_type" => "leaderboard#index"
   
   match '/feed' => 'jokes#feed', :as => :feed, :defaults => { :format => 'atom' }
   
