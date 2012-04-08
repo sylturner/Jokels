@@ -39,8 +39,11 @@
          <a href="#" id="permalink">Permalink</a> 
         | <%= link_to image_tag("mobile-phone.png", :class=>"phone", :title => "Send this joke via SMS"), sms_joke_joke_path(joke),:method => :get, :remote => true  %>
         | <span><iframe src="http://www.facebook.com/plugins/like.php?app_id=168063983260429&amp;href=<%=CGI.escape(joke.bitly_url)%>&amp;send=false&amp;layout=button_count&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px;" allowTransparency="true"></iframe></span>
-        | <span><a href="http://twitter.com/share" class="twitter-share-button" data-url="<%=joke.bitly_url%>" data-text="<%=joke.question%>" data-count="horizontal" data-via="jokelscom">Tweet</a>
+        | <span><a href="http://twitter.com/share" class="twitter-share-button" data-url="<%=joke.bitly_url%>" data-text="<%=joke.question%>" data-count="horizontal" data-via="jokelscom">Tweet</a>        
       </span>
+      <% if joke.user %>
+          <% if joke.user == current_user %><span class="edit-joke-link">[<%= link_to "Edit joke", edit_joke_path(joke), :method => :get, :remote => true %>]</span><% end %>
+        <% end %>
     </span>
   </span>
 

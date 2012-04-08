@@ -509,3 +509,8 @@ body {
 .avatar-anon-fork {
 	background: #BCA;
 }
+.edit-joke-link {
+	float:right;
+	margin-right:10px;
+	margin-top:2px;
+}
