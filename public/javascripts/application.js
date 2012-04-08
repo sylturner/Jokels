@@ -16,7 +16,7 @@ $(document).ready(function() {
 });
 
 function enable_joke_stuff()
-{
+{	
 	$('#click-for-punchline').hide();
 	$('#answer').slideDown('fast');
 	$('#question').css('cursor', 'default');

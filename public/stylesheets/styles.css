@@ -166,10 +166,10 @@ body {
 	text-align: left;
 	color: #DDD;
 	line-height: 10pt;
-	vertical-align: middle;
+	vertical-align: middle;	
 }
 #main .joke p.share span.left {
-	/*margin-left: 10px;*/
+	margin-left: 10px;
 }
 
 #main .joke p.share span.right {
@@ -407,11 +407,10 @@ body {
 	height: 23px;
 	border-top: none;
 }
-#main .joke span#alternate_punchlines p.share span.left {
-	padding-left: 10px;
-}
+
 #main .joke span#alternate_punchlines p.share span.right{
-	margin-top: 0;}
+	margin-top: 0;
+}
 
 #main .joke span#alternate_punchlines p.punchline {
 	background-color: #BBCCAA;
@@ -468,4 +467,45 @@ body {
 .qrcode {
 	vertical-align: middle;
 	background-color: #FFF;
+}
+#joke-container {
+	padding-top: 5px;
+	padding-left: 60px;
+	padding-right: 60px;
+}
+
+#joke-container .avatar-left {
+	margin-left: -60px;
+	display: inline-block;
+	float:left;
+}
+
+#joke-container .avatar-right {
+	margin-right: -60px;
+	float:right;
+	display:none;
+}
+#joke-container #answer-avatar {
+	display:none;
+}
+.bubble, .bubble-fork {
+	width: 9px;
+	height: 12px;
+	background: url('bubble-arrow-question.png') no-repeat;
+	display: inline-block;
+	float:left;
+	margin-left: -9px;
+	margin-top: 18px;
+}
+.bubble-fork {
+	background: url('bubble-arrow-fork1.png') no-repeat;
+}
+
+.avatar-anon {
+	padding: 8px;
+	background: #9C9;
+}
+
+.avatar-anon-fork {
+	background: #BCA;
 }

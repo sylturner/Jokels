@@ -1,5 +1,11 @@
 <% if @alternate_punchlines %>
   <% @alternate_punchlines.each do |ap| %>
+   <% if ap.user %>
+      <%= link_to image_tag(ap.user.image_url, :size => "48x48"), ap.user, :class=>"avatar avatar-left fork-avatar", :title => user_name(ap.user) %>
+    <% else %>
+      <%= image_tag anon_user_icon, :size => "32x32", :class => "avatar avatar-left fork-avatar avatar-anon avatar-anon-fork", :title => "Anonymous author" %>   
+    <% end %>    
+    <span class="bubble-fork"></span>
     <p class="punchline">
       <%= ap.punchline %>
     </p>	
@@ -7,13 +13,18 @@
       <span class="left">
          <%= render :partial => "shared/votes", :locals => {:joke => ap, :upvote_path => upvote_joke_alternate_punchline_path(ap.joke, ap), :downvote_path => downvote_joke_alternate_punchline_path(ap.joke, ap), :id => "ap_#{ap.id}"} %>
         </span>
-        <span class="right">
-        <% if ap.user %>	  
-        written by <%= link_to image_tag(ap.user.image_url, :size => "23x23"), ap.user %> <%= link_to user_name(ap.user), ap.user %> via <%=ap.user.provider.capitalize %>		
-        </span>
-      <% end %>
     </p>
   <% end %>
+  <script>
+  $('.avatar').qtip({
+      style: {
+        classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
+      },
+      position: {
+        my: 'top center', 
+        at: 'bottom center'
+      }
+    });</script>
 <% else %>
 <p> Sorry, no alternate punchlines for this joke.</p>
 <% end %>
