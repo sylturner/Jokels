@@ -27,14 +27,14 @@
 		<div id="header" data-role="header" data-fullscreen="true" data-fixed="true">
 		<a href="/" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
 		<h1><a href="/">Jokels</a><%if Rails.env == "development"%> - dev <% end %></h1>
-			<div data-role="controlgroup" data-type="horizontal">
+			<div data-role="controlgroup" data-type="horizontal" style="text-align:center">
 				<a href="/home/add_joke" data-role="button" data-icon="plus" id="mobile-add-joke">Add Joke</a>
 				<% if current_user %> 
 					<%=link_to user_name(current_user), current_user, "data-role" => "button"%>
 				<% else %>
 					<a href="#" data-role="button" id="mobile-signin">Sign In</a>
 				<% end %> 
-				<a href="/leaderboard" data-role="button" data-ajax="false">Leaderboards</a>								
+				<a href="/leaderboard" data-role="button">Leaderboards</a>								
 			</div>
 		</div>
 
