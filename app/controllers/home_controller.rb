@@ -15,6 +15,7 @@ class HomeController < ApplicationController
     @joke = Joke.new
     respond_to do |format|
       format.html
+      format.mobile
       format.js {render :layout => false}
     end
   end

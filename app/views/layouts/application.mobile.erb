@@ -9,7 +9,7 @@
   <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
   <script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js" > </script>
   <script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.min.js"></script>
-  <%= javascript_include_tag "/javascripts/application.js" %>
+  
   <%= csrf_meta_tag %>
   <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
   <!-- facebook crap -->
@@ -27,8 +27,8 @@
 		<div id="header" data-role="header" data-fullscreen="true" data-fixed="true">
 		<a href="/" data-icon="home" data-iconpos="notext" data-direction="reverse">Home</a>
 		<h1><a href="/">Jokels</a><%if Rails.env == "development"%> - dev <% end %></h1>
-		<%= yield :subheader %>
 			<div data-role="controlgroup" data-type="horizontal">
+				<a href="/home/add_joke" data-role="button" data-icon="plus" id="mobile-add-joke">Add Joke</a>
 				<% if current_user %> 
 					<%=link_to user_name(current_user), current_user, "data-role" => "button"%>
 				<% else %>
@@ -43,7 +43,7 @@
 		</div>
 
 	<br/>
-	<a href="/full_version" data-ajax="false" style="padding:1em">Switch to Desktop Site</a>
+	<a href="/full_version" data-ajax="false" style="padding:1em;font-size:small;text-decoration:none;">Visit the Desktop Site</a>
 	</div>
 
 	<%= render :partial => "layouts/javascript" %>	

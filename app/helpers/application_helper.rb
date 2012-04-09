@@ -5,4 +5,13 @@ module ApplicationHelper
 		# return a random user icon's path for anonymous authors
 		return "/images/user-icons/#{icons.sample}"
 	end
+
+	# See http://stackoverflow.com/questions/339130/how-do-i-render-a-partial-of-a-different-format-in-rails
+	def with_format(format, &block)
+	    old_formats = formats
+	    self.formats = [format]
+	    block.call
+	    self.formats = old_formats
+	    nil
+  	end
 end

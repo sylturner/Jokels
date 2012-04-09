@@ -60,21 +60,28 @@ class JokesController < ApplicationController
         notice = 'Joke was successfully created.'
         
         format.html { 
-          if current_user && params[:joke][:auto_post] == '1'
-           begin
-              tweet_joke
-              notice = "Joke was updated and sent to #{current_user.provider.capitalize}"
-            rescue => e
-              notice = "Joke was updated, but unable to post to #{current_user.provider.capitalize}: " + e.to_s
-            end
-          end
-          redirect_to(@joke, :notice => notice) 
-          
+          auto_post_joke
+          redirect_to(@joke, :notice => notice)          
+          }
+        format.mobile { 
+          auto_post_joke
+          redirect_to(@joke, :notice => notice)          
           }
         format.xml  { render :xml => @joke, :status => :created, :location => @joke }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @joke.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
+
+  def auto_post_joke
+    if current_user && params[:joke][:auto_post] == '1'
+      begin
+        tweet_joke
+        notice = "Joke was updated and sent to #{current_user.provider.capitalize}"
+      rescue => e
+        notice = "Joke was updated, but unable to post to #{current_user.provider.capitalize}: " + e.to_s
       end
     end
   end
