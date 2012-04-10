@@ -50,7 +50,8 @@ function enrich_leaderboards()
 	  	time = $('input:radio[name=time]:checked').val();
 
 	  	var refresh_url = "?sort_type="+sort_type+"&sort="+sort+(time ? "&time="+time : "" );
-	  	history.pushState({}, "Leaderboards", refresh_url);
+	  	if ( history.pushState )
+	  		history.pushState({}, "Leaderboards", refresh_url);
 
 	  	$.ajax({
 				  type: "GET",
