@@ -12,18 +12,21 @@ class LeaderboardController < ApplicationController
      sort_direction = @sort == "bottom" ? -1 : 1
      if @sort_type == "joke"
        
-      case @time
-      when "today"
-         @jokes = Joke.where(['created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
-      when "week"    
-        @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now]).sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
-      when "month"
-        @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
-      when "all-time"
-        @jokes = Joke.all.sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
-      when "newest"
-        @jokes = Joke.all.reverse[0...10]
-     end
+       if @sort == "newest"
+          @jokes = Joke.all.reverse[0...10]
+       else
+
+        case @time
+        when "today"
+           @jokes = Joke.where(['created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
+        when "week"    
+          @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now]).sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
+        when "month"
+          @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
+        when "all-time"
+          @jokes = Joke.all.sort_by{|x| (sort_direction*x.votes)}.reverse[0...10]
+        end
+       end
      elsif @sort_type == "user"
        @users = nil
        user_jokes = Array.new
@@ -39,6 +42,8 @@ class LeaderboardController < ApplicationController
           when "all-time"
             user_jokes = Joke.select("user_id, count(id) as total_jokes").where("user_id is not null").group("user_id").sort_by{|x| (x.total_jokes.to_i())}.reverse[0...10]
           end
+       elsif @sort == "newest"
+         @users = User.all.reverse[0...10]
        else
          case @time
          when "today"
@@ -49,8 +54,6 @@ class LeaderboardController < ApplicationController
            user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").where(['user_id is not null and created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).group("user_id").having("count(id) > 0").sort_by{|x| (sort_direction*x.total_votes.to_i())}.reverse[0...10]
          when "all-time"
            user_jokes = Joke.select("user_id, sum((up_votes - down_votes)) as total_votes").where("user_id is not null").group("user_id").sort_by{|x| (sort_direction*x.total_votes.to_i())}.reverse[0...10]
-         when "newest"
-           @users = User.all.reverse[0...10]
          end
        end
       
@@ -69,6 +72,7 @@ class LeaderboardController < ApplicationController
     respond_to do |format|
       format.html
       format.mobile
+      format.js {render :layout => false}
       format.xml  { render :xml => @jokes }
     end
   end

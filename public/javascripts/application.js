@@ -35,3 +35,24 @@ function enable_joke_stuff()
 		$(this).slideUp("fast");
 	})
 }
+
+function enrich_leaderboards()
+{
+	$("#sort_type_radio").buttonset();
+  	$("#sort").buttonset();
+  	$("#time").buttonset();
+
+  	$("input:radio").click(function(){	
+	  	sort_type = $('input:radio[name=sort_type]:checked').val();
+	  	sort = $('input:radio[name=sort]:checked').val();
+	  	time = $('input:radio[name=time]:checked').val();
+
+	  	var refresh_url = "?sort_type="+sort_type+"&sort="+sort+(time ? "&time="+time : "" );
+
+	  	$.ajax({
+				  type: "GET",
+				  url: refresh_url,
+				  dataType: "script"
+				});
+  	});
+}

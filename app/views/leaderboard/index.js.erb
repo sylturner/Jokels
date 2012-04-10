@@ -1,4 +1,12 @@
 $("#leaderboard").hide();
 $("#leaderboard").html("");
-$("#leaderboard").html("<%= escape_javascript(render :partial => 'joke_list', :locals=>{:jokes => @jokes}) %>");
-$("#leaderboard").fadeIn();
+var timeDiv = $("#time");
+<% if @sort == "newest" %>
+	if ( timeDiv.css("display") != "none")
+		timeDiv.fadeOut("fast");
+<% else %>
+	if ( timeDiv.css("display") == "none")
+		timeDiv.fadeIn("fast");
+<% end %>
+$("#leaderboard").html("<%= escape_javascript(render :partial => "leaderboard", :locals => {:sort => @sort, :sort_type => @sort_type, :time => @time, :users => @users, :jokes => @jokes, :sort_type_plural => @sort_type_plural}) %>");
+$("#leaderboard").fadeIn("fast");

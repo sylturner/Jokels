@@ -1,27 +1,37 @@
 <div>
-	<span data-role="controlgroup" data-type="horizontal" data-inline="true">	
+	<span data-role="controlgroup" data-type="horizontal" data-inline="true" 
+	>	
 		<%= leaderboard_sorting_button @time, @sort, 'joke', "Jokes", @sort_type == "joke" %>
 		<%= leaderboard_sorting_button @time, @sort, 'user', "Users", @sort_type == "user" %>
+		<br/>
+		<br/>
 	</span>
 	<span data-role="controlgroup" data-type="horizontal">	
 		<%= leaderboard_sorting_button @time, 'top', @sort_type, "Top", @sort == "top" %>
-		<%= leaderboard_sorting_button @time, 'bottom', @sort_type, "Bottom", @sort == "bottom" %>		
+		<%= leaderboard_sorting_button @time, 'bottom', @sort_type, "Bottom", @sort == "bottom" %>
 		<% if @sort_type=="user" %>
 			<%= leaderboard_sorting_button @time, 'most', @sort_type, "Most", @sort == "most" %>		
 		<% end %>
+		<%= leaderboard_sorting_button @time, 'newest', @sort_type, "Newest", @sort == "newest" %>
 	</span>	
 </div>
 <br/>
-<div data-role="controlgroup" data-type="horizontal">	
-	<%= leaderboard_sorting_button "today", @sort, @sort_type, "Today", @time == "today" %>
-	<%= leaderboard_sorting_button "week", @sort, @sort_type, "Week", @time == "week" %>
-	<%= leaderboard_sorting_button "month", @sort, @sort_type, "Month", @time == "month" %>
-	<%= leaderboard_sorting_button "all-time", @sort, @sort_type, "All Time", @time == "all-time" %>
-</div>
+<% if @sort != "newest" %>
+	<div data-role="controlgroup" data-type="horizontal">	
+		<%= leaderboard_sorting_button "today", @sort, @sort_type, "Today", @time == "today" %>
+		<%= leaderboard_sorting_button "week", @sort, @sort_type, "Week", @time == "week" %>
+		<%= leaderboard_sorting_button "month", @sort, @sort_type, "Month", @time == "month" %>
+		<%= leaderboard_sorting_button "all-time", @sort, @sort_type, "All Time", @time == "all-time" %>
+	</div>
+<% end %>
 	<h3><% if @sort == "most" && @sort_type == "user"%>
 			<%="Users with the most jokes of "%><%= "the " if @time == 'week' || @time == 'month'%> <%= @time.titleize %>
 		<% else %>
-			<%="#{@sort.titleize} #{@sort_type.pluralize.titleize} of "%><%= "the " if @time == 'week' || @time == 'month'%> <%= @time.titleize %>
+			<% if @sort != "newest" %>
+				<%="#{@sort.titleize} #{@sort_type.pluralize.titleize} of "%><%= "the " if @time == 'week' || @time == 'month'%> <%= @time.titleize %>
+			<% else %>
+				<%="#{@sort.titleize} #{@sort_type.pluralize.titleize}"%>
+			<% end %>
 		<% end %>
 	</h3>
 	<ol data-role="listview" data-theme="c">

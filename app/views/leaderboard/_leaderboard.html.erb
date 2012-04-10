@@ -1,0 +1,32 @@
+<h3>
+  <% if sort == "top" %>Top <% elsif sort == "most" %>Most prolific <% elsif sort == "newest" %> Newest <% else %>Bottom <% end%> <%= sort_type_plural %>
+  <% if sort != "newest" %>
+      <% if time == "today" %> for <%= Date.today.strftime("%B %d") %><% end %>
+      <% if time == "week" %> for the week of <%= Date.today.beginning_of_week.strftime("%B %d") %> - <%= Date.today.end_of_week.strftime("%B %d") %><% end %>
+      <% if time == "month" %> for the month of <%= Time.now.strftime("%B") %><% end %>
+      <% if time == "all-time" %> of all time<% end %>
+  <% end %>
+</h3>
+<div id="leaderboard-jokes">
+	<% if sort_type == "joke"%>		
+        <% if jokes.empty? %>
+        	<p><strong>No jokes for this time frame yet!</strong></p>
+	        <% else %>
+	      <ol>
+	        <% jokes.each_with_index do |joke, index| %>
+	          <li id="joke-list-<%=index%>" class="joke-list-item"><%= link_to joke.question, joke %></li>  
+	        <% end %>
+	      </ol>
+	    <% end %>
+	<% else %>
+        <% if users.empty? %>
+        	<p><strong>No users for this time frame yet!</strong></p>
+	        <% else %>
+	      <ol>
+	        <% users.each_with_index do |user, index| %>
+	          <li id="joke-list-<%=index%>" class="joke-list-item"><%= link_to user_name(user), user %></li>  
+	        <% end %>
+	      </ol>
+	    <% end %>		
+	<% end %>
+</div>
