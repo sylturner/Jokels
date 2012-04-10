@@ -43,12 +43,14 @@ function enrich_leaderboards()
   	$("#time").buttonset();
 
   	$("input:radio").unbind("click");
+
   	$("input:radio").click(function(){	
 	  	sort_type = $('input:radio[name=sort_type]:checked').val();
 	  	sort = $('input:radio[name=sort]:checked').val();
 	  	time = $('input:radio[name=time]:checked').val();
 
 	  	var refresh_url = "?sort_type="+sort_type+"&sort="+sort+(time ? "&time="+time : "" );
+	  	history.pushState({}, "Leaderboards", refresh_url);
 
 	  	$.ajax({
 				  type: "GET",

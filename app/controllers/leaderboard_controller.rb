@@ -1,4 +1,13 @@
 class LeaderboardController < ApplicationController
+  before_filter :set_cache_buster
+
+  # Adding a cachebuster so that going back to the leaderboard index will force a refresh
+  # http://blog.serendeputy.com/posts/how-to-prevent-browsers-from-caching-a-page-in-rails/
+  def set_cache_buster
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
 
   def index 
      #sorting from highest to lowest for the past week is the default behavior  
