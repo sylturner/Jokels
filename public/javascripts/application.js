@@ -42,6 +42,7 @@ function enrich_leaderboards()
   	$("#sort").buttonset();
   	$("#time").buttonset();
 
+  	$("input:radio").unbind("click");
   	$("input:radio").click(function(){	
 	  	sort_type = $('input:radio[name=sort_type]:checked').val();
 	  	sort = $('input:radio[name=sort]:checked').val();

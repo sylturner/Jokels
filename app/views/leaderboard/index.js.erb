@@ -1,6 +1,12 @@
 $("#leaderboard").hide();
 $("#leaderboard").html("");
 var timeDiv = $("#time");
+<% if @sort_type == "joke" %>
+	$("#sort_form").html("<%= escape_javascript(leaderboard_radio_buttons ['top', 'bottom', 'newest'], @sort, 'sort')%>")
+<% else %>
+	$("#sort_form").html("<%= escape_javascript(leaderboard_radio_buttons ['top', 'bottom', 'most', 'newest'], @sort, 'sort')%>")
+<% end %>
+enrich_leaderboards();
 <% if @sort == "newest" %>
 	if ( timeDiv.css("display") != "none")
 		timeDiv.fadeOut("fast");

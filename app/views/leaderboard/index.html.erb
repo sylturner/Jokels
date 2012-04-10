@@ -12,7 +12,7 @@
 
   <div id="sort" class="radio_button">
   		<h3> Sort Type: </h3>
-  		<form>
+  		<form id="sort_form">
   			<% if @sort_type == "user" %>
   				<%= leaderboard_radio_buttons ["top", "bottom", "most", "newest"], @sort, "sort" %>
   			<% else %>
