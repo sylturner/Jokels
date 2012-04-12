@@ -17,11 +17,14 @@ class LeaderboardController < ApplicationController
      
      @jokes = Array.new
      @users = Array.new
+
+     if @sort == "most" && @sort_type == "joke"
+        @sort = "top"
+     end
     
      sort_direction = @sort == "bottom" ? -1 : 1
      sort_direction_text = @sort == "bottom" ? "ASC" : "DESC"
      if @sort_type == "joke"
-       
        if @sort == "newest"
           @jokes = Joke.select("*").order("created_at DESC").limit(10)
        else

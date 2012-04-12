@@ -1,42 +1,44 @@
 <div id="jokes-list">
   <% sort_type_plural = @sort_type + "s" %>
+  <span align="center" ><h1>Leaderboards</h1></span>
+  <br/>
 
-  <div id="sort_type_radio" class="radio_button" >
-  		<h2> Leaderboard: </h2>
-  		<form>
-  			<%= leaderboard_radio_buttons ["joke", "user"], @sort_type, "sort_type" %>
-		</form>
+  <div id="sorting_options" class="sidebar" >
+    <div id="sort_type_radio" class="radio_button" >
+      <h3> Leaderboard Type: </h3>
+      <form>
+        <%= leaderboard_radio_buttons ["joke", "user"], @sort_type, "sort_type" %>
+    </form>
   </div>
 
   <br/>
 
   <div id="sort" class="radio_button">
-  		<h3> Sort Type: </h3>
-  		<form id="sort_form">
-  			<% if @sort_type == "user" %>
-  				<%= leaderboard_radio_buttons ["top", "bottom", "most", "newest"], @sort, "sort" %>
-  			<% else %>
-  				<%= leaderboard_radio_buttons ["top", "bottom", "newest"], @sort, "sort" %>
-  			<% end %>
-		</form>
+      <h3> Sort Type: </h3>
+      <form id="sort_form">
+        <% if @sort_type == "user" %>
+          <%= leaderboard_radio_buttons ["top", "bottom", "most", "newest"], @sort, "sort" %>
+        <% else %>
+          <%= leaderboard_radio_buttons ["top", "bottom", "newest"], @sort, "sort" %>
+        <% end %>
+    </form>
   </div>
 
   <br/>
+  <% timeStyle = @sort_type == "newest" ? "" : "display:none" %>
+    <div id="time" class="radio_button" style="<%= timeStyle %>">
+        <h3> Time Frame: </h3>
+        <form>
+          <% if @sort == "most" %>
+            <%= leaderboard_radio_buttons ["today", "week", "month", "all-time"], @time, "time" %>
+          <% else %>
+            <%= leaderboard_radio_buttons ["today", "week", "month", "all-time"], @time, "time" %>
+          <% end %>
+      </form>
+    </div>
+  </div>
 
-  <%if @sort != "newest" %>
-	  <div id="time" class="radio_button">
-	  		<h3> Time Frame: </h3>
-	  		<form>
-	  			<% if @sort == "most" %>
-	  				<%= leaderboard_radio_buttons ["today", "week", "month", "all-time"], @time, "time" %>
-	  			<% else %>
-	  				<%= leaderboard_radio_buttons ["today", "week", "month", "all-time"], @time, "time" %>
-	  			<% end %>
-			</form>
-	  </div>
-  <% end %>
-
-  <br/>
+  
 
   <script type="text/javascript">
   $(function() {
@@ -44,8 +46,7 @@
 	  });
   </script>
   
-  
-  <div id="leaderboard">
-  	<%= render :partial => "leaderboard", :locals => {:sort => @sort, :sort_type => @sort_type, :time => @time, :users => @users, :jokes => @jokes, :sort_type_plural => @sort_type_plural} %>
+  <div id="leaderboard" class="main_bar" >
+  	<%= render :partial => "leaderboard", :locals => {:sort => @sort, :sort_type => @sort_type, :time => @time, :users => @users, :jokes => @jokes, :sort_type_plural => sort_type_plural} %>
   </div>
 </div>
