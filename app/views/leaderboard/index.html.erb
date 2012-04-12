@@ -1,5 +1,5 @@
 <div id="jokes-list">
-  <% sort_type_plural = @sort_type + "s" %>
+  <% sort_type_plural = @sort_type.pluralize %>
   <span align="center" ><h1>Leaderboards</h1></span>
   <br/>
 
@@ -25,7 +25,7 @@
   </div>
 
   <br/>
-  <% timeStyle = @sort == "newest" ? "" : "display:none" %>
+  <% timeStyle = @sort != "newest" ? "" : "display:none" %>
     <div id="time" class="radio_button" style="<%= timeStyle %>">
         <h3> Time Frame: </h3>
         <form>

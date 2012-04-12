@@ -1,6 +1,7 @@
 $("#leaderboard").hide();
 $("#leaderboard").html("");
 var timeDiv = $("#time");
+<% sort_type_plural = @sort_type.pluralize %>
 <% if @sort_type == "joke" %>
 	$("#sort_form").html("<%= escape_javascript(leaderboard_radio_buttons ['top', 'bottom', 'newest'], @sort, 'sort')%>")
 <% else %>
@@ -14,5 +15,5 @@ enrich_leaderboards();
 	if ( timeDiv.css("display") == "none")
 		timeDiv.fadeIn("fast");
 <% end %>
-$("#leaderboard").html("<%= escape_javascript(render :partial => "leaderboard", :locals => {:sort => @sort, :sort_type => @sort_type, :time => @time, :users => @users, :jokes => @jokes, :sort_type_plural => @sort_type_plural}) %>");
+$("#leaderboard").html("<%= escape_javascript(render :partial => "leaderboard", :locals => {:sort => @sort, :sort_type => @sort_type, :time => @time, :users => @users, :jokes => @jokes, :sort_type_plural => sort_type_plural}) %>");
 $("#leaderboard").fadeIn("fast");
