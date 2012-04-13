@@ -30,9 +30,11 @@ function enable_joke_qtips()
 			position:{
 				my: 'top left',
 				at: 'bottom left',
+	            viewport: $(window),
+	            effect: false
 			},
 			content:{
-				text: "loading joke info...",
+				text: "Loading joke info...",
 				ajax: 
 					{
 						url: '/joke/qtip',
