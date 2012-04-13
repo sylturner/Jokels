@@ -8,6 +8,6 @@
 <div "joke_qtip_text" >
 <span class="qtip_votes"><b>Score: </b><%= @joke.votes %> (<%= @joke.up_votes %><%= image_tag("arrow_up.png",:size => "12x12") %><%= @joke.down_votes %><%= image_tag("arrow_down.png",:size => "12x12") %>)<br/> </span>
 <span class="qtip_forks"><b>Forks: </b><%= @joke.fork_count %> <%= image_tag("../stylesheets/arrow_divide_down.png", :size => "12x12", :class=>"tip_fork")%><br/><b>Favorites: </b><%= @joke.favorite_count %> <%= image_tag("../stylesheets/favorited.png", :size => "12x12")%></span><br/>
-<span class="qtip_date"><b>Created</b> <%= @joke.created_at.strftime("%b %d, %Y")%></span>
+<span class="qtip_date"><b>Created: </b> <%= @joke.created_at.strftime("%b %d, %Y")%></span>
 </div>
 </div>
