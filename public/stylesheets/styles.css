@@ -524,3 +524,21 @@ body {
 	float: right;
 	width: 60%;
 }
+
+.avatar_qtip {
+	float: right;
+	display: block;
+	margin: 0px 0px 0px 5px;
+}
+
+div.joke_qtip{
+	line-height: 1.1;
+	font-size: 85%;
+	width: 190px;
+	display: block;
+}
+
+.joke_qtip .tip_fork{
+	position: relative; 
+	top:2px;
+}

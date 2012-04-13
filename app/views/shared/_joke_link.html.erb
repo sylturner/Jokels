@@ -1,0 +1,1 @@
+<%= link_to (joke.question + "  " + (joke.fork_count > 0 ? image_tag("../stylesheets/arrow_divide_down.png") : "")).html_safe, joke, "data-joke-id" => joke.id, :class => "qtip-joke" %>

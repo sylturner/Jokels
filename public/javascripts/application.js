@@ -5,7 +5,8 @@ $(document).ready(function() {
 	$('#question-mark').click(function(){$("#why").dialog({modal: true, title: "Why login with Twitter or Facebook?", width: 450});})
 	$('#daily-inspiration').qtip({
 		style: {
-		  classes: 'ui-tooltip-rounded ui-tooltip-shadow'
+		  classes: 'ui-tooltip-rounded ui-tooltip-shadow',
+		  width: "200px"
 		},		
 		position:{
 			my: 'top right',
@@ -13,7 +14,35 @@ $(document).ready(function() {
 			target: $('#daily-inspiration')
 		}		
 	});
+
+	enable_joke_qtips();
+	enrich_leaderboards();
 });
+
+function enable_joke_qtips()
+{
+	$(".qtip-joke").each(function() {
+		var id = $(this).attr("data-joke-id");
+		$(this).qtip({
+			style: {
+				classes: 'ui-tooltip-rounded ui-tooltip-shadow'
+			},
+			position:{
+				my: 'top left',
+				at: 'bottom left',
+			},
+			content:{
+				text: "loading joke info...",
+				ajax: 
+					{
+						url: '/joke/qtip',
+			    		data: { id: id},
+			    		method: 'get'
+			    	},
+			}
+		});
+	});
+}
 
 function enable_joke_stuff()
 {	

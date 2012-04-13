@@ -37,14 +37,6 @@
       </form>
     </div>
   </div>
-
-  
-
-  <script type="text/javascript">
-  $(function() {
-	  	enrich_leaderboards();
-	  });
-  </script>
   
   <div id="leaderboard" class="main_bar" >
   	<%= render :partial => "leaderboard", :locals => {:sort => @sort, :sort_type => @sort_type, :time => @time, :users => @users, :jokes => @jokes, :sort_type_plural => sort_type_plural} %>

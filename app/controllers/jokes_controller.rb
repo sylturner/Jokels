@@ -46,6 +46,15 @@ class JokesController < ApplicationController
     redirect_to(@joke, :notice => "Sorry! You can't edit this joke.") unless @joke.user == current_user
   end
 
+  def qtip
+    @joke = Joke.find(params[:id])
+    generate_title @joke.question
+
+    respond_to do |format|
+      format.html {render :layout => false}#qtip.html.erb
+    end
+  end
+
   # POST /jokes
   # POST /jokes.xml
   def create

@@ -1,3 +1,3 @@
 <% @jokes.each do |joke| %>
-  <li><%= link_to joke.question, joke %></li>
+  <li><%= render :partial => "shared/joke_link", :locals => {:joke => joke} %></li>
 <% end %>

@@ -14,7 +14,7 @@
 	        <% else %>
 	      <ol>
 	        <% jokes.each_with_index do |joke, index| %>
-	          <li id="joke-list-<%=index%>" class="joke-list-item"><%= link_to joke.question, joke %></li>  
+	          <li id="joke-list-<%=index%>" class="joke-list-item"> <%= render :partial => "shared/joke_link", :locals => {:joke => joke} %></li>  
 	        <% end %>
 	      </ol>
 	    <% end %>

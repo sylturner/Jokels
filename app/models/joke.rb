@@ -15,6 +15,14 @@ class Joke < ActiveRecord::Base
   attr_writer :auto_post
 
   after_create :generate_bitly_url
+
+  def favorite_count
+    self.favorite_jokes.count
+  end
+
+  def fork_count
+    self.alternate_punchlines.count
+  end
   
   def self.jokeler_update
     require 'rss/2.0'
