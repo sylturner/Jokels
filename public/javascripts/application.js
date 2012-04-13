@@ -25,7 +25,7 @@ function enable_joke_qtips()
 		var id = $(this).attr("data-joke-id");
 		$(this).qtip({
 			style: {
-				classes: 'ui-tooltip-rounded ui-tooltip-shadow'
+				classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
 			},
 			position:{
 				my: 'top left',
