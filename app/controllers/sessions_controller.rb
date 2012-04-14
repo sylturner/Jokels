@@ -59,6 +59,7 @@ class SessionsController < ApplicationController
   end
   
   def failure
+    looger.error params
     redirect_to root_url, :notice => "Sorry, something went wrong with authentication."
   end
   
