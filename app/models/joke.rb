@@ -181,6 +181,12 @@ class Joke < ActiveRecord::Base
         client.update "@#{polite_user} You're welcome! Anytime!", :in_reply_to_status_id => tweet[:id] 
       end
 
+      # so many people don't get our jokels! Luckily, neither do we
+      bot.search("\"I don't get it\" OR \"I dont get it\" TO:jokelscom") do |tweet|
+        confused_user = tweet[:from_user]
+
+        client.update "@#{confused_user} Neither do we.", :in_reply_to_status_id => tweet[:id] 
+      end
 
     bot.update_config
    end
