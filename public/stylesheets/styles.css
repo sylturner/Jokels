@@ -229,6 +229,9 @@ body {
 #footer .right {
 	float: right;
 }
+#footer .left img {
+	vertical-align: middle;
+}
 
 #jokes-list {
 	padding-top: 10px;

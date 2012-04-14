@@ -67,8 +67,10 @@
 
   <div id="footer">
     <div class="left">
-    Jokels is so beta. |  <%= link_to "All jokes", jokes_path %> | <%=link_to image_tag("feed.png", :style=>"vertical-align: middle"), feed_path %> <%= link_to "RSS", feed_path %> | <%=link_to "Privacy", privacy_policy_home_path %> <% if is_mobile_device? %> | <%= link_to "Mobile Version", "/mobile_version"%> <% end%> <br/> 
-    <%= link_to "Jokels is so open source", "http://www.github.com/sylturner/jokels" %>. <%= link_to (image_tag "github-icon.png", :size => "14x14"), "http://www.github.com/sylturner/jokels" %> | Check out our <a href="http://twitter.com/jokelscom">Twitter</a> | <a href="https://www.facebook.com/pages/Jokels/180394185353937">Facebook</a> | <a href="http://jokeler.tumblr.com/">The Jokeler</a> 
+    Jokels is so beta. | <%= link_to "All jokes", jokes_path %> | <%=link_to image_tag("feed.png"), feed_path %> <%= link_to "RSS", feed_path %> | <%=link_to "Privacy", privacy_policy_home_path %> <% if is_mobile_device? %> | <%= link_to "Mobile Version", "/mobile_version"%> <% end%> <br/> 
+    Follow us! <%=link_to image_tag("twitter-logo.png", :size => "16x16"), "http://twitter.com/jokelscom", :title => "@jokelscom on Twitter" %> <%=link_to image_tag("fb-logo.png", :size => "16x16"), "https://www.facebook.com/pages/Jokels/165303293539839", :title => "Jokels on Facebook" %> <%= link_to (image_tag "github-icon.png", :size => "16x16"), "http://www.github.com/sylturner/jokels", :title => "Jokels source code on Github" %> 
+<a href="https://plus.google.com/106783736083786155127?prsrc=3" rel="publisher" style="text-decoration:none;"><img src="https://ssl.gstatic.com/images/icons/gplus-16.png" alt="" style="border:0;width:16px;height:16px;" title="Jokels on Google+"/></a> <%= link_to (image_tag "jokeler.jpg", :size => "16x16"), "http://jokeler.tumblr.com/", :title => "The Jokeler" %> 
+
     </div>
     <div class="right" id="share-site">      
       <span class="bottom-fb-button"><fb:like href="http://jokels.com" send="false" show_faces="false" layout="button_count" font=""></span>
