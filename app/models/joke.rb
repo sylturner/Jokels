@@ -166,7 +166,7 @@ class Joke < ActiveRecord::Base
         end
       end
 
-      bot.search("\"tell me another\" OR \"another one\" to:jokelscom") do |tweet|
+      bot.search("\"tell me another\" OR \"another one\" OR \"another joke\" to:jokelscom") do |tweet|
         user_in_need = tweet[:from_user]
         user_length = user_in_need.length
         reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
