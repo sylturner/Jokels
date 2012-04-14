@@ -142,5 +142,27 @@ class Joke < ActiveRecord::Base
      
      result_joke
    end
-   
+
+   def self.find_joke_that_fits(limit=140)
+     logger.debug "test"
+     count = Joke.count(:conditions => "(length(question) + length(answer)) < #{limit-1}")
+     offset = rand(count)
+     random_joke = (Joke.where("length(question) + length(answer) < #{limit-1}").limit(1).offset(offset))[0]
+   end
+
+   def self.search_twitter_users
+      bot = Chatterbot::Bot.new
+
+      bot.search("\"tell me a joke\"") do |tweet|
+        # exclude any tweets which are directed @ someone
+        if !(tweet[:to_user].nil?)
+          user_in_need = tweet[:from_user]
+          user_length = user_in_need.length
+          reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
+          bot.reply "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", tweet
+        end
+    end
+
+    bot.update_config
+   end
 end
