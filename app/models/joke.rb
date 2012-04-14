@@ -152,14 +152,17 @@ class Joke < ActiveRecord::Base
 
    def self.search_twitter_users
       bot = Chatterbot::Bot.new
+      jokels_user = User.find 1 # @jokelscom
+      client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
 
-      bot.search("\"tell me a joke\"") do |tweet|
+      bot.search("tell me a joke") do |tweet|
         # exclude any tweets which are directed @ someone
         if !(tweet[:to_user].nil?)
           user_in_need = tweet[:from_user]
           user_length = user_in_need.length
           reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
-          bot.reply "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", tweet
+
+          client.update "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", :in_reply_to_status_id => tweet[:id] 
         end
     end
 
