@@ -24,7 +24,7 @@
 	        <% else %>
 	      <ol>
 	        <% users.each_with_index do |user, index| %>
-	          <li id="joke-list-<%=index%>" class="joke-list-item"><%= link_to user_name(user), user %></li>  
+	          <li id="joke-list-<%=index%>" class="joke-list-item"><%= render :partial => "shared/user_link", :locals => {:user => user, :include_avatar => true}%></li>  
 	        <% end %>
 	      </ol>
 	    <% end %>		

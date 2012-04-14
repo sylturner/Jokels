@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   
   has_many :jokes
   has_many :favorite_jokes, :dependent => :destroy
+  has_many :alternate_punchlines
   
   def self.create_with_omniauth(auth)
     create! do |user|
@@ -51,6 +52,27 @@ class User < ActiveRecord::Base
     else
       favorite_jokes.where(:joke_id => joke.id).delete_all
     end
+  end
+
+  def joke_count
+    jokes.count
+  end
+
+  def favorite_count
+    favorite_jokes.count
+  end
+
+  def fork_count
+    alternate_punchlines.count
+  end
+
+  def total_joke_score
+    total_score = 0
+    jokes.each do |joke|
+      total_score += joke.votes
+    end
+
+    total_score
   end
   
 end

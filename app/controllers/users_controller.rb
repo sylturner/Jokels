@@ -12,4 +12,15 @@ class UsersController < ApplicationController
     end
   end
   
+  def qtip
+    @user = User.find(params[:id])
+    generate_title user_name(@user)
+
+    @include_avatar = (params[:include_avatar] == "true")
+
+    respond_to do |format|
+      format.html {render :layout => false} #qtip.html.erb
+    end
+  end
+
 end

@@ -44,7 +44,7 @@
       </div>
       <div class="right">
         <% if current_user %>
-          Welcome <%=link_to user_name(current_user), current_user %> |
+          Welcome <%= render :partial => "shared/user_link", :locals => {:user => current_user, :include_avatar => true}%> |
           <%= link_to "Sign Out", signout_path %>
         <% else %>
           Sign in with <a href="/auth/twitter">Twitter</a> or <a href="/auth/facebook">Facebook</a> (<a href="#" id="question-mark">?</a>)

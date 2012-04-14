@@ -8,7 +8,7 @@
   <div id="notice"><%= notice %></div>
   <div id="question-container">
     <% if joke.user %>
-      <%= link_to image_tag(joke.user.image_url, :size => "48x48"), joke.user, :class=>"avatar avatar-left", :id => "question-avatar", :title => user_name(joke.user) %>
+      <%= link_to image_tag(joke.user.image_url, :size => "48x48"), joke.user, :class=>"avatar avatar-left qtip-user", :id => "question-avatar", :title => user_name(joke.user), "data-user-id" => joke.user.id, "data-include-avatar" => "false"%>
     <% else %>
       <%= image_tag anon_user_icon, :size => "32x32", :class => "avatar avatar-left avatar-anon", :title => "Anonymous author" %>
     <% end %>    
@@ -65,7 +65,7 @@
       hide: 'click unfocus',
       content: '<div><span>Permalink:</span> <input value="<%=permalink%>" class="permalink-input"/></div><div><span>Short URL:</span> <input value="<%=joke.bitly_url%>" class="permalink-input short-url"/> <%= link_to image_tag("barcode-2d.png", :class=>"qrcode"), "#{joke.bitly_url}.qrcode", {:title => "QR Code", :target => "_blank"} %></div>',
   		style: {
-  		  classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
+  		  classes: 'ui-tooltip-rounded ui-too();ltip-shadow ui-tooltip-dark'
   		},		
   		position:{
   			my: 'top left',
@@ -79,15 +79,7 @@
   		}		
   	});
 
-    $('.avatar').qtip({
-      style: {
-        classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
-      },
-      position: {
-        my: 'top center', 
-        at: 'bottom center'
-      }
-    });
+    enable_user_qtips();
 
   	
     $("#refresh-joke").click(function(){

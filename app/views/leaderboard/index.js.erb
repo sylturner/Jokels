@@ -17,4 +17,8 @@ enrich_leaderboards();
 <% end %>
 $("#leaderboard").html("<%= escape_javascript(render :partial => "leaderboard", :locals => {:sort => @sort, :sort_type => @sort_type, :time => @time, :users => @users, :jokes => @jokes, :sort_type_plural => sort_type_plural}) %>");
 $("#leaderboard").fadeIn("fast");
-enable_joke_qtips();
+<% if @sort_type == "user" %>
+	enable_user_qtips();
+<% else %>
+	enable_joke_qtips();
+<% end %>

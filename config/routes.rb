@@ -23,7 +23,8 @@ Jokels::Application.routes.draw do
   end
   root :to => "home#index"
   
-  match "/joke/qtip" => "jokes#qtip"
+  match "/qtip/joke" => "jokes#qtip"
+  match "/qtip/user" => "users#qtip"
 
   match "/random_joke_mobile" => 'home#random_joke_mobile'
   

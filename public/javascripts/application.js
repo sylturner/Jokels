@@ -16,6 +16,7 @@ $(document).ready(function() {
 	});
 
 	enable_joke_qtips();
+	enable_user_qtips();
 	enrich_leaderboards();
 });
 
@@ -37,8 +38,37 @@ function enable_joke_qtips()
 				text: "Loading joke info...",
 				ajax: 
 					{
-						url: '/joke/qtip',
+						url: '/qtip/joke',
 			    		data: { id: id},
+			    		method: 'get'
+			    	},
+			}
+		});
+	});
+}
+
+function enable_user_qtips()
+{
+	$(".qtip-user").each(function() {
+		var id = $(this).attr("data-user-id");
+		var include_avatar = $(this).attr("data-include-avatar");
+		var main_avatar = $(this).hasClass("avatar");
+		$(this).qtip({
+			style: {
+				classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
+			},
+			position:{
+				my: (main_avatar ? 'top center' : 'top left'),
+				at: (main_avatar ? 'bottom center' : 'bottom left'),
+	            viewport: $(window),
+	            effect: false
+			},
+			content:{
+				text: "Loading user info...",
+				ajax: 
+					{
+						url: '/qtip/user',
+			    		data: { id: id, include_avatar: include_avatar},
 			    		method: 'get'
 			    	},
 			}

@@ -531,14 +531,31 @@ body {
 	margin: 0px 0px 0px 5px;
 }
 
+.user_qtip .avatar_qtip {
+	position: relative; 
+	top:10px;
+}
+
 div.joke_qtip{
 	line-height: 1.1;
 	font-size: 85%;
-	width: 190px;
+	width: 200px;
 	display: block;
 }
 
-.joke_qtip .tip_fork{
+.tip_image{
 	position: relative; 
 	top:2px;
+}
+
+div.user_qtip{
+	line-height: 1.1;
+	font-size: 85%;
+	width: 200px;
+	display: block;
+}
+
+div.user_qtip_no_avatar{
+	text-align: center;
+	font-size: 90%;
 }
