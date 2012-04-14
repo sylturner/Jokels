@@ -155,7 +155,7 @@ class Joke < ActiveRecord::Base
       jokels_user = User.find 1 # @jokelscom
       client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
 
-      bot.search("tell me a joke") do |tweet|
+      bot.search("\"tell me a joke\"") do |tweet|
         # exclude any tweets which are directed @ someone
         if !(tweet[:to_user].nil?)
           user_in_need = tweet[:from_user]
