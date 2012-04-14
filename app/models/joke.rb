@@ -166,7 +166,7 @@ class Joke < ActiveRecord::Base
         end
       end
 
-      bot.search("\"tell me another\" to:jokelscom") do |tweet|
+      bot.search("\"tell me another\" OR \"another one\" to:jokelscom") do |tweet|
         user_in_need = tweet[:from_user]
         user_length = user_in_need.length
         reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
@@ -175,7 +175,7 @@ class Joke < ActiveRecord::Base
       end
 
       # Jacquie gave me this idea.  People are polite, we should be too.
-      bot.search("\"thank you\" OR thanks to:jokelscom") do |tweet|
+      bot.search("\"thank you\" OR thanks OR thx to:jokelscom") do |tweet|
         polite_user = tweet[:from_user]
 
         client.update "@#{polite_user} You're welcome! Anytime!", :in_reply_to_status_id => tweet[:id] 
