@@ -2,6 +2,10 @@ class SessionsController < ApplicationController
   def create
     auth = request.env["omniauth.auth"]
     
+    logger.error "In create"
+    logger.error auth
+    logger.error session[:admin_facebook]
+    
     if session[:admin_facebook] 
       yaml = YAML.load_file("#{RAILS_ROOT}/config/application.yml")
       session[:admin_facebook] = false
