@@ -40,7 +40,7 @@ Jokels::Application.routes.draw do
   match "/auth/failure" => "sessions#failure"
   match "/signout" => "sessions#destroy", :as => :signout
   # uncommnent to update jokels page auth, also need to update omniauth.rb
-  match "/admin/facebook" => "sessions#admin_authenicate"
+  #match "/admin/facebook" => "sessions#admin_authenicate"
   
   match "/full_version" => "sessions#full_version"
   match "/mobile_version" => "sessions#mobile_version"
