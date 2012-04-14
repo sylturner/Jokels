@@ -157,7 +157,7 @@ class Joke < ActiveRecord::Base
 
       bot.search("\"tell me a joke\"") do |tweet|
         # exclude any tweets which are directed @ someone
-        if !(tweet[:to_user].nil?)
+        if tweet[:to_user].nil?
           user_in_need = tweet[:from_user]
           user_length = user_in_need.length
           reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
