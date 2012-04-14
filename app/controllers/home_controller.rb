@@ -28,6 +28,15 @@ class HomeController < ApplicationController
       format.mobile {render :layout => false}
     end
   end
+
+  def random_joke_path
+    @joke = Joke.random_joke
+    response = {}
+    response["joke-path"] = joke_path(@joke)
+    response["joke-id"] = @joke.id.to_s()
+
+    render :json => response
+  end
   
   def refresh_joke
     random_joke

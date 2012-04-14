@@ -26,7 +26,7 @@ Jokels::Application.routes.draw do
   match "/qtip/joke" => "jokes#qtip"
   match "/qtip/user" => "users#qtip"
 
-  match "/random_joke_mobile" => 'home#random_joke_mobile'
+  match "/random_joke_path" => 'home#random_joke_path'
   
   match "/sms/receive" => 'jokes#receive_sms_request'
   
