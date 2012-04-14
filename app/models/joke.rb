@@ -164,7 +164,16 @@ class Joke < ActiveRecord::Base
 
           client.update "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", :in_reply_to_status_id => tweet[:id] 
         end
-    end
+      end
+
+      bot.search("\"tell me a another\" to:jokelscom") do |tweet|
+        user_in_need = tweet[:from_user]
+        user_length = user_in_need.length
+        reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
+
+        client.update "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", :in_reply_to_status_id => tweet[:id] 
+      end
+
 
     bot.update_config
    end
