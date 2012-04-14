@@ -74,6 +74,16 @@ function enable_user_qtips()
 			}
 		});
 	});
+
+	 $('.avatar.avatar-anon').qtip({
+		style: {
+			classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
+		},
+		position: {  	
+			my: 'top center', 	
+			at: 'bottom center'	
+		}
+	});
 }
 
 function enable_joke_stuff()
