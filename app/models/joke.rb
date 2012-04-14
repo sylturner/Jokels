@@ -143,11 +143,11 @@ class Joke < ActiveRecord::Base
      result_joke
    end
 
-   def self.find_joke_that_fits(limit=140)
+   def self.find_joke_that_fits(limit=140, threshold=1)
      logger.debug "test"
-     count = Joke.count(:conditions => "(length(question) + length(answer)) < #{limit-1}")
+     count = Joke.count(:conditions => "(length(question) + length(answer)) < #{limit-1} and (up_votes - down_votes) >= #{threshold}")
      offset = rand(count)
-     random_joke = (Joke.where("length(question) + length(answer) < #{limit-1}").limit(1).offset(offset))[0]
+     random_joke = (Joke.where("(length(question) + length(answer)) < #{limit-1} and (up_votes - down_votes) >= #{threshold}").limit(1).offset(offset))[0]
    end
 
    def self.search_twitter_users
@@ -172,6 +172,13 @@ class Joke < ActiveRecord::Base
         reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
 
         client.update "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", :in_reply_to_status_id => tweet[:id] 
+      end
+
+      # Jacquie gave me this idea.  People are polite, we should be too.
+      bot.search("\"thank you\" OR thanks to:jokelscom") do |tweet|
+        polite_user = tweet[:from_user]
+
+        client.update "@#{polite_user} You're welcome! Anytime!", :in_reply_to_status_id => tweet[:id] 
       end
 
 
