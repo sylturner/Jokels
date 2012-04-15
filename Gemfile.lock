@@ -31,6 +31,7 @@ GIT
 
 GEM
   remote: http://rubygems.org/
+  remote: http://gems.github.com/
   specs:
     abstract (1.0.0)
     actionmailer (3.0.3)
@@ -71,10 +72,10 @@ GEM
       net-sftp (>= 2.0.0)
       net-ssh (>= 2.0.14)
       net-ssh-gateway (>= 1.1.0)
-    chatterbot (0.5.1)
-      twitter_oauth
     chronic (0.6.6)
     crack (0.3.1)
+    dancroak-twitter-search (0.5.8)
+      json (>= 1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     faraday (0.6.1)
@@ -204,10 +205,6 @@ GEM
       multi_json (~> 1.0.0)
       multi_xml (~> 0.2.0)
       simple_oauth (~> 0.1.5)
-    twitter_oauth (0.4.3)
-      json (>= 1.1.9)
-      mime-types (>= 1.16)
-      oauth (>= 0.4.1)
     tzinfo (0.3.29)
 
 PLATFORMS
@@ -217,7 +214,7 @@ DEPENDENCIES
   airbrake
   bitly!
   capistrano
-  chatterbot
+  dancroak-twitter-search
   fgraph
   jquery-rails
   make_voteable!

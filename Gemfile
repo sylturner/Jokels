@@ -1,4 +1,5 @@
 source 'http://rubygems.org'
+source 'http://gems.github.com'
 
 gem 'rails', '3.0.3'
 
@@ -20,7 +21,7 @@ gem 'whenever', :git => 'git://github.com/javan/whenever.git', :require => false
 gem 'bitly', :git => 'git://github.com/sylturner/bitly.git'
 gem 'mobile-fu'
 gem 'twilio-ruby'
-gem 'chatterbot'
+gem 'dancroak-twitter-search'
 
 # Use unicorn as the web server
 # gem 'unicorn'

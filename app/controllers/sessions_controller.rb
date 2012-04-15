@@ -1,55 +1,59 @@
 class SessionsController < ApplicationController
   def create
-    auth = request.env["omniauth.auth"]
-    
-    logger.error "In create"
-    logger.error auth
-    logger.error session[:admin_facebook]
-    
-    if session[:admin_facebook] 
-      yaml = YAML.load_file("#{RAILS_ROOT}/config/application.yml")
-      session[:admin_facebook] = false
+    begin
+      auth = request.env["omniauth.auth"]
       
-      pages = FGraph.me_accounts(:access_token => auth["credentials"]["token"])
+      if session[:admin_facebook] 
+        yaml = YAML.load_file("#{RAILS_ROOT}/config/application.yml")
+        session[:admin_facebook] = false
+        
+        pages = FGraph.me_accounts(:access_token => auth["credentials"]["token"])
 
-      pages.each do |i|
-        if i["name"] == yaml[RAILS_ENV]["facebook"]["page_name"] && i["category"] == "Website" then
-          yaml[RAILS_ENV]["facebook"]["page_access_token"] = i["access_token"];
+        pages.each do |i|
+          if i["name"] == yaml[RAILS_ENV]["facebook"]["page_name"] && i["category"] == "Website" then
+            yaml[RAILS_ENV]["facebook"]["page_access_token"] = i["access_token"];
 
-          output = File.new("#{RAILS_ROOT}/config/application.yml", "w")
-          output.puts YAML.dump(yaml)
-          output.close
-          
-          render :text => (RAILS_ENV + " access token updated: " + i["access_token"])
-          return
+            output = File.new("#{RAILS_ROOT}/config/application.yml", "w")
+            output.puts YAML.dump(yaml)
+            output.close
+            
+            render :text => (RAILS_ENV + " access token updated: " + i["access_token"])
+            return
+          end
         end
+        
+        render :text => "Unable to find access token for " + yaml[RAILS_ENV]["facebook"]["page_name"]
+        return
       end
       
-      render :text => "Unable to find access token for " + yaml[RAILS_ENV]["facebook"]["page_name"]
-      return
+      user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) 
+      
+      if user && user.provider == "twitter"
+        # update their twitter access token
+        user.token = auth["credentials"]["token"]
+        user.secret = auth["credentials"]["secret"]
+        user.save!
+      elsif user && user.provider == "facebook"
+        user.token = auth["credentials"]["token"]
+        user.save!
+      elsif !user
+        user = User.create_with_omniauth(auth)
+      end
+      session[:user_id] = user.id
+      if session[:joke_id]      
+        redirect_to(url_for(:action => "show", :controller => "jokes", :id => session[:joke_id], :only_path => false), :notice => "Signed in with #{auth["provider"].capitalize}!")
+      else
+        redirect_to root_url, :notice => "Signed in with #{auth["provider"].capitalize}!"
+      end
+      #uncomment to see what's all in the auth
+      #render :text => auth.to_yaml
+    rescue Exception => exc
+     logger.error("Authentication sign in failure: #{exc.message}")
+     flash[:notice] = "Sorry, something went wrong with authentication."
+     redirect_to(:action => 'failure')
+    ensure 
+     session[:admin_facebook] = false
     end
-    
-    user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) 
-    
-    if user && user.provider == "twitter"
-      # update their twitter access token
-      user.token = auth["credentials"]["token"]
-      user.secret = auth["credentials"]["secret"]
-      user.save!
-    elsif user && user.provider == "facebook"
-      user.token = auth["credentials"]["token"]
-      user.save!
-    elsif !user
-      user = User.create_with_omniauth(auth)
-    end
-    session[:user_id] = user.id
-    if session[:joke_id]      
-      redirect_to(url_for(:action => "show", :controller => "jokes", :id => session[:joke_id], :only_path => false), :notice => "Signed in with #{auth["provider"].capitalize}!")
-    else
-      redirect_to root_url, :notice => "Signed in with #{auth["provider"].capitalize}!"
-    end
-    #uncomment to see what's all in the auth
-    #render :text => auth.to_yaml
   end
   
   def admin_authenicate
@@ -63,7 +67,6 @@ class SessionsController < ApplicationController
   end
   
   def failure
-    logger.error params
     redirect_to root_url, :notice => "Sorry, something went wrong with authentication."
   end
   

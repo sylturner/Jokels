@@ -1,4 +1,5 @@
 # encoding: utf-8
+require 'twitter_search'
 
 class Joke < ActiveRecord::Base
   make_voteable
@@ -145,44 +146,100 @@ class Joke < ActiveRecord::Base
      random_joke = (Joke.where("(length(question) + length(answer)) < #{limit-1} and (up_votes - down_votes) >= #{threshold}").limit(1).offset(offset))[0]
    end
 
-   def self.search_twitter_users
-      bot = Chatterbot::Bot.new
-      jokels_user = User.find 1 # @jokelscom
-      client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
+   def self.perform_search(since_id, since, query_string)
+     search_client = TwitterSearch::Client.new 'politweets'
 
-      bot.search("\"tell me a joke\"") do |tweet|
-        # exclude any tweets which are directed @ someone
-        if tweet[:to_user].nil?
-          user_in_need = tweet[:from_user]
-          user_length = user_in_need.length
-          reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
+     query = query_string
 
-          client.update "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", :in_reply_to_status_id => tweet[:id] 
+     if RAILS_ENV == "development"
+      puts "I'm searching: #{query}"
+     end
+
+     tweets = search_client.query :q => query_string, :since_id => since_id
+     tweets.each do |tweet|
+      tweet = tweet.instance_values
+
+      tweetDate = tweet["created_at"].to_datetime
+
+      if since[:date].nil? || tweetDate > since[:date]
+        since[:date] = tweetDate
+        since[:id] = tweet["id"]
+
+        if RAILS_ENV == "development"
+          puts "Updating since: #{since}"
         end
       end
 
-      bot.search("\"tell me another\" OR \"another one\" OR \"another joke\" to:jokelscom") do |tweet|
-        user_in_need = tweet[:from_user]
+      yield tweet
+     end
+   end
+
+   def self.search_twitter_users
+      yaml = YAML.load_file("#{RAILS_ROOT}/config/application.yml")
+      since_id = yaml[RAILS_ENV]["last_tweet_id"]
+
+      since_track = {}
+      since_track[:id] = since_id
+      since_track[:date] = nil
+
+      jokels_user = User.find 1 # @jokelscom
+      client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
+
+      perform_search since_id, since_track, "\"tell me a joke\"" do |tweet|
+        if tweet["to_user"].nil?
+          user_in_need = tweet["from_user"]
+          user_length = user_in_need.length
+          reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
+
+          if RAILS_ENV == "production" 
+            client.update "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", :in_reply_to_status_id => tweet["id"] 
+          else
+            puts "I would be tweeting: @#{user_in_need} #{reply_joke.question} #{reply_joke.answer}"
+          end
+        end
+      end
+
+      perform_search since_id, since_track, "\"tell me another\" OR \"another one\" OR \"another joke\" to:jokelscom" do |tweet|
+        user_in_need = tweet["from_user"]
         user_length = user_in_need.length
         reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
 
-        client.update "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", :in_reply_to_status_id => tweet[:id] 
+        if RAILS_ENV == "production" 
+            client.update "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", :in_reply_to_status_id => tweet["id"] 
+          else
+            puts "I would be tweeting: @#{user_in_need} #{reply_joke.question} #{reply_joke.answer}"
+        end
       end
 
       # Jacquie gave me this idea.  People are polite, we should be too.
-      bot.search("\"thank you\" OR thanks OR thx to:jokelscom") do |tweet|
-        polite_user = tweet[:from_user]
+      perform_search since_id, since_track, "\"thank you\" OR thanks OR thx to:jokelscom" do |tweet|
+        polite_user = tweet["from_user"]
 
-        client.update "@#{polite_user} You're welcome! Anytime!", :in_reply_to_status_id => tweet[:id] 
+        if RAILS_ENV == "production" 
+            client.update "@#{polite_user} You're welcome! Anytime!", :in_reply_to_status_id => tweet["id"] 
+          else
+            puts "I would be tweeting: @#{polite_user} You're welcome! Anytime!"
+        end
       end
 
       # so many people don't get our jokels! Luckily, neither do we
-      bot.search("\"I don't get it\" OR \"I dont get it\" TO:jokelscom") do |tweet|
-        confused_user = tweet[:from_user]
+      perform_search since_id, since_track, "\"I don't get it\" OR \"I dont get it\" TO:jokelscom" do |tweet|
+        confused_user = tweet["from_user"]
 
-        client.update "@#{confused_user} Neither do we.", :in_reply_to_status_id => tweet[:id] 
+        if RAILS_ENV == "production" 
+            client.update "@#{confused_user} Neither do we.", :in_reply_to_status_id => tweet["id"] 
+          else
+            puts "I would be tweeting: @#{confused_user} Neither do we."
+        end
       end
 
-    bot.update_config
+    yaml[RAILS_ENV]["last_tweet_id"] = since_track[:id]
+    if RAILS_ENV == "development"
+      puts "New since_id: #{yaml[RAILS_ENV]["last_tweet_id"]}"
+    end
+
+    output = File.new("#{RAILS_ROOT}/config/application.yml", "w")
+    output.puts YAML.dump(yaml)
+    output.close
    end
 end
