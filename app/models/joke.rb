@@ -170,7 +170,11 @@ class Joke < ActiveRecord::Base
         end
       end
 
-      yield tweet
+      # I've seen this before, for some reaosn when you put "since_id" in the twitter search it'll return resultings
+      # INCLUDING that ID
+      if tweet["id"] != since_id
+        yield tweet
+      end
      end
    end
 
