@@ -35,7 +35,7 @@ function enable_joke_qtips()
 	            effect: false
 			},
 			content:{
-				text: "Loading joke info...",
+				text: 'Loading joke info...<img src="/images/qtip-ajax-loader.gif"/>',
 				ajax: 
 					{
 						url: '/qtip/joke',
@@ -64,7 +64,7 @@ function enable_user_qtips()
 	            effect: false
 			},
 			content:{
-				text: "Loading user info...",
+				text: 'Loading user info...<img src="/images/qtip-ajax-loader.gif"/>',
 				ajax: 
 					{
 						url: '/qtip/user',

@@ -1,5 +1,5 @@
 <div id="user">
-  <p id="user-info"><%= link_to image_tag(@user.image_url, :size => "48x48"), @user.url %> <strong><%=link_to user_name(@user), @user.url %></strong> (via <%=@user.provider.capitalize%>)</p>
+  <p id="user-info"><%= link_to image_tag(@user.image_url, :size => "48x48"), @user.url %> <strong><%=link_to user_name(@user), @user.url,  "data-user-id" => @user.id, "data-include-avatar" => "false", :class => "qtip-user"%></strong> (via <%=@user.provider.capitalize%>)</p>
   
   <% if !@jokes.empty? %>
 	<div class="column left">
