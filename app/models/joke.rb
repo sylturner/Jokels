@@ -133,14 +133,9 @@ class Joke < ActiveRecord::Base
    end
    
    def self.random_joke
-     result_joke = nil
-     
-     while result_joke.nil?
-      rand_id = rand(Joke.count)
-      result_joke = Joke.first(:conditions => [ "id >= ? and (up_votes - down_votes) >= -2", rand_id])
-     end
-     
-     result_joke
+     count = Joke.count(:conditions => "(up_votes - down_votes) >= -2");
+     offset = rand(count)
+     result_joke = (Joke.where("(up_votes - down_votes) >= -2").limit(1).offset(offset))[0]
    end
 
    def self.find_joke_that_fits(limit=140, threshold=1)
