@@ -30,6 +30,6 @@ every 1.day, :at => "09:00am" do
   runner "Joke.post_top_joke" #tweet yesterday's top joke
 end
 
-every 5.minutes do
-  runner "Joke.search_twitter_users" # reply to anyone saying "Tell Me a Joke"
-end
+# every 5.minutes do
+#   runner "Joke.search_twitter_users" # reply to anyone saying "Tell Me a Joke"
+# end
