@@ -116,6 +116,10 @@ function enrich_leaderboards()
   	$("input:radio").unbind("click");
 
   	$("input:radio").click(function(){	
+  		$("#leaderboard-jokes").slideUp("fast");
+      	$("#leaderboard").append('<div id="loading">Loading leaderboard...</div>');
+      	$("#loading").delay(1000).fadeIn("slow");
+
 	  	sort_type = $('input:radio[name=sort_type]:checked').val();
 	  	sort = $('input:radio[name=sort]:checked').val();
 	  	time = $('input:radio[name=time]:checked').val();

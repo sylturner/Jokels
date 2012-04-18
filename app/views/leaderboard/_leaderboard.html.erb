@@ -1,13 +1,13 @@
-<h3>
-  <% if sort == "top" %>Top <% elsif sort == "most" %>Most prolific <% elsif sort == "newest" %> Newest <% else %>Bottom <% end%> <%= sort_type_plural %>
-  <% if sort != "newest" %>
-      <% if time == "today" %> for <%= Date.today.strftime("%B %d") %><% end %>
-      <% if time == "week" %> for the week of <%= Date.today.beginning_of_week.strftime("%B %d") %> - <%= Date.today.end_of_week.strftime("%B %d") %><% end %>
-      <% if time == "month" %> for the month of <%= Time.now.strftime("%B") %><% end %>
-      <% if time == "all-time" %> of all time<% end %>
-  <% end %>
-</h3>
 <div id="leaderboard-jokes">
+	<h3>
+	  <% if sort == "top" %>Top <% elsif sort == "most" %>Most prolific <% elsif sort == "newest" %> Newest <% else %>Bottom <% end%> <%= sort_type_plural %>
+	  <% if sort != "newest" %>
+	      <% if time == "today" %> for <%= Date.today.strftime("%B %d") %><% end %>
+	      <% if time == "week" %> for the week of <%= Date.today.beginning_of_week.strftime("%B %d") %> - <%= Date.today.end_of_week.strftime("%B %d") %><% end %>
+	      <% if time == "month" %> for the month of <%= Time.now.strftime("%B") %><% end %>
+	      <% if time == "all-time" %> of all time<% end %>
+	  <% end %>
+	</h3>
 	<% if sort_type == "joke"%>		
         <% if jokes.empty? %>
         	<p><strong>No jokes for this time frame yet!</strong></p>
