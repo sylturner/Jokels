@@ -204,7 +204,7 @@ class Joke < ActiveRecord::Base
 
       perform_search since_id, since_track, "\"tell me a joke\" OR \"know a good joke\"" do |tweet|
         # don't tweet at anyone trying to talk to someone else
-        if tweet["text"].include?("@")
+        if !tweet["text"].include?("@")
           user_in_need = tweet["from_user"]
           user_length = user_in_need.length
           reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
