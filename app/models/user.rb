@@ -59,11 +59,11 @@ class User < ActiveRecord::Base
   end
 
   def favorite_count
-    favorite_jokes.count
+    favorite_jokes_count
   end
 
   def fork_count
-    alternate_punchlines.count
+    alternate_punchlines_count
   end
 
   def total_joke_score

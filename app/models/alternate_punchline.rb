@@ -1,7 +1,7 @@
 class AlternatePunchline < ActiveRecord::Base
 	make_voteable
 
-	belongs_to :joke
+	belongs_to :joke, :counter_cache => true
 	belongs_to :user
 	
 end

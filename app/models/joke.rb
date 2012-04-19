@@ -18,11 +18,15 @@ class Joke < ActiveRecord::Base
   after_create :generate_bitly_url
 
   def favorite_count
-    self.favorite_jokes.count
+    self.favorite_jokes_count
   end
 
   def fork_count
-    self.alternate_punchlines.count
+    self.alternate_punchlines_count
+  end
+
+  def has_forks?
+    fork_count > 0
   end
   
   def self.jokeler_update
