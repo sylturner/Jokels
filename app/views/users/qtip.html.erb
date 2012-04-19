@@ -13,8 +13,8 @@
   <span class="qtip_author" ><strong><%= user_name(@user) %> <%= image %></strong><br/></span>
 
 <div "user_qtip_text" >
-<span class="qtip_jokes"><b>Authored Jokes: </b><%= @user.joke_count %><br/> </span>
-<% if @user.joke_count > 0 %>
+<span class="qtip_jokes"><b>Authored Jokes: </b><%= @user.jokes_count %><br/> </span>
+<% if @user.jokes_count > 0 %>
 	<scpan class="qtip_score"><b>Total Score: </b><%= @user.total_joke_score %><br/> </span>
 <% end %>
 <span class="qtip_forks"><b>Forks: </b><%= @user.fork_count %> <%= image_tag("../stylesheets/arrow_divide_down.png", :size => "12x12", :class=>"tip_image")%><br/></span>

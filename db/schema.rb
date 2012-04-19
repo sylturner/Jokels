@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120419003234) do
+ActiveRecord::Schema.define(:version => 20120419022102) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -83,10 +83,13 @@ ActiveRecord::Schema.define(:version => 20120419003234) do
     t.datetime "updated_at"
     t.string   "image_url"
     t.string   "url"
-    t.integer  "up_votes",   :default => 0, :null => false
-    t.integer  "down_votes", :default => 0, :null => false
+    t.integer  "up_votes",                   :default => 0, :null => false
+    t.integer  "down_votes",                 :default => 0, :null => false
     t.string   "token"
     t.string   "secret"
+    t.integer  "alternate_punchlines_count"
+    t.integer  "favorite_jokes_count"
+    t.integer  "jokes_count"
   end
 
   add_index "users", ["uid"], :name => "index_users_on_uid"
