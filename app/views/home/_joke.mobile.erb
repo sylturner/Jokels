@@ -8,7 +8,7 @@
 	 </div>  
      <% joke.alternate_punchlines.each_with_index do |alt_punchline, index| %>
 		<div data-role="collapsible" data-iconpos="right" data-collapsed="true" data-content-theme="d" >
-			<h3>Alternate Punchline <% if joke.alternate_punchlines.count > 1 %>#<%= index+1%><% end %></h3>
+			<h3>Alternate Punchline <% if joke.has_forks? %>#<%= index+1%><% end %></h3>
 			<p><%= alt_punchline.punchline %> <%if alt_punchline.user %> <strong><br/><br/>-by <%= user_name(alt_punchline.user)%></strong><% end %></p>
 		</div>
      <% end %>
