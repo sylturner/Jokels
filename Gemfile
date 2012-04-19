@@ -22,6 +22,7 @@ gem 'bitly', :git => 'git://github.com/sylturner/bitly.git'
 gem 'mobile-fu'
 gem 'twilio-ruby'
 gem 'dancroak-twitter-search'
+gem "profanity_filter"
 
 # Use unicorn as the web server
 # gem 'unicorn'

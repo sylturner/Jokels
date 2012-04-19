@@ -24,6 +24,13 @@ class Joke < ActiveRecord::Base
   def fork_count
     self.alternate_punchlines.count
   end
+
+  def clean!
+    self.question = ProfanityFilter::Base.clean(self.question, 'vowels')
+    self.answer = ProfanityFilter::Base.clean(self.answer, 'vowels')
+    
+    self
+  end
   
   def self.jokeler_update
     require 'rss/2.0'
@@ -140,14 +147,16 @@ class Joke < ActiveRecord::Base
    end
 
    def self.find_joke_that_fits(limit=140, threshold=1)
-     logger.debug "test"
-     count = Joke.count(:conditions => "(length(question) + length(answer)) < #{limit-1} and (up_votes - down_votes) >= #{threshold}")
-     offset = rand(count)
-     random_joke = (Joke.where("(length(question) + length(answer)) < #{limit-1} and (up_votes - down_votes) >= #{threshold}").limit(1).offset(offset))[0]
+    count = Joke.count(:conditions => "(length(question) + length(answer)) < #{limit-1} and (up_votes - down_votes) >= #{threshold}")
+    offset = rand(count)
+    random_joke = (Joke.where("(length(question) + length(answer)) < #{limit-1} and (up_votes - down_votes) >= #{threshold}").limit(1).offset(offset))[0]
+
+    # Our users are filthy! Let's clean up these jokes for the delicate flowers on Twitter
+    random_joke.clean!
    end
 
    def self.perform_search(since_id, since, query_string)
-     search_client = TwitterSearch::Client.new 'politweets'
+     search_client = TwitterSearch::Client.new 'jokels bot'
 
      query = query_string
 
@@ -187,10 +196,11 @@ class Joke < ActiveRecord::Base
       since_track[:date] = nil
 
       jokels_user = User.find 1 # @jokelscom
-      client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
+      client = Twitter::Client.new(:oauth_token => yaml[RAILS_ENV]["jokelbot"]["auth_token"], :oauth_token_secret => yaml[RAILS_ENV]["jokelbot"]["secret"])
 
-      perform_search since_id, since_track, "\"tell me a joke\"" do |tweet|
-        if tweet["to_user"].nil?
+      perform_search since_id, since_track, "\"tell me a joke\" OR \"know a good joke\"" do |tweet|
+        # don't tweet at anyone trying to talk to someone else
+        if tweet["text"].include?("@")
           user_in_need = tweet["from_user"]
           user_length = user_in_need.length
           reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
@@ -203,7 +213,7 @@ class Joke < ActiveRecord::Base
         end
       end
 
-      perform_search since_id, since_track, "\"tell me another\" OR \"another one\" OR \"another joke\" to:jokelscom" do |tweet|
+      perform_search since_id, since_track, "\"tell me a joke\" OR \"tell me another\" OR \"another one\" OR \"another joke\" to:jokelscom" do |tweet|
         user_in_need = tweet["from_user"]
         user_length = user_in_need.length
         reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
