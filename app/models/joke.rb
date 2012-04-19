@@ -8,7 +8,7 @@ class Joke < ActiveRecord::Base
   has_many :favorite_jokes, :dependent => :destroy
   has_many :alternate_punchlines
   
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   
   validates_presence_of :question, :answer
   

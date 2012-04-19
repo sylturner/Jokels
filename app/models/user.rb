@@ -54,10 +54,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def joke_count
-    jokes.count
-  end
-
   def favorite_count
     favorite_jokes_count
   end
