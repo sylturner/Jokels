@@ -84,7 +84,41 @@ function setupHeaderMenus()
 	        click: function () { 
 	          window.location.href = "/full_version";
 	        },
+	        icon: "home"
+	      },
+	      'All Jokes': {
+	      	click: function () { 
+	          window.location.href = "/jokes";
+	        },
 	        icon: "arrow-r"
+	      }
+	    }
+	  });
+	});
+
+	$("#mobile-menu-signed-in").live("click", function(){
+	$('<div>').simpledialog2({
+	    mode: 'button',
+	    headerText: 'Mobile Menu',
+	    headerClose: true,
+	    buttons : {
+	      'Full Version': {
+	        click: function () { 
+	          window.location.href = "/full_version";
+	        },
+	        icon: "home"
+	      },
+	      'All Jokes': {
+	      	click: function () { 
+	          window.location.href = "/jokes";
+	        },
+	        icon: "arrow-r"
+	      },
+	      'Sign Out': {
+	      	click: function () { 
+	          window.location.href = "/signout";
+	        },
+	        icon: "delete"
 	      }
 	    }
 	  });

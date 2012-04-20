@@ -28,7 +28,12 @@
 		<div id="header" data-role="header" data-fullscreen="true" data-fixed="true">
 		<a href="/" data-icon="home" data-iconpos="notext" data-direction="reverse" class="mobile-header-icon">Home</a>
 		<h1><a href="/">Jokels</a><%if Rails.env == "development"%> - dev <% end %></h1>
-		<a href="#" data-icon="gear" data-iconpos="notext" id="mobile-menu" class="mobile-header-icon">Menu</a>
+		<% if current_user %>
+			<a href="#" data-icon="gear" data-iconpos="notext" id="mobile-menu-signed-in" class="mobile-header-icon">Menu</a>
+		<% else %>
+			<a href="#" data-icon="gear" data-iconpos="notext" id="mobile-menu" class="mobile-header-icon">Menu</a>
+		<% end %>
+		
 			<div data-role="controlgroup" data-type="horizontal" style="text-align:center">
 				<a href="/home/add_joke" data-role="button" data-icon="plus" id="mobile-add-joke">Add Joke</a>
 				<% if current_user %> 
