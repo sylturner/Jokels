@@ -169,13 +169,13 @@ class Joke < ActiveRecord::Base
            tweet_debug(client, tweet_with_author)
          end
        elsif tweet.length <= 140
-         tweet_debug(client, tweet_with_author)
+         tweet_debug(client, tweet)
        else
          # we should have 98 characters for the question
          # Format: Jan 01 top joke: joke's questi… - http://jkls.co/url
          question_length = 140-joke_description.lenght-18
          tweet = "#{joke_description}: #{top_joke.question[0..question_length]}… - #{top_joke.bitly_url}"
-         tweet_debug(client, tweet_with_author)
+         tweet_debug(client, tweet)
        end     
 
         FGraph.publish_feed('me', :message => fb_post, :access_token => settings["facebook"]["page_access_token"])
