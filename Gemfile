@@ -23,6 +23,7 @@ gem 'mobile-fu'
 gem 'twilio-ruby'
 gem 'dancroak-twitter-search'
 gem "profanity_filter"
+gem "delorean"
 
 # Use unicorn as the web server
 # gem 'unicorn'

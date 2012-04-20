@@ -85,12 +85,49 @@ class Joke < ActiveRecord::Base
     twilio = Twilio::REST::Client.new account_sid, auth_token
     twilio.account.sms.messages.create(:from => from,:to => to,:body => body)
   end
+
+  def self.tweet_debug(client, tweet)
+    if RAILS_ENV == "production"
+      client.update(tweet)
+    else
+      puts "I would be tweeting: #{tweet}"
+    end
+  end
   
+
+  def self.top_joke_for_time_frame(begin_time, end_time)
+    result = Joke.where(['created_at BETWEEN ? AND ? AND (up_votes - down_votes) >= -2 ', begin_time, end_time]).sort_by{|x| x.votes}.reverse[0]
+  end
+
+  # tweet the top joke for yesterday, last week if this is the first day of the week, last month if 
+  # this is the first day of the month and last year if this the first day of the year
+  def self.post_top_jokes
+    top_daily_joke = top_joke_for_time_frame(Time.now-1.day-2.hour, Time.now-2.hour)
+    post_top_joke(top_daily_joke, "#{Date.yesterday.strftime("%b %d")} top joke")
+
+    # Today is the first day of the week, tweet last week's top Joke
+    if Date.today.beginning_of_week == Date.today
+      top_weekly_joke = top_joke_for_time_frame(Time.now-7.day-2.hour, Time.now-2.hour)
+      post_top_joke(top_weekly_joke, "Week of #{(Date.today-1.day).beginning_of_week.strftime("%B %d")} - #{(Date.today-1.day).strftime("%B %d")} top joke")
+    end
+
+    # Today is the first day of the month, tweet last month's top Joke
+    if Date.today.beginning_of_month == Date.today
+      top_monthly_joke = top_joke_for_time_frame((Time.now-1.day).beginning_of_month, (Time.now-1.day).end_of_month)
+      post_top_joke(top_monthly_joke, "#{(Time.now-1.day).strftime("%B %Y")} top joke")
+    end
+
+    # Today is the first day of the year, tweet last years's top Joke
+    if Date.today.beginning_of_month == Date.today
+      top_yearly_joke = top_joke_for_time_frame((Time.now-1.day).beginning_of_year, (Time.now-1.day).end_of_year)
+      post_top_joke(top_monthly_joke, "Happy New Year - Top joke for #{(Time.now-1.day).strftime("%Y")}")
+    end
+  end
+
   # tweet yetserday's top joke
   # this method is more disgusting than I imagined
-  def self.post_top_joke
-     # Time.now - 1.day makes me feel like I'm using a language made for six year olds
-     top_joke = Joke.where(['created_at BETWEEN ? AND ? AND (up_votes - down_votes) >= -2 ', Time.now-1.day-2.hour, Time.now-2.hour]).sort_by{|x| x.votes}.reverse[0]
+  def self.post_top_joke(top_joke, joke_description)
+
      # only tweet if there is a top joke from yesterday
      if top_joke
        # generate bitly url if it hasn't been generated yet (probably not an issue)
@@ -99,7 +136,7 @@ class Joke < ActiveRecord::Base
        end
        
        # Format: Jan 01 top joke: joke's question - http://jkls.co/url
-       tweet = "#{Date.yesterday.strftime("%b %d")} top joke: #{top_joke.question} - #{top_joke.bitly_url}"
+       tweet = "#{joke_description}: #{top_joke.question} - #{top_joke.bitly_url}"
        
        jokels_user = User.find 1 # @jokelscom
        client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
@@ -116,7 +153,7 @@ class Joke < ActiveRecord::Base
          fb_post = fb_post + " by Twitter User #{twitter_name}"
          
          if tweet_with_author.length <= 140
-           client.update(tweet_with_author)
+           tweet_debug(client, tweet_with_author)
          else
            # turncate the joke's question, we want the author to be shown every time
            # formula:
@@ -125,19 +162,20 @@ class Joke < ActiveRecord::Base
            # twitter_name.length = the characters for the twitter handle with the @
            # 1 = room for elipsis character
            # whatever's left is how long our question can be in the tweet
-           question_length = 140-45-twitter_name.length-1
+           question_length = 140-joke_description.length-22-twitter_name.length-1
            
            # Format: Jan 01 top joke: joke's questi… - http://jkls.co/url by @twittername
-           tweet_with_author = "#{Date.yesterday.strftime("%b %d")} top joke: #{top_joke.question[0..question_length]}… - #{top_joke.bitly_url} by #{twitter_name}"
-           client.update(tweet_with_author)
+           tweet_with_author = "#{joke_description}: #{top_joke.question[0..question_length]}… - #{top_joke.bitly_url} by #{twitter_name}"
+           tweet_debug(client, tweet_with_author)
          end
        elsif tweet.length <= 140
-         client.update(tweet)
+         tweet_debug(client, tweet_with_author)
        else
          # we should have 98 characters for the question
          # Format: Jan 01 top joke: joke's questi… - http://jkls.co/url
-         tweet = "#{Date.yesterday.strftime("%b %d")} top joke: #{top_joke.question[0..98]}… - #{top_joke.bitly_url}"
-         client.update(tweet)
+         question_length = 140-joke_description.lenght-18
+         tweet = "#{joke_description}: #{top_joke.question[0..question_length]}… - #{top_joke.bitly_url}"
+         tweet_debug(client, tweet_with_author)
        end     
 
         FGraph.publish_feed('me', :message => fb_post, :access_token => settings["facebook"]["page_access_token"])

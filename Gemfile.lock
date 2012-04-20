@@ -76,6 +76,8 @@ GEM
     crack (0.3.1)
     dancroak-twitter-search (0.5.8)
       json (>= 1.1.2)
+    delorean (1.2.0)
+      chronic
     erubis (2.6.6)
       abstract (>= 1.0.0)
     faraday (0.6.1)
@@ -216,6 +218,7 @@ DEPENDENCIES
   bitly!
   capistrano
   dancroak-twitter-search
+  delorean
   fgraph
   jquery-rails
   make_voteable!
