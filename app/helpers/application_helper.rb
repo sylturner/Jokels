@@ -14,4 +14,12 @@ module ApplicationHelper
 	    self.formats = old_formats
 	    nil
   	end
+
+  	def nvl(value, default)
+  		logger.debug "Value: #{value}"
+  		logger.debug "Default: #{default}"
+  		return default if value.nil?
+
+  		return value
+  	end
 end

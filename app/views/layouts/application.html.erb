@@ -10,9 +10,9 @@
   <%= csrf_meta_tag %>
   <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
   <!-- facebook crap -->
-  <meta property="og:title" content="Jokels" />
+  <meta property="og:title" content="<%= nvl(@title,"Jokels") %>" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://jokels.com" />
+  <meta property="og:url" content="<%= nvl(@fb_url,"www.jokels.com") %>" />
   <meta property="og:image" content="http://i.imgur.com/5nNRs.jpg" />
   <meta property="og:site_name" content="Jokels" />
   <meta property="fb:admins" content="75400017" />

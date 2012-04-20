@@ -23,6 +23,7 @@ class JokesController < ApplicationController
       @joke.generate_bitly_url
     end
     
+    @fb_url = @joke.bitly_url
     generate_title @joke.question
     
     respond_to do |format|
