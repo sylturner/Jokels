@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120419022102) do
+ActiveRecord::Schema.define(:version => 20120420154652) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -56,6 +56,9 @@ ActiveRecord::Schema.define(:version => 20120419022102) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "favorite_jokes", ["joke_id"], :name => "index_favorite_jokes_on_joke_id"
+  add_index "favorite_jokes", ["user_id"], :name => "index_favorite_jokes_on_user_id"
 
   create_table "jokes", :force => true do |t|
     t.datetime "created_at"
