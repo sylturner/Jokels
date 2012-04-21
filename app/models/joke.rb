@@ -184,7 +184,7 @@ class Joke < ActiveRecord::Base
    
    def self.random_joke
      count = Joke.count(:conditions => "(up_votes - down_votes) >= -2");
-     offset = rand(count)
+     offset = Random.rand(count)
      result_joke = (Joke.where("(up_votes - down_votes) >= -2").limit(1).offset(offset))[0]
    end
 
