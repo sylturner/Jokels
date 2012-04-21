@@ -1,24 +1,29 @@
-<div id="user">
+<script>
+  $(function() {
+    // jQuery UI tabs
+    $( "#tabs" ).tabs();
+  });
+</script>
+
+<div id="user">  
   <p id="user-info"><%= link_to image_tag(@user.image_url, :size => "48x48"), @user.url %> <strong><%=link_to user_name(@user), @user.url,  "data-user-id" => @user.id, "data-include-avatar" => "false", :class => "qtip-user"%></strong> (via <%=@user.provider.capitalize%>)</p>
   
-  <% if !@jokes.empty? %>
-	<div class="column left">
-    <h2><%=user_name @user %>'s jokes</h2>
+  <div id="tabs">
     <ul>
-    <% @jokes.each do |joke| %>
-      <li><%= render :partial => "shared/joke_link", :locals => {:joke => joke} %> <% if @user == current_user %>[<%= link_to "Edit", edit_joke_path(joke), :method => :get, :remote => true %>]</li><% end %>
-    <% end %>
+      <li><a href="#jokes">Jokes</a></li>
+      <li><a href="#favorites">Favorites</a></li>
+      <li><a href="#forks">Forks</a></li>
     </ul>
-	</div>
-  <% end %>
-  <% if !@favorite_jokes.empty? %>
-	<div class="column right">
-	<h2><%=user_name @user %>'s favorite jokes</h2>
-	<ul>
-	<% @favorite_jokes.each do |favorite| %>
-      <li><%= render :partial => "shared/joke_link", :locals => {:joke => favorite.joke} %></li>
-    <% end %>
-	</ul>
-	</div>
-  <% end %>
+    <div id="jokes">
+      <%= render :partial => "users/jokes", :locals => {:user => @user, :jokes => @jokes} %>
+    </div>
+    <div id="favorites">
+      <%= render :partial => "users/favorites", :locals => {:user => @user, :favorite_jokes => @favorite_jokes} %>
+    </div>
+    <div id="forks">
+      <%= render :partial => "users/forks", :locals => {:user => @user, :forked_jokes => @forked_jokes} %>
+    </div>
+  </div>
 </div>
+
+

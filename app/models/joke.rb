@@ -21,12 +21,12 @@ class Joke < ActiveRecord::Base
     self.favorite_jokes_count
   end
 
-  def fork_count
+  def forks_count
     self.alternate_punchlines_count
   end
 
   def has_forks?
-    fork_count > 0
+    forks_count > 0
   end
 
   def clean!

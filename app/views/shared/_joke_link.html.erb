@@ -1,1 +1,2 @@
-<%= link_to (joke.question + "  " + (joke.fork_count > 0 ? image_tag("../stylesheets/arrow_divide_down.png") : "")).html_safe, joke, "data-joke-id" => joke.id, :class => "qtip-joke" %>
+<% show_fork_icon = true if show_fork_icon.nil? %>
+<%= link_to (joke.question + "  " + (show_fork_icon && (joke.forks_count > 0) ? image_tag("../stylesheets/arrow_divide_down.png") : "")).html_safe, joke, "data-joke-id" => joke.id, :class => "qtip-joke" %>

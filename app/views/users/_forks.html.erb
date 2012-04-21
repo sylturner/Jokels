@@ -1,0 +1,10 @@
+<h2><%=user_name user %>'s forked jokes</h2>
+<% if user.forks_count > 0 %>
+  <ul>
+  <% forked_jokes.each do |forked_joke| %>
+      <li><%= render :partial => "shared/joke_link", :locals => {:joke => forked_joke, :show_fork_icon => false} %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p><%= user_name user %> doesn't have any forks.</p>
+<% end %>

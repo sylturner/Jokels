@@ -1,0 +1,10 @@
+<h2><%=user_name user %>'s favorite jokes</h2>
+<% if user.favorite_jokes_count > 0 %>
+  <ul>
+  <% favorite_jokes.each do |favorite| %>
+      <li><%= render :partial => "shared/joke_link", :locals => {:joke => favorite.joke} %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p><%= user_name user %> doesn't have any favorite jokes.</p>
+<% end %>

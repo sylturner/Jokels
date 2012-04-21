@@ -58,7 +58,7 @@ class User < ActiveRecord::Base
     favorite_jokes_count
   end
 
-  def fork_count
+  def forks_count
     alternate_punchlines_count
   end
 
@@ -69,6 +69,15 @@ class User < ActiveRecord::Base
     end
 
     total_score
+  end
+
+  def forked_jokes
+    jokes = []
+    self.alternate_punchlines.group_by(&:joke_id).each do |ap|
+      joke = Joke.find ap[0]
+      jokes << joke
+    end
+    jokes
   end
   
 end

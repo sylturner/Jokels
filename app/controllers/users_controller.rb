@@ -4,6 +4,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @jokes = Joke.find_all_by_user_id params[:id]
     @favorite_jokes = @user.favorite_jokes
+    @forked_jokes = @user.forked_jokes
     
     generate_title "#{user_name @user}'s jokes"
     

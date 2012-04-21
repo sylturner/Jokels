@@ -1,0 +1,10 @@
+<h2><%=user_name user %>'s jokes</h2>
+<% if user.jokes_count > 0 %>
+  <ul>
+  <% jokes.each do |joke| %>
+    <li><%= render :partial => "shared/joke_link", :locals => {:joke => joke} %> <% if user == current_user %>[<%= link_to "Edit", edit_joke_path(joke), :method => :get, :remote => true %>]</li><% end %>
+  <% end %>
+  </ul>
+<% else %>
+<p><%= user_name user %> doesn't have any jokes.</p>
+<% end %>
