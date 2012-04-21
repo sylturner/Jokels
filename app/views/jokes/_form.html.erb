@@ -4,17 +4,20 @@
       You are not signed in; you will not get any credit for this joke!  
     </div>
     <script type="text/javascript">
-      $('#error_explanation').qtip({
-          style: {
-            classes: 'ui-tooltip-rounded ui-tooltip-shadow',
-            width: "200px"
-          },    
-          position:{
-            my: 'bottom right',
-            at: 'top left',
-            target: $('#error_explanation')
-          }   
-        });
+      if ( $('#error_explanation').qtip )
+      {
+        $('#error_explanation').qtip({
+            style: {
+              classes: 'ui-tooltip-rounded ui-tooltip-shadow',
+              width: "200px"
+            },    
+            position:{
+              my: 'bottom right',
+              at: 'top left',
+              target: $('#error_explanation')
+            }   
+          });
+      }
     </script>
   <% end %>
   <% if @joke.errors.any? %>
