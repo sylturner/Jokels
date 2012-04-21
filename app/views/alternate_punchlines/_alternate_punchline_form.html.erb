@@ -1,5 +1,5 @@
 <%= form_for(@alternate_punchline, :url => joke_alternate_punchlines_path) do |f| %>
-  <% if @current_user.nil? %>
+  <% if current_user.nil? %>
     <div id="error_explanation" title="Sign in to get credit for jokes and alternate punchlines written, to show up on the User leaderboards and to vote on other users' Jokes and Alternate Punchlines.">
       You are not signed in; you will not get any credit for this alternate punchline!  
     </div>
