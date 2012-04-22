@@ -24,13 +24,15 @@ function enable_joke_qtips()
 {
 	$(".qtip-joke").each(function() {
 		var id = $(this).attr("data-joke-id");
+		var on_joke = $(this).attr("data-on-joke");
+
 		$(this).qtip({
 			style: {
 				classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
 			},
 			position:{
-				my: 'top left',
-				at: 'bottom left',
+				my: (on_joke === "true") ? 'top right' : 'top left',
+				at: (on_joke === "true") ? 'bottom left' : 'bottom left',
 	            viewport: $(window),
 	            effect: false
 			},
