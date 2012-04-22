@@ -36,6 +36,8 @@ class JokesController < ApplicationController
   # GET /jokes/new
   # GET /jokes/new.xml
   def new
+    @joke.is_kid_safe = true
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @joke }
@@ -64,6 +66,9 @@ class JokesController < ApplicationController
       @joke.user = current_user
       if params[:joke][:auto_post]
       end
+
+      @joke.is_kid_safe = params[:joke][:is_kid_safe] == 1 && !(ProfanityFilter::Base.profane?(@joke.question) || ProfanityFilter::Base.profane?(@joke.answer))
+
     end
     respond_to do |format|
       if @joke.save
@@ -101,6 +106,8 @@ class JokesController < ApplicationController
   def update
     respond_to do |format|
       if @joke.update_attributes(params[:joke])
+        @joke.is_kid_safe = params[:joke][:is_kid_safe] == 1 && !(ProfanityFilter::Base.profane?(@joke.question) || ProfanityFilter::Base.profane?(@joke.answer))
+        @joke.save()
         format.html { 
           notice = 'Joke was successfully updated.'
           if current_user && params[:joke][:auto_tweet] == '1'

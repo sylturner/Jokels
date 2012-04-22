@@ -15,7 +15,7 @@ class AlternatePunchlinesController < JokesController
   end
 
   def new
-    @alternate_punchline = AlternatePunchline.new(:joke => @joke, :user => current_user)
+    @alternate_punchline = AlternatePunchline.new(:joke => @joke, :user => current_user, :is_kid_safe => true)
     
     respond_to do |format|
       format.html
@@ -27,6 +27,9 @@ class AlternatePunchlinesController < JokesController
     @alternate_punchline = AlternatePunchline.new(params[:alternate_punchline])
     @alternate_punchline.joke = @joke
     @alternate_punchline.user = current_user
+
+    @alternate_punchline.is_kid_safe = params[:alternate_punchline][:is_kid_safe] == 1 && !ProfanityFilter::Base.profane?(@alternate_punchline.punchline) 
+
     respond_to do |format|
       format.html {
         if @alternate_punchline.save

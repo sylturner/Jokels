@@ -275,6 +275,14 @@ body {
 	width: 20px;
 }
 
+#joke_is_kid_safe{
+	width: 20px;
+}
+
+#alternate_punchline_is_kid_safe{
+	width: 20px;
+}
+
 #why {
 	display:none;
 }

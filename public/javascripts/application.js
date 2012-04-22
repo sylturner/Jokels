@@ -18,7 +18,29 @@ $(document).ready(function() {
 	enable_joke_qtips();
 	enable_user_qtips();
 	enrich_leaderboards();
+	enable_basic_qtips();
 });
+
+function enable_basic_qtips()
+{
+	$(".qtip-capable").each(function() {
+
+		if( $(this).qtip )
+      	{
+	        $(this).qtip({
+	            style: {
+	              classes: 'ui-tooltip-rounded ui-tooltip-shadow',
+	              width: "200px"
+	            },    
+	            position:{
+	              my: 'bottom right',
+	              at: 'top left',
+	              target: $(this)
+	            }   
+	          });
+      	}
+    });
+}
 
 function enable_joke_qtips()
 {

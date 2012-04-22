@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   end
   
   def add_joke
-    @joke = Joke.new
+    @joke = Joke.new(:is_kid_safe => true)
     respond_to do |format|
       format.html
       format.mobile
