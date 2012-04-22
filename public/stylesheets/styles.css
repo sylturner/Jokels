@@ -470,6 +470,10 @@ body {
 	width: 128px;
 }
 
+.ui-tooltip-content a {
+	color: #FFF;
+}
+
 .qrcode {
 	vertical-align: middle;
 	background-color: #FFF;

@@ -24,6 +24,7 @@ gem 'twilio-ruby'
 gem 'dancroak-twitter-search'
 gem "profanity_filter"
 gem "delorean"
+gem 'acts-as-taggable-on', :git => "git://github.com/mbleigh/acts-as-taggable-on.git"
 
 # Use unicorn as the web server
 # gem 'unicorn'

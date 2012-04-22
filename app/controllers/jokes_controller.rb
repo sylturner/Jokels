@@ -1,7 +1,7 @@
 class JokesController < ApplicationController
 
   # set the @joke instance variable for certain methods
-  before_filter :attach_joke, :only => [:new, :show, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote, :new_sms_joke, :send_sms_joke]
+  before_filter :attach_joke, :only => [:new, :show, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote, :new_sms_joke, :send_sms_joke, :add_tags, :save_tags]
   skip_before_filter :verify_authenticity_token, :only => [:receive_sms_request]
 
   # GET /jokes
@@ -265,6 +265,27 @@ class JokesController < ApplicationController
     
     respond_to do |format|
       format.html {render :layout => false, :notice => message_sent ? "Message Sent" : "Message not sent, body is probably wrong fromat."}
+    end
+  end
+
+  def add_tags
+    
+  end
+
+  def save_tags
+    return if params[:tags].nil?
+
+    tags = params[:tags].split(",")
+    @joke.tag_list = @joke.tag_list | tags
+    
+    if @joke.save
+      respond_to do |format|
+        format.html { redirect_to(@joke, :notice => "Tagged that joke!") }          
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to(@joke, :notice => "Couldn't tag the joke. Not sure why...")}
+      end
     end
   end
     

@@ -3,6 +3,7 @@ require 'twitter_search'
 
 class Joke < ActiveRecord::Base
   make_voteable
+  acts_as_taggable
 
   has_many :categories
   has_many :favorite_jokes, :dependent => :destroy

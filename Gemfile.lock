@@ -7,6 +7,13 @@ GIT
       chronic (~> 0.6.3)
 
 GIT
+  remote: git://github.com/mbleigh/acts-as-taggable-on.git
+  revision: 4690e041e59114ad1d42efaa463462140a703dba
+  specs:
+    acts-as-taggable-on (2.2.2)
+      rails (~> 3.0)
+
+GIT
   remote: git://github.com/medihack/make_voteable.git
   revision: 106adecfad30175ce0ecd741ed4a9ee02f7cfa91
   specs:
@@ -214,6 +221,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts-as-taggable-on!
   airbrake
   bitly!
   capistrano

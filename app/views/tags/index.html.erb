@@ -1,0 +1,8 @@
+<div id="jokes-list">
+  <h2>All joke tags</h2> 
+  <ul>
+    <% @tags.each do |tag| %>
+      <li><a href="/tags/<%=tag.name%>"><%= tag.name %></a> (<%= tag.count %>)</li>
+    <% end %>
+  </ul>
+</div> 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120420154652) do
+ActiveRecord::Schema.define(:version => 20120422175753) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -37,12 +37,6 @@ ActiveRecord::Schema.define(:version => 20120420154652) do
   add_index "alternate_punchlines", ["joke_id"], :name => "index_alternate_punchlines_on_joke_id"
   add_index "alternate_punchlines", ["up_votes"], :name => "index_alternate_punchlines_on_up_votes"
   add_index "alternate_punchlines", ["user_id"], :name => "index_alternate_punchlines_on_user_id"
-
-  create_table "categories", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "daily_words", :force => true do |t|
     t.string   "word"
@@ -77,6 +71,23 @@ ActiveRecord::Schema.define(:version => 20120420154652) do
   add_index "jokes", ["down_votes"], :name => "index_jokes_on_down_votes"
   add_index "jokes", ["up_votes"], :name => "index_jokes_on_up_votes"
   add_index "jokes", ["user_id"], :name => "index_jokes_on_user_id"
+
+  create_table "taggings", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", :force => true do |t|
+    t.string "name"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "uid"

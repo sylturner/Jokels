@@ -1,0 +1,9 @@
+<%= form_for(@tag) do |f| %>
+  <div class="field">
+    <%= f.label :name, "Tag name" %>
+    <%= f.text_field :name %>    
+  </div>
+  <div class="actions">
+    <%= f.submit "Add joke" %>
+  </div>
+<% end %>
