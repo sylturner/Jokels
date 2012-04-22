@@ -10,7 +10,8 @@
     <% if joke.user %>
       <%= link_to image_tag(joke.user.image_url, :size => "48x48"), joke.user, :class=>"avatar avatar-left qtip-user", :id => "question-avatar", :title => user_name(joke.user), "data-user-id" => joke.user.id, "data-include-avatar" => "false"%>
     <% else %>
-      <%= image_tag anon_user_icon, :size => "48x48", :class => "avatar avatar-left avatar-anon", :title => "Anonymous author" %>
+      <% anon_icon_url = anon_user_icon %>
+      <%= image_tag anon_icon_url, :size => "48x48", :class => "avatar avatar-left avatar-anon", :title => "Anonymous author" %>
     <% end %>    
     <span class="bubble" id="creator-avatar-bubble"></span>
     <p id="question" class="question">      
@@ -27,7 +28,7 @@
       <% if joke.user %>
         <%= link_to image_tag(joke.user.image_url, :size => "48x48"), joke.user, :class=>"avatar avatar-right qtip-user", :id => "question-avatar", :title => user_name(joke.user), "data-user-id" => joke.user.id, "data-include-avatar" => "false"%>
       <% else %>
-        <%= image_tag anon_user_icon, :size => "48x48", :class => "avatar avatar-right avatar-anon", :title => "Anonymous author" %>
+        <%= image_tag anon_icon_url, :size => "48x48", :class => "avatar avatar-right avatar-anon", :title => "Anonymous author" %>
       <% end %>   
     </p>
   </div>
