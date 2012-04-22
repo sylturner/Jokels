@@ -491,6 +491,10 @@ body {
 	margin-top: -6px;
 	display: inline-block;
 	float:right;
+	/* mirror the image horizontally */
+	-moz-transform: scale(-1,1);
+	-webkit-transform: scale(-1,1);
+	transform: scale(-1,1);
 }
 #joke-container #answer-avatar {
 	display:none;
