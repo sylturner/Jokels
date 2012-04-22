@@ -23,6 +23,12 @@
   <div id="answer-container">
     <p id="answer" class="answer">
       <%= joke.answer %>
+      <span class="bubble-right bubble bubble-answer" id="answer-avatar-bubble"></span>
+      <% if joke.user %>
+        <%= link_to image_tag(joke.user.image_url, :size => "48x48"), joke.user, :class=>"avatar avatar-right qtip-user", :id => "question-avatar", :title => user_name(joke.user), "data-user-id" => joke.user.id, "data-include-avatar" => "false"%>
+      <% else %>
+        <%= image_tag anon_user_icon, :size => "48x48", :class => "avatar avatar-right avatar-anon", :title => "Anonymous author" %>
+      <% end %>   
     </p>
   </div>
   

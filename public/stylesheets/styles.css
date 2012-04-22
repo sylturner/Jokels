@@ -156,6 +156,9 @@ body {
 
 #main .joke p.answer {	
 	background: #BBDDBB;
+}
+
+#main .joke div#answer-container {
 	display:none;
 }
 #main .joke p.share {
@@ -485,8 +488,9 @@ body {
 
 #joke-container .avatar-right {
 	margin-right: -60px;
+	margin-top: -6px;
+	display: inline-block;
 	float:right;
-	display:none;
 }
 #joke-container #answer-avatar {
 	display:none;
@@ -500,12 +504,36 @@ body {
 	margin-left: -9px;
 	margin-top: 18px;
 }
-.bubble-fork {
+
+.bubble.bubble-fork {
 	background: url('bubble-arrow-fork1.png') no-repeat;
+}
+.bubble-right.bubble-fork {
+	background: url('bubble-arrow-fork.png') no-repeat;	
+}
+
+.bubble-right{
+	float:right;
+	margin-right: -8px;
+	margin-top: 13px;
+}
+
+.bubble-fork.bubble
+{
+	margin-top: 13px;
+}
+
+.bubble-answer{
+	background: url('bubble-arrow-answer.png') no-repeat;
 }
 
 .avatar-anon {
 	background: #9C9;
+}
+
+
+.fork-avatar {
+	margin-top: -6px;
 }
 
 .avatar-anon-fork {

@@ -91,7 +91,7 @@ function enable_user_qtips()
 function enable_joke_stuff()
 {	
 	$('#click-for-punchline').hide();
-	$('#answer').slideDown('fast');
+	$('#answer-container').slideDown('fast');
 	$('#question').css('cursor', 'default');
 	$("#share").delay(750).slideDown('fast');
 	$('#refresh-joke').delay(750).slideDown('fast');
@@ -103,7 +103,7 @@ function enable_joke_stuff()
 		function(){$(this).attr("src","/images/arrow_down.png")}, 
 		function(){$(this).attr("src", $(this).attr("data-orig-src"))});
 	$('#show-original').click(function(){
-		$("#answer").slideDown("fast");
+		$("#answer-container").slideDown("fast");
 		$("#share").slideDown("fast");
 		$(this).slideUp("fast");
 	})
