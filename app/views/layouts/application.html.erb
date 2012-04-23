@@ -47,7 +47,7 @@
       <div class="right">
         <% if current_user %>
           Welcome <%= render :partial => "shared/user_link", :locals => {:user => current_user, :include_avatar => true}%> |
-          <% if current_user.is_admin %>
+          <% if !current_user.nil? && current_user.is_admin %>
             <%= link_to "Administration", "/admin/" %> |
           <% end %>
           <%= link_to "Sign Out", signout_path %>

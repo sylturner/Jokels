@@ -50,7 +50,7 @@
         | <span><a href="http://twitter.com/share" class="twitter-share-button" data-url="<%=joke.bitly_url%>" data-text="<%=joke.question%>" data-count="horizontal" data-via="jokelscom">Tweet</a>        
       </span>
       <span class="share-bar-right">      
-        <% if current_user.is_admin %>
+        <% if !current_user.nil? && current_user.is_admin %>
           <%= check_box_tag("joke-#{joke.id}", value = joke.is_kid_safe, checked = joke.is_kid_safe, :class => "ajax-checkbox joke-checkbox", "data-href" => is_kid_safe_toggle_joke_path(joke)) %> Is Kid Safe?
         <% end %>
         <% if joke.user %>

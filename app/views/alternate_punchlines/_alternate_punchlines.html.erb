@@ -25,7 +25,7 @@
          <%= render :partial => "shared/votes", :locals => {:joke => ap, :upvote_path => upvote_joke_alternate_punchline_path(ap.joke, ap), :downvote_path => downvote_joke_alternate_punchline_path(ap.joke, ap), :id => "ap_#{ap.id}"} %>
       </span>
       <span class="right">
-        <% if current_user.is_admin %>
+        <% if !current_user.nil? && current_user.is_admin %>
           <%= check_box_tag("alt-punchline-#{ap.id}", value = ap.is_kid_safe, checked = ap.is_kid_safe, :class => "ajax-checkbox alternate-punchline-checkbox", "data-href" => is_kid_safe_toggle_joke_alternate_punchline_path(ap.joke, ap)) %> Is Kid Safe?
         <% end %>
       </span>
