@@ -8,7 +8,7 @@ class JokesController < ApplicationController
   # GET /jokes.xml
   def index
     if is_clean_mode? 
-      @jokes = Joke.where('is_kid_safe = "t"')
+      @jokes = Joke.where('is_kid_safe = 1')
     else
       @jokes = Joke.all
     end

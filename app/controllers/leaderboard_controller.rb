@@ -27,13 +27,13 @@ class LeaderboardController < ApplicationController
      if @sort_type == "joke"
        if @sort == "newest"
           if is_clean_mode?
-            @jokes = Joke.select("*").where('is_kid_safe = "t"').order("created_at DESC").limit(10)
+            @jokes = Joke.select("*").where('is_kid_safe = 1').order("created_at DESC").limit(10)
           else
             @jokes = Joke.select("*").order("created_at DESC").limit(10)
           end
        else
 
-        kid_safe_clause = is_clean_mode? ? 'is_kid_safe = "t" AND '  : ""
+        kid_safe_clause = is_clean_mode? ? 'is_kid_safe = 1 AND '  : ""
 
         case @time
         when "today"
@@ -44,7 +44,7 @@ class LeaderboardController < ApplicationController
           @jokes = Joke.where(["#{kid_safe_clause} created_at BETWEEN ? AND ?", Time.now.beginning_of_month, Time.now]).order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
         when "all-time"
           if is_clean_mode?
-            @jokes = Joke.select("*").where('is_kid_safe = "t"').order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
+            @jokes = Joke.select("*").where('is_kid_safe = 1').order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
           else
             @jokes = Joke.select("*").order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
           end

@@ -197,9 +197,9 @@ class Joke < ActiveRecord::Base
    
    def self.random_joke ( kid_safe = false)
     if kid_safe 
-      count = Joke.count(:conditions => "is_kid_safe = \"t\" and (up_votes - down_votes) >= -2");
+      count = Joke.count(:conditions => "is_kid_safe = 1 and (up_votes - down_votes) >= -2");
       offset = rand(count)
-      result_joke = (Joke.where("is_kid_safe = \"t\" and (up_votes - down_votes) >= -2").limit(1).offset(offset))[0]
+      result_joke = (Joke.where("is_kid_safe = 1 and (up_votes - down_votes) >= -2").limit(1).offset(offset))[0]
     else
      count = Joke.count(:conditions => "(up_votes - down_votes) >= -2");
      offset = rand(count)
