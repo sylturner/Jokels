@@ -53,20 +53,19 @@
           <%= link_to "Sign Out", signout_path %>
         <% else %>
           Sign in with <a href="/auth/twitter">Twitter</a> or <a href="/auth/facebook">Facebook</a> (<a href="#" id="question-mark">?</a>)
-        <% end %>
+        <% end %>       
         <br/>
         <%= link_to "Add new joke", add_joke_home_path, :method => :get, :remote => true, :class=>"add-joke-button" %> | <%= link_to "Leaderboards", leaderboard_path %>
         <br/>
+        <% if is_clean_mode? %>
+          <span id="clean-mode" class="qtip-capable" title="We'll do our best to filter out profane and inappropriate jokes.">Clean mode is <strong><%= link_to "ON", "/clean_mode_off" %></strong></span>
+        <% else %>
+          <span id="clean-mode" class="qtip-capable" title="There's currently no content filtering.">Clean mode is <strong><%= link_to "OFF", "/clean_mode_on" %></strong></span>
+        <% end %>        
+        <br/>    
         <% if daily_word %>
           <span id="daily-inspiration" title="Let this random word/phrase/concept help inspire your jokes" style="cursor:help">Today's inspiration: <%= daily_word %></span>
-          <% end %>
-        <br/>
-        <% if is_clean_mode? %>
-          <span id="clean-mode" class="qtip-capable" title="We'll do our best to filter out profane and inappropriate jokes.">Clean mode is currently <b>on</b>. <%= link_to "Show dirty jokes", "/clean_mode_off" %> </span>
-        <% else %>
-          <span id="clean-mode" class="qtip-capable" title="There's currently no content filtering.">Clean mode is currently <b>off</b>. <%= link_to "Show only clean jokes", "/clean_mode_on" %> </span>
-        <% end %>
-        
+          <% end %>       
       </div>
     </div>
 

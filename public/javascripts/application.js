@@ -63,7 +63,8 @@ function enable_basic_qtips()
 	            position:{
 	              my: 'bottom right',
 	              at: 'top left',
-	              target: $(this)
+	              target: $(this),
+	              viewport: $(window)
 	            }   
 	          });
       	}
