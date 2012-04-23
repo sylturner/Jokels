@@ -1,0 +1,6 @@
+
+<% if @joke.is_kid_safe %>
+	$("#joke-<%= @joke.id%>.joke-checkbox").prop("checked", true);
+<% else %>
+	$("#joke-<%= @joke.id%>.joke-checkbox").prop("checked", false);
+<% end %>

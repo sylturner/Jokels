@@ -5,7 +5,8 @@
   <%= stylesheet_link_tag "/stylesheets/styles.css" %>
   <%= stylesheet_link_tag "/stylesheets/jquery.qtip.css" %>
   <%= stylesheet_link_tag "/stylesheets/absolution.blue.css"%>
-  <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js","/javascripts/jquery.qtip.min.js" %>
+  <%= stylesheet_link_tag "/stylesheets/jquery.datatables.css"%>
+  <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js","/javascripts/jquery.qtip.min.js", "/javascripts/jquery.dataTables.min.js" %>
   <%=javascript_include_tag 'rails'%>
   <%= csrf_meta_tag %>
   <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
@@ -45,6 +46,9 @@
       <div class="right">
         <% if current_user %>
           Welcome <%= render :partial => "shared/user_link", :locals => {:user => current_user, :include_avatar => true}%> |
+          <% if current_user.is_admin %>
+            <%= link_to "Administration", "/admin/" %> |
+          <% end %>
           <%= link_to "Sign Out", signout_path %>
         <% else %>
           Sign in with <a href="/auth/twitter">Twitter</a> or <a href="/auth/facebook">Facebook</a> (<a href="#" id="question-mark">?</a>)

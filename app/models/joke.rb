@@ -35,6 +35,10 @@ class Joke < ActiveRecord::Base
     
     self
   end
+
+  def is_profane?
+    ProfanityFilter::Base.profane?(self.question) || ProfanityFilter::Base.profane?(self.answer)
+  end
   
   def self.jokeler_update
     require 'rss/2.0'

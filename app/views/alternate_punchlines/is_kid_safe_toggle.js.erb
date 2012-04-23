@@ -1,0 +1,5 @@
+<% if @alternate_punchline.is_kid_safe %>
+	$("#alt-punchline-<%= @alternate_punchline.id%>.alternate-punchline-checkbox").prop("checked", true);
+<% else %>
+	$("#alt-punchline-<%= @alternate_punchline.id%>.alternate-punchline-checkbox").prop("checked", false);
+<% end %>

@@ -1,9 +1,14 @@
 class AlternatePunchlinesController < JokesController
 
   before_filter :attach_joke, :only => [:index, :new, :create]  
+  before_filter :attach_alternate_punchline, :only => [:upvote, :downvote, :is_kid_safe_toggle]
 
   def attach_joke
     @joke = Joke.find(params[:joke_id])
+  end
+
+  def attach_alternate_punchline
+    @alternate_punchline = AlternatePunchline.find(params[:id])
   end
 
   def index
@@ -43,7 +48,6 @@ class AlternatePunchlinesController < JokesController
   end
 
   def upvote
-    @alternate_punchline = AlternatePunchline.find(params[:id])
     if current_user
       set_voting_element_ids "ap_#{@alternate_punchline.id}"
       vote @alternate_punchline, "up"
@@ -56,7 +60,6 @@ class AlternatePunchlinesController < JokesController
   end
   
   def downvote
-    @alternate_punchline = AlternatePunchline.find(params[:id])
     if current_user
       set_voting_element_ids "ap_#{@alternate_punchline.id}"
       vote @alternate_punchline, "down"
@@ -64,6 +67,21 @@ class AlternatePunchlinesController < JokesController
       respond_to do |format|
         format.html { redirect_to(Joke.find(params[:id]), :notice => 'Please login to vote') }
         format.js { render :layout => false }
+      end
+    end
+  end
+
+  def is_kid_safe_toggle
+    if !current_user.nil? && current_user.is_admin
+      @alternate_punchline.is_kid_safe = !@alternate_punchline.is_kid_safe
+      @alternate_punchline.save
+
+      respond_to do |format|
+        format.js { render :layout => false}
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to(root_url, :notice => 'Please login to change whether an alternate punchline is kid safe') }
       end
     end
   end

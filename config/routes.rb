@@ -9,10 +9,12 @@ Jokels::Application.routes.draw do
     get :favorite_toggle, :on => :member, :action => "favorite_toggle"
     get :sms_joke, :on => :member, :action => "new_sms_joke"
     post :sms_joke, :on => :member, :action => "send_sms_joke"
+    post :is_kid_safe_toggle, :on => :member, :action => "is_kid_safe_toggle"
 
     resources :alternate_punchlines, :controller => "alternate_punchlines" do
       get :upvote, :on => :member, :action => "upvote"
       get :downvote, :on => :member, :action => "downvote"
+      post :is_kid_safe_toggle, :on => :member, :action => "is_kid_safe_toggle"
     end
   end
   
@@ -21,6 +23,12 @@ Jokels::Application.routes.draw do
     get :refresh_joke, :action => "index"
     get :privacy_policy, :action => "privacy_policy"
   end
+
+  resource :admin, :controller => "admin" do
+    get :joke_management, :action => "joke_management"
+    get :index, :action => "index"
+  end
+
   root :to => "home#index"
   
   match "/qtip/joke" => "jokes#qtip"

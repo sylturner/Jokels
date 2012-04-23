@@ -21,6 +21,34 @@ $(document).ready(function() {
 	enable_basic_qtips();
 });
 
+function enable_datatable() {
+	var oTable = $('#joke_datatable').dataTable({
+			"sPaginationType": "full_numbers"
+		});
+
+		oTable.$(".ajax-checkbox").click(function() {
+			$.ajax({
+		    url: $(this).data('href'),
+		    type: 'POST',
+		    dataType: 'script'
+		  });
+
+		  return false;
+		});
+}
+
+function enable_checkbox() {
+	$(".ajax-checkbox").click(function() {
+			$.ajax({
+		    url: $(this).data('href'),
+		    type: 'POST',
+		    dataType: 'script'
+		  });
+
+		  return false;
+		});
+}
+
 function enable_basic_qtips()
 {
 	$(".qtip-capable").each(function() {
