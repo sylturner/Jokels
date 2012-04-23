@@ -4,13 +4,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     @jokes = Joke.find_all_by_user_id(params[:id])
-    @jokes.select!{|joke| joke.is_kid_safe} if is_clean_mode?
+    @jokes = @jokes.select{|joke| joke.is_kid_safe} if is_clean_mode?
 
     @favorite_jokes = @user.favorite_jokes
-    @favorite_jokes.select!{|fav_joke| fav_joke.joke.is_kid_safe} if is_clean_mode?
+    @favorite_jokes = @favorite_jokes.select{|fav_joke| fav_joke.joke.is_kid_safe} if is_clean_mode?
 
     @forked_jokes = @user.forked_jokes
-    @forked_jokes.select!{|forked_joke| forked_joke.is_kid_safe} if is_clean_mode?
+    @forked_jokes = @forked_jokes.select{|forked_joke| forked_joke.is_kid_safe} if is_clean_mode?
     
     generate_title "#{user_name @user}'s jokes"
     
