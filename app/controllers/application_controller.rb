@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   helper_method :daily_word
   helper_method :generate_title
   helper_method :user_name
+  helper_method :is_clean_mode?
 
   DEFAULT_TITLE = "Jokels - Share your jokes!"
 
@@ -19,6 +20,14 @@ class ApplicationController < ActionController::Base
     rescue => e
       @current_user = nil
     end
+  end
+
+  def is_clean_mode?
+    !session[:clean_mode].nil? && session[:clean_mode]
+  end 
+
+  def set_clean_mode value
+    session[:clean_mode] = value
   end
   
   def daily_word

@@ -41,7 +41,7 @@
 
     <div id="header">
       <div class="left">
-        <a href="/"><h1>jokels</h1></a><%if Rails.env == "development"%> - dev <% end %>
+        <a href="/"><h1>jokels</h1></a><%if Rails.env == "development"%> - dev <% end %><%if is_clean_mode? %>Clean<% end %>
       </div>
       <div class="right">
         <% if current_user %>
@@ -59,6 +59,12 @@
         <% if daily_word %>
           <span id="daily-inspiration" title="Let this random word/phrase/concept help inspire your jokes" style="cursor:help">Today's inspiration: <%= daily_word %></span>
           <% end %>
+        <br/>
+        <% if is_clean_mode? %>
+          <span id="clean-mode" class="qtip-capable" title="We'll do our best to filter out profane and inappropriate jokes.">Clean mode is currently <b>on</b>. <%= link_to "Show dirty jokes", "/clean_mode_off" %> </span>
+        <% else %>
+          <span id="clean-mode" class="qtip-capable" title="There's currently no content filtering.">Clean mode is currently <b>off</b>. <%= link_to "Show only clean jokes", "/clean_mode_on" %> </span>
+        <% end %>
         
       </div>
     </div>

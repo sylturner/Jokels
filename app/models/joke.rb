@@ -21,12 +21,20 @@ class Joke < ActiveRecord::Base
     self.favorite_jokes_count
   end
 
-  def forks_count
-    self.alternate_punchlines_count
+  def forks_count (is_clean_mode = false)
+    if is_clean_mode
+      filtered_alternate_punchlines.count
+    else
+      self.alternate_punchlines_count
+    end
   end
 
-  def has_forks?
-    forks_count > 0
+  def filtered_alternate_punchlines
+    alternate_punchlines.select { |ap| ap.is_kid_safe }
+  end
+
+  def has_forks? (is_clean_mode = false)
+    forks_count(is_clean_mode) > 0
   end
 
   def clean!
@@ -186,10 +194,16 @@ class Joke < ActiveRecord::Base
      end
    end
    
-   def self.random_joke
+   def self.random_joke ( kid_safe = false)
+    if kid_safe 
+      count = Joke.count(:conditions => "is_kid_safe = \"t\" and (up_votes - down_votes) >= -2");
+      offset = rand(count)
+      result_joke = (Joke.where("is_kid_safe = \"t\" and (up_votes - down_votes) >= -2").limit(1).offset(offset))[0]
+    else
      count = Joke.count(:conditions => "(up_votes - down_votes) >= -2");
      offset = rand(count)
      result_joke = (Joke.where("(up_votes - down_votes) >= -2").limit(1).offset(offset))[0]
+    end
    end
 
    def self.find_joke_that_fits(limit=140, threshold=1)

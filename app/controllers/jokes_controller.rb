@@ -7,7 +7,12 @@ class JokesController < ApplicationController
   # GET /jokes
   # GET /jokes.xml
   def index
-    @jokes = Joke.all
+    if is_clean_mode? 
+      @jokes = Joke.where('is_kid_safe = "t"')
+    else
+      @jokes = Joke.all
+    end
+    
     generate_title "All Jokes"
     respond_to do |format|
       format.html # index.html.erb

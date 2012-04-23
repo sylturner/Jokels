@@ -12,7 +12,12 @@ class AlternatePunchlinesController < JokesController
   end
 
   def index
-    @alternate_punchlines = @joke.alternate_punchlines.sort_by{|x| x.votes}.reverse
+    if is_clean_mode?
+      @alternate_punchlines = @joke.filtered_alternate_punchlines
+    else
+      @alternate_punchlines = @joke.alternate_punchlines
+    end
+    @alternate_punchlines.sort_by!{|x| x.votes}.reverse!
     respond_to do |format|
       format.html
       format.js {render :layout => false}

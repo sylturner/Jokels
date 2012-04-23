@@ -10,6 +10,18 @@ class HomeController < ApplicationController
       format.js {render :layout => false }
     end
   end
+
+  def clean_mode_on
+    set_clean_mode(true)
+
+    redirect_to root_url, :notice => "We'll only show clean jokes from now on!"
+  end
+
+  def clean_mode_off
+    set_clean_mode(false)
+
+    redirect_to root_url, :notice => "We'll let you see the real dirty stuff now"
+  end
   
   def add_joke
     @joke = Joke.new(:is_kid_safe => true)
@@ -21,7 +33,7 @@ class HomeController < ApplicationController
   end
   
   def random_joke_mobile
-    @joke = Joke.random_joke
+    @joke = Joke.random_joke(is_clean_mode?)
     session[:joke_id] = @joke.id
     
     respond_to do |format|
@@ -30,7 +42,7 @@ class HomeController < ApplicationController
   end
 
   def random_joke_path
-    @joke = Joke.random_joke
+    @joke = Joke.random_joke(is_clean_mode?)
     response = {}
     response["joke-path"] = joke_path(@joke)
     response["joke-id"] = @joke.id.to_s()
@@ -50,7 +62,7 @@ class HomeController < ApplicationController
   
   def random_joke
 
-    @joke = Joke.random_joke
+    @joke = Joke.random_joke(is_clean_mode?)
     session[:joke_id] = @joke.id
 
     if @joke.bitly_url.nil?

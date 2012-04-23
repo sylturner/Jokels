@@ -26,18 +26,28 @@ class LeaderboardController < ApplicationController
      sort_direction_text = @sort == "bottom" ? "ASC" : "DESC"
      if @sort_type == "joke"
        if @sort == "newest"
-          @jokes = Joke.select("*").order("created_at DESC").limit(10)
+          if is_clean_mode?
+            @jokes = Joke.select("*").where('is_kid_safe = "t"').order("created_at DESC").limit(10)
+          else
+            @jokes = Joke.select("*").order("created_at DESC").limit(10)
+          end
        else
+
+        kid_safe_clause = is_clean_mode? ? 'is_kid_safe = "t" AND '  : ""
 
         case @time
         when "today"
-           @jokes = Joke.where(['created_at BETWEEN ? AND ?', Date.today, Date.tomorrow - 1.minute]).order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
+           @jokes = Joke.where(["#{kid_safe_clause} created_at BETWEEN ? AND ?", Date.today, Date.tomorrow - 1.minute]).order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
         when "week"    
-          @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_week, Time.now]).order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
+          @jokes = Joke.where(["#{kid_safe_clause} created_at BETWEEN ? AND ?", Time.now.beginning_of_week, Time.now]).order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
         when "month"
-          @jokes = Joke.where(['created_at BETWEEN ? AND ?', Time.now.beginning_of_month, Time.now]).order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
+          @jokes = Joke.where(["#{kid_safe_clause} created_at BETWEEN ? AND ?", Time.now.beginning_of_month, Time.now]).order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
         when "all-time"
-          @jokes = Joke.select("*").order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
+          if is_clean_mode?
+            @jokes = Joke.select("*").where('is_kid_safe = "t"').order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
+          else
+            @jokes = Joke.select("*").order("(up_votes - down_votes) #{sort_direction_text}").limit(10)
+          end
         end
        end
      elsif @sort_type == "user"

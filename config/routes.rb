@@ -22,6 +22,8 @@ Jokels::Application.routes.draw do
     get :add_joke, :action => "add_joke"
     get :refresh_joke, :action => "index"
     get :privacy_policy, :action => "privacy_policy"
+    get :clean_mode_on, :action => "clean_mode_on"
+    get :clean_mode_off, :action => "clean_mode_off"
   end
 
   resource :admin, :controller => "admin" do
@@ -31,6 +33,9 @@ Jokels::Application.routes.draw do
 
   root :to => "home#index"
   
+  match "/clean_mode_off" => "home#clean_mode_off"
+  match "/clean_mode_on" => "home#clean_mode_on"
+
   match "/qtip/joke" => "jokes#qtip"
   match "/qtip/user" => "users#qtip"
 
