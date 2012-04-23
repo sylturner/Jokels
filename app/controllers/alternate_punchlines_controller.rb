@@ -17,7 +17,7 @@ class AlternatePunchlinesController < JokesController
     else
       @alternate_punchlines = @joke.alternate_punchlines
     end
-    @alternate_punchlines.sort_by!{|x| x.votes}.reverse!
+    @alternate_punchlines = @alternate_punchlines.sort_by{|x| x.votes}.reverse
     respond_to do |format|
       format.html
       format.js {render :layout => false}
