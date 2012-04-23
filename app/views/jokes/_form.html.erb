@@ -1,24 +1,8 @@
 <%= form_for(@joke) do |f| %>
   <% if current_user.nil? %>
-    <div id="error_explanation" title="Sign in to get credit for jokes and alternate punchlines written, to show up on the User leaderboards and to vote on other users' Jokes and Alternate Punchlines.">
+    <div id="error_explanation" class="qtip-capable" title="Sign in to get credit for jokes and alternate punchlines written, to show up on the User leaderboards and to vote on other users' Jokes and Alternate Punchlines.">
       You are not signed in; you will not get any credit for this joke!  
     </div>
-    <script type="text/javascript">
-      if ( $('#error_explanation').qtip )
-      {
-        $('#error_explanation').qtip({
-            style: {
-              classes: 'ui-tooltip-rounded ui-tooltip-shadow',
-              width: "200px"
-            },    
-            position:{
-              my: 'bottom right',
-              at: 'top left',
-              target: $('#error_explanation')
-            }   
-          });
-      }
-    </script>
   <% end %>
   <% if @joke.errors.any? %>
     <div id="error_explanation">
@@ -38,6 +22,7 @@
     <br/>
     <%= f.label :answer, "Punchline!" %>
     <%= f.text_field :answer %>
+      <span class="qtip-capable" title="Jokels tries to filter out inappropriate and profane jokes for our younger users.  Please help us by flagging your own jokes as you create them."><%= f.check_box :is_kid_safe %> <%=f.label :is_kid_safe, "Is this joke safe for kids?" %></span>
     <% if current_user && !current_user.token.nil? %>
       <br/>
       <%= f.check_box :auto_post %> <%=f.label :auto_post, (current_user.provider == "facebook" ? "Automatically post your joke to Facebook?" : "Automatically tweet your joke?") %> 
@@ -46,4 +31,8 @@
   <div class="actions">
     <%= f.submit "Add joke" %>
   </div>
+  <script type="text/javascript">
+    if ( enable_basic_qtips )
+      enable_basic_qtips();
+  </script>
 <% end %>

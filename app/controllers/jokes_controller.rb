@@ -1,13 +1,18 @@
 class JokesController < ApplicationController
 
   # set the @joke instance variable for certain methods
-  before_filter :attach_joke, :only => [:new, :show, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote, :new_sms_joke, :send_sms_joke, :add_tags, :save_tags]
+  before_filter :attach_joke, :only => [:new, :show, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote, :new_sms_joke, :send_sms_joke, :is_kid_safe_toggle,  :add_tags, :save_tags]
   skip_before_filter :verify_authenticity_token, :only => [:receive_sms_request]
 
   # GET /jokes
   # GET /jokes.xml
   def index
-    @jokes = Joke.all
+    if is_clean_mode? 
+      @jokes = Joke.where('is_kid_safe = "t"')
+    else
+      @jokes = Joke.all
+    end
+    
     generate_title "All Jokes"
     respond_to do |format|
       format.html # index.html.erb
@@ -36,6 +41,8 @@ class JokesController < ApplicationController
   # GET /jokes/new
   # GET /jokes/new.xml
   def new
+    @joke.is_kid_safe = true
+
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @joke }
@@ -64,6 +71,9 @@ class JokesController < ApplicationController
       @joke.user = current_user
       if params[:joke][:auto_post]
       end
+
+      @joke.is_kid_safe = params[:joke][:is_kid_safe] == 1 && !(ProfanityFilter::Base.profane?(@joke.question) || ProfanityFilter::Base.profane?(@joke.answer))
+
     end
     respond_to do |format|
       if @joke.save
@@ -101,6 +111,8 @@ class JokesController < ApplicationController
   def update
     respond_to do |format|
       if @joke.update_attributes(params[:joke])
+        @joke.is_kid_safe = params[:joke][:is_kid_safe] == 1 && !(ProfanityFilter::Base.profane?(@joke.question) || ProfanityFilter::Base.profane?(@joke.answer))
+        @joke.save()
         format.html { 
           notice = 'Joke was successfully updated.'
           if current_user && params[:joke][:auto_tweet] == '1'
@@ -146,6 +158,21 @@ class JokesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to(Joke.find(params[:id]), :notice => 'Please login to favorite') }
         format.js { render :layout => false}
+      end
+    end
+  end
+
+  def is_kid_safe_toggle
+    if !current_user.nil? && current_user.is_admin
+      @joke.is_kid_safe = !@joke.is_kid_safe
+      @joke.save
+
+      respond_to do |format|
+        format.js { render :layout => false}
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to(root_url, :notice => 'Please login to change whether a joke is kid safe') }
       end
     end
   end

@@ -1,0 +1,101 @@
+<table id="joke_datatable">
+	<thead>
+		<tr>
+			<th>Author</th>
+			<th>Type</th>
+			<th>Created</th>
+			<th>Setup</th>
+			<th>Punchline</th>
+			<th>Up Votes</th>
+			<th>Down Votes</th>
+			<th>Favorites</th>
+			<th>Kid Safe?</th>
+			<th>Profane?</th>
+		</tr>
+	</thead>
+	<tbody>
+<% @jokes.each do |joke| %>
+	<tr>
+		<td>
+			<% if joke.user.nil? %>
+				Anonymous
+			<% else %>
+				<%= user_name(joke.user) %>
+			<% end %>
+		</td>
+		<td>
+			Original Joke
+		</td>
+		<td>
+			<%= joke.created_at.strftime("%-m/%-d/%Y %H:%M")%>
+		</td>
+		<td>
+			<%= joke.question %>
+		</td>
+		<td>
+			<%= joke.answer %>
+		</td>
+		<td>
+			<%= joke.up_votes %>
+		</td>
+		<td>
+			<%= joke.down_votes %>
+		</td>
+		<td>
+			<%= joke.favorite_count %>
+		</td>
+		<td>
+			<%= check_box_tag("joke-#{joke.id}", value = joke.is_kid_safe, checked = joke.is_kid_safe, :class => "ajax-checkbox joke-checkbox", "data-href" => is_kid_safe_toggle_joke_path(joke)) %>
+		</td>
+		<td>
+			<%= joke.is_profane? %>
+		</td>
+	</tr>
+
+	<% joke.alternate_punchlines.each do |alt_punchline| %>
+		<tr>
+			<td>
+			<% if alt_punchline.user.nil? %>
+				Anonymous
+			<% else %>
+				<%= user_name(alt_punchline.user) %>
+			<% end %>
+			</td>
+			<td>
+				Alternate Punchline
+			</td>
+			<td>
+				<%= alt_punchline.created_at.strftime("%-m/%-d/%Y %H:%M")%>
+			</td>
+			<td>
+				<%= joke.question %>
+			</td>
+			<td>
+				<%= alt_punchline.punchline %>
+			</td>
+			<td>
+				<%= alt_punchline.up_votes %>
+			</td>
+			<td>
+				<%= alt_punchline.down_votes %>
+			</td>
+			<td>
+				-
+			</td>
+			<td>
+				<%= check_box_tag("alt-punchline-#{alt_punchline.id}", value = alt_punchline.is_kid_safe, checked = alt_punchline.is_kid_safe, :class => "ajax-checkbox alternate-punchline-checkbox", "data-href" => is_kid_safe_toggle_joke_alternate_punchline_path(joke, alt_punchline)) %>
+			</td>
+			<td>
+				<%= alt_punchline.is_profane? %>
+			</td>
+		</tr>
+	<% end %>
+<% end %>
+	</tbody>
+</table>
+
+<script>
+	$(document).ready(function() {
+		enable_datatable();
+	}); 
+</script>

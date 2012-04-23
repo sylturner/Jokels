@@ -11,10 +11,12 @@ Jokels::Application.routes.draw do
     post :sms_joke, :on => :member, :action => "send_sms_joke"
     get :add_tags, :on => :member, :action => "add_tags"
     post :save_tags, :on => :member, :action => "save_tags"
+    post :is_kid_safe_toggle, :on => :member, :action => "is_kid_safe_toggle"
 
     resources :alternate_punchlines, :controller => "alternate_punchlines" do
       get :upvote, :on => :member, :action => "upvote"
       get :downvote, :on => :member, :action => "downvote"
+      post :is_kid_safe_toggle, :on => :member, :action => "is_kid_safe_toggle"
     end
 
   end
@@ -23,10 +25,20 @@ Jokels::Application.routes.draw do
     get :add_joke, :action => "add_joke"
     get :refresh_joke, :action => "index"
     get :privacy_policy, :action => "privacy_policy"
-  end 
+    get :clean_mode_on, :action => "clean_mode_on"
+    get :clean_mode_off, :action => "clean_mode_off"
+  end
+
+  resource :admin, :controller => "admin" do
+    get :joke_management, :action => "joke_management"
+    get :index, :action => "index"
+  end
 
   root :to => "home#index"
   
+  match "/clean_mode_off" => "home#clean_mode_off"
+  match "/clean_mode_on" => "home#clean_mode_on"
+
   match "/qtip/joke" => "jokes#qtip"
   match "/qtip/user" => "users#qtip"
 

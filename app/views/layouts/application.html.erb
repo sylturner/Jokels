@@ -5,7 +5,8 @@
   <%= stylesheet_link_tag "/stylesheets/styles.css" %>
   <%= stylesheet_link_tag "/stylesheets/jquery.qtip.css" %>
   <%= stylesheet_link_tag "/stylesheets/absolution.blue.css"%>
-  <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js","/javascripts/jquery.qtip.min.js" %>
+  <%= stylesheet_link_tag "/stylesheets/jquery.datatables.css"%>
+  <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js","/javascripts/jquery.qtip.min.js", "/javascripts/jquery.dataTables.min.js" %>
   <%=javascript_include_tag 'rails'%>
   <%= csrf_meta_tag %>
   <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
@@ -41,11 +42,14 @@
 
     <div id="header">
       <div class="left">
-        <a href="/"><h1>jokels</h1></a><%if Rails.env == "development"%> - dev <% end %>
+        <a href="/"><h1>jokels</h1></a><%if Rails.env == "development"%> - dev <% end %><%if is_clean_mode? %>Clean<% end %>
       </div>
       <div class="right">
         <% if current_user %>
           Welcome <%= render :partial => "shared/user_link", :locals => {:user => current_user, :include_avatar => true}%> |
+          <% if current_user.is_admin %>
+            <%= link_to "Administration", "/admin/" %> |
+          <% end %>
           <%= link_to "Sign Out", signout_path %>
         <% else %>
           Sign in with <a href="/auth/twitter">Twitter</a> or <a href="/auth/facebook">Facebook</a> (<a href="#" id="question-mark">?</a>)
@@ -56,6 +60,12 @@
         <% if daily_word %>
           <span id="daily-inspiration" title="Let this random word/phrase/concept help inspire your jokes" style="cursor:help">Today's inspiration: <%= daily_word %></span>
           <% end %>
+        <br/>
+        <% if is_clean_mode? %>
+          <span id="clean-mode" class="qtip-capable" title="We'll do our best to filter out profane and inappropriate jokes.">Clean mode is currently <b>on</b>. <%= link_to "Show dirty jokes", "/clean_mode_off" %> </span>
+        <% else %>
+          <span id="clean-mode" class="qtip-capable" title="There's currently no content filtering.">Clean mode is currently <b>off</b>. <%= link_to "Show only clean jokes", "/clean_mode_on" %> </span>
+        <% end %>
         
       </div>
     </div>

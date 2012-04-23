@@ -1,21 +1,8 @@
 <%= form_for(@alternate_punchline, :url => joke_alternate_punchlines_path) do |f| %>
   <% if current_user.nil? %>
-    <div id="error_explanation" title="Sign in to get credit for jokes and alternate punchlines written, to show up on the User leaderboards and to vote on other users' Jokes and Alternate Punchlines.">
+    <div id="error_explanation" class="qtip-capable" title="Sign in to get credit for jokes and alternate punchlines written, to show up on the User leaderboards and to vote on other users' Jokes and Alternate Punchlines.">
       You are not signed in; you will not get any credit for this alternate punchline!  
     </div>
-    <script type="text/javascript">
-      $('#error_explanation').qtip({
-          style: {
-            classes: 'ui-tooltip-rounded ui-tooltip-shadow',
-            width: "200px"
-          },    
-          position:{
-            my: 'bottom right',
-            at: 'top left',
-            target: $('#error_explanation')
-          }   
-        });
-    </script>
   <% end %>
   <% if @alternate_punchline.errors.any? %>
     <div id="error_explanation">
@@ -33,9 +20,14 @@
     <strong><%= @joke.question %></strong>
     <br/>
     <%= f.label :punchline, "Your new punchline" %>
-    <%= f.text_field :punchline %>    
+    <%= f.text_field :punchline %>
+    <span class="qtip-capable" title="Jokels tries to filter out inappropriate and profane content for our younger users.  Please help us by flagging your own alternate punchlines as you create them."><%= f.check_box :is_kid_safe %> <%=f.label :is_kid_safe, "Is this alternate punchline safe for kids?" %></span>
   </div>
   <div class="actions">
     <%= f.submit "Add new punchline" %>
   </div>
+  <script type="text/javascript" >
+    if ( enable_basic_qtips )
+      enable_basic_qtips();
+  </script>
 <% end %>

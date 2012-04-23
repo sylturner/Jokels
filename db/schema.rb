@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120422175753) do
+ActiveRecord::Schema.define(:version => 20120422185942) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -27,10 +27,11 @@ ActiveRecord::Schema.define(:version => 20120422175753) do
     t.integer  "joke_id"
     t.text     "punchline"
     t.integer  "user_id"
-    t.integer  "up_votes",   :default => 0
-    t.integer  "down_votes", :default => 0
+    t.integer  "up_votes",    :default => 0
+    t.integer  "down_votes",  :default => 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_kid_safe"
   end
 
   add_index "alternate_punchlines", ["down_votes"], :name => "index_alternate_punchlines_on_down_votes"
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(:version => 20120422175753) do
     t.string   "bitly_url"
     t.integer  "alternate_punchlines_count", :default => 0
     t.integer  "favorite_jokes_count"
+    t.boolean  "is_kid_safe"
   end
 
   add_index "jokes", ["down_votes"], :name => "index_jokes_on_down_votes"
@@ -104,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20120422175753) do
     t.integer  "alternate_punchlines_count"
     t.integer  "favorite_jokes_count"
     t.integer  "jokes_count"
+    t.boolean  "is_admin"
   end
 
   add_index "users", ["uid"], :name => "index_users_on_uid"
