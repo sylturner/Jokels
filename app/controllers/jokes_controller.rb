@@ -72,7 +72,7 @@ class JokesController < ApplicationController
       if params[:joke][:auto_post]
       end
 
-      @joke.is_kid_safe = params[:joke][:is_kid_safe] == 1 && !(ProfanityFilter::Base.profane?(@joke.question) || ProfanityFilter::Base.profane?(@joke.answer))
+      @joke.is_kid_safe = params[:joke][:is_kid_safe] == '1' && !(ProfanityFilter::Base.profane?(@joke.question) || ProfanityFilter::Base.profane?(@joke.answer))
 
     end
     respond_to do |format|
@@ -111,7 +111,7 @@ class JokesController < ApplicationController
   def update
     respond_to do |format|
       if @joke.update_attributes(params[:joke])
-        @joke.is_kid_safe = params[:joke][:is_kid_safe] == 1 && !(ProfanityFilter::Base.profane?(@joke.question) || ProfanityFilter::Base.profane?(@joke.answer))
+        @joke.is_kid_safe = params[:joke][:is_kid_safe] == '1' && !(ProfanityFilter::Base.profane?(@joke.question) || ProfanityFilter::Base.profane?(@joke.answer))
         @joke.save()
         format.html { 
           notice = 'Joke was successfully updated.'

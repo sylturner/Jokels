@@ -38,7 +38,7 @@ class AlternatePunchlinesController < JokesController
     @alternate_punchline.joke = @joke
     @alternate_punchline.user = current_user
 
-    @alternate_punchline.is_kid_safe = params[:alternate_punchline][:is_kid_safe] == 1 && !ProfanityFilter::Base.profane?(@alternate_punchline.punchline) 
+    @alternate_punchline.is_kid_safe = params[:alternate_punchline][:is_kid_safe] == '1' && !ProfanityFilter::Base.profane?(@alternate_punchline.punchline) 
 
     respond_to do |format|
       format.html {
