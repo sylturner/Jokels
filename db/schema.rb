@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120422185942) do
+ActiveRecord::Schema.define(:version => 20120425022226) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20120422185942) do
     t.integer  "down_votes",                 :default => 0, :null => false
     t.string   "jokeler_url"
     t.string   "bitly_url"
-    t.integer  "alternate_punchlines_count", :default => 0
-    t.integer  "favorite_jokes_count"
+    t.integer  "alternate_punchlines_count", :default => 0, :null => false
+    t.integer  "favorite_jokes_count",       :default => 0, :null => false
     t.boolean  "is_kid_safe"
   end
 
@@ -103,9 +103,9 @@ ActiveRecord::Schema.define(:version => 20120422185942) do
     t.integer  "down_votes",                 :default => 0, :null => false
     t.string   "token"
     t.string   "secret"
-    t.integer  "alternate_punchlines_count"
-    t.integer  "favorite_jokes_count"
-    t.integer  "jokes_count"
+    t.integer  "alternate_punchlines_count", :default => 0, :null => false
+    t.integer  "favorite_jokes_count",       :default => 0, :null => false
+    t.integer  "jokes_count",                :default => 0, :null => false
     t.boolean  "is_admin"
   end
 
