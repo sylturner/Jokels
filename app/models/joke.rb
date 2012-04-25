@@ -2,6 +2,7 @@
 require 'twitter_search'
 
 class Joke < ActiveRecord::Base
+  extend FriendlyId
   make_voteable
   acts_as_taggable
 
@@ -12,6 +13,8 @@ class Joke < ActiveRecord::Base
   belongs_to :user, :counter_cache => true
   
   validates_presence_of :question, :answer
+
+  friendly_id :question, use: :slugged
   
   attr_reader :auto_post
   attr_writer :auto_post

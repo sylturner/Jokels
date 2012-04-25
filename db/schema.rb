@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425220253) do
+ActiveRecord::Schema.define(:version => 20120425223848) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -61,17 +61,19 @@ ActiveRecord::Schema.define(:version => 20120425220253) do
     t.string   "question"
     t.string   "answer"
     t.integer  "user_id"
-    t.integer  "up_votes",                   :default => 0, :null => false
-    t.integer  "down_votes",                 :default => 0, :null => false
+    t.integer  "up_votes",                                  :default => 0, :null => false
+    t.integer  "down_votes",                                :default => 0, :null => false
     t.string   "jokeler_url"
     t.string   "bitly_url"
-    t.integer  "alternate_punchlines_count", :default => 0, :null => false
-    t.integer  "favorite_jokes_count",       :default => 0, :null => false
+    t.integer  "alternate_punchlines_count",                :default => 0, :null => false
+    t.integer  "favorite_jokes_count",                      :default => 0, :null => false
     t.boolean  "is_kid_safe"
-    t.integer  "hit_counter",                :default => 0, :null => false
+    t.integer  "hit_counter",                               :default => 0, :null => false
+    t.string   "slug",                       :limit => nil,                :null => false
   end
 
   add_index "jokes", ["down_votes"], :name => "index_jokes_on_down_votes"
+  add_index "jokes", ["slug"], :name => "index_jokes_on_slug", :unique => true
   add_index "jokes", ["up_votes"], :name => "index_jokes_on_up_votes"
   add_index "jokes", ["user_id"], :name => "index_jokes_on_user_id"
 
