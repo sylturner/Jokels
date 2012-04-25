@@ -11,6 +11,7 @@
 			<th>Favorites</th>
 			<th>Kid Safe?</th>
 			<th>Profane?</th>
+			<th>Random Hits</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -50,6 +51,9 @@
 		<td>
 			<%= joke.is_profane? %>
 		</td>
+		<td>
+			<%= joke.hit_counter %>
+		</td>
 	</tr>
 
 	<% joke.alternate_punchlines.each do |alt_punchline| %>
@@ -87,6 +91,9 @@
 			</td>
 			<td>
 				<%= alt_punchline.is_profane? %>
+			</td>
+			<td>
+				-
 			</td>
 		</tr>
 	<% end %>

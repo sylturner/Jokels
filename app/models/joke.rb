@@ -194,6 +194,14 @@ class Joke < ActiveRecord::Base
         FGraph.publish_feed('me', :message => fb_post, :access_token => settings["facebook"]["page_access_token"])
      end
    end
+
+   def self.increment_hit_counter (joke)
+    Joke.transaction do 
+      inc_joke = Joke.find(joke.id)
+      inc_joke.hit_counter = inc_joke.hit_counter + 1
+      inc_joke.save
+    end
+   end
    
    def self.random_joke ( kid_safe = false)
     if kid_safe 
@@ -205,6 +213,13 @@ class Joke < ActiveRecord::Base
      offset = rand(count)
      result_joke = (Joke.where("(up_votes - down_votes) >= -2").limit(1).offset(offset))[0]
     end
+
+    # increment the hit counter in a new thread so we dont' hold up the refresh
+    Thread.new result_joke, do |joke|
+        increment_hit_counter(joke)
+      end
+
+    return result_joke
    end
 
    def self.find_joke_that_fits(limit=140, threshold=1)
