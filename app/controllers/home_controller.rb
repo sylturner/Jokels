@@ -1,9 +1,13 @@
 class HomeController < ApplicationController
 
-  after_filter :increment_joke_hit_counter, :only => [:random_joke_mobile, :random_joke_path, :refresh_joke]
-  
+  after_filter :increment_joke_hit_counter, :only => [:index]
+
+  def increment_joke_hit_counter
+    logger.debug "Incrementing joke counter for: #{session[:joke_id]}"
+    Joke.increment_counter :hit_counter, session[:joke_id]
+  end
+
   def index
-    
     random_joke
     generate_title
       
@@ -22,7 +26,7 @@ class HomeController < ApplicationController
   def clean_mode_off
     set_clean_mode(false)
 
-    redirect_to root_url, :notice => "We'll let you see the real dirty stuff now"
+    redirect_to root_url, :notice => "We'll let you see the real dirty stuff now!"
   end
   
   def add_joke
@@ -31,15 +35,6 @@ class HomeController < ApplicationController
       format.html
       format.mobile
       format.js {render :layout => false}
-    end
-  end
-  
-  def random_joke_mobile
-    @joke = Joke.random_joke(is_clean_mode?)
-    session[:joke_id] = @joke.id
-    
-    respond_to do |format|
-      format.mobile {render :layout => false}
     end
   end
 
@@ -55,12 +50,6 @@ class HomeController < ApplicationController
   def refresh_joke
     random_joke
     generate_title @joke.question    
-  end
-
-  def increment_joke_hit_counter
-    logger.debug "Incrementing joke counter for: #{session[:joke_id]}"
-    puts "incrementing"
-    ##Joke.increment_counter :hit_counter, session[:joke_id]
   end
   
   def privacy_policy
