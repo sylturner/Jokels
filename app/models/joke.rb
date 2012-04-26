@@ -21,6 +21,10 @@ class Joke < ActiveRecord::Base
 
   after_create :generate_bitly_url
 
+  def should_generate_new_friendly_id?
+    new_record?
+  end
+
   def favorite_count
     self.favorite_jokes_count
   end
