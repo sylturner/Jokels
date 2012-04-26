@@ -84,7 +84,7 @@ class Joke < ActiveRecord::Base
   
   def generate_bitly_url
     bitly = Bitly.client
-    response = bitly.shorten("http://jokels.com/jokes/#{self.id}")
+    response = bitly.shorten("http://jokels.com/jokes/#{self.slug}")
     self.bitly_url = response.short_url
     self.save!
   end
