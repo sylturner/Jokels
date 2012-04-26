@@ -27,11 +27,11 @@
 
 		<div id="header" data-role="header" data-fullscreen="true" data-fixed="true">
 		<a href="/" data-icon="home" data-iconpos="notext" data-direction="reverse" class="mobile-header-icon">Home</a>
-		<h1><a href="/">Jokels</a><%if Rails.env == "development"%> - dev <% end %></h1>
+		<h1><a href="/">Jokels</a><br/><% if is_clean_mode? %>Clean<%end%><%if Rails.env == "development"%> - dev <% end %></h1>
 		<% if current_user %>
-			<a href="#" data-icon="gear" data-iconpos="notext" id="mobile-menu-signed-in" class="mobile-header-icon">Menu</a>
+			<a href="#" data-icon="gear" data-iconpos="notext" id="mobile-menu-signed-in" class="mobile-header-icon" data-clean="<%= is_clean_mode? ? "true" : "false"%>">Menu</a>
 		<% else %>
-			<a href="#" data-icon="gear" data-iconpos="notext" id="mobile-menu" class="mobile-header-icon">Menu</a>
+			<a href="#" data-icon="gear" data-iconpos="notext" id="mobile-menu" class="mobile-header-icon" data-clean="<%= is_clean_mode? ? "true" : "false"%>">Menu</a>
 		<% end %>
 		
 			<div data-role="controlgroup" data-type="horizontal" style="text-align:center">
@@ -45,7 +45,7 @@
 			</div>
 		</div>
 
-		<div data-role="content" class="wrapper" data-content-theme="c">
+		<div data-role="content" class="wrapper" data-content-theme="c" >
 	      <%= yield %>
 		</div>
 	</div>

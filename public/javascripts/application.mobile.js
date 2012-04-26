@@ -75,11 +75,7 @@ function setupHeaderMenus()
 	});
 
 	$("#mobile-menu").live("click", function(){
-	$('<div>').simpledialog2({
-	    mode: 'button',
-	    headerText: 'Mobile Menu',
-	    headerClose: true,
-	    buttons : {
+		var buttonsObject = {
 	      'Full Version': {
 	        click: function () { 
 	          window.location.href = "/full_version";
@@ -92,16 +88,33 @@ function setupHeaderMenus()
 	        },
 	        icon: "arrow-r"
 	      }
-	    }
-	  });
-	});
+	    };
 
-	$("#mobile-menu-signed-in").live("click", function(){
+	   if ($(this).data("clean") === false )
+	   		buttonsObject['Filter Inappropriate Jokes'] = {
+	   			click: function() {
+	   				window.location.href = "/clean_mode_on";
+	   			},
+	   			icon: "check"
+	   		};
+	   	else
+	   		buttonsObject['Turn Off Content Filtering'] = {
+	   			click: function() {
+	   				window.location.href = "/clean_mode_off";
+	   			},
+	   			icon: "delete"
+	   		};
+
 	$('<div>').simpledialog2({
 	    mode: 'button',
 	    headerText: 'Mobile Menu',
 	    headerClose: true,
-	    buttons : {
+	    buttons: buttonsObject 
+	  });
+	});
+
+	$("#mobile-menu-signed-in").live("click", function(){
+		var buttonsObject = {
 	      'Full Version': {
 	        click: function () { 
 	          window.location.href = "/full_version";
@@ -120,7 +133,28 @@ function setupHeaderMenus()
 	        },
 	        icon: "delete"
 	      }
-	    }
+	    };
+
+	   if ($(this).data("clean") === false )
+	   		buttons['Filter Inappropriate Jokes'] = {
+	   			click: function() {
+	   				window.location.href = "/clean_mode_on";
+	   			},
+	   			icon: "check"
+	   		};
+	   	else
+	   		buttons['Turn Off Content Filtering'] = {
+	   			click: function() {
+	   				window.location.href = "/clean_mode_off";
+	   			},
+	   			icon: "delete"
+	   		};
+
+	$('<div>').simpledialog2({
+	    mode: 'button',
+	    headerText: 'Mobile Menu',
+	    headerClose: true,
+	    buttons: buttonsObject 
 	  });
 	});
 }
