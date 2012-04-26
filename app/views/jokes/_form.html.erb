@@ -31,8 +31,10 @@
   <div class="actions">
     <%= f.submit "Add joke" %>
   </div>
-  <script type="text/javascript">
-    if ( enable_basic_qtips )
-      enable_basic_qtips();
+  <% if !is_mobile_device? %>
+  <script type="text/javascript" >
+      if ( enable_basic_qtips != undefined )
+        enable_basic_qtips();
   </script>
+  <% end %>
 <% end %>

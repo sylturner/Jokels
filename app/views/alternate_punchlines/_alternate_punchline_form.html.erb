@@ -26,8 +26,10 @@
   <div class="actions">
     <%= f.submit "Add new punchline" %>
   </div>
+  <% if !is_mobile_device? %>
   <script type="text/javascript" >
-    if ( enable_basic_qtips )
-      enable_basic_qtips();
+      if ( enable_basic_qtips != undefined )
+        enable_basic_qtips();
   </script>
+  <% end %>
 <% end %>
