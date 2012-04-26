@@ -2,6 +2,7 @@ Jokels::Application.routes.draw do
   resources :jokes
   resources :users
   resources :tags
+  match "/tag_search" => "tags#search"
   
   resources :jokes, :controller => "jokes" do
     get :upvote, :on => :member, :action => "upvote"
@@ -18,7 +19,6 @@ Jokels::Application.routes.draw do
       get :downvote, :on => :member, :action => "downvote"
       post :is_kid_safe_toggle, :on => :member, :action => "is_kid_safe_toggle"
     end
-
   end
   
   resource :home, :controller => "home" do

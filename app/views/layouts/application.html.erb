@@ -6,7 +6,8 @@
   <%= stylesheet_link_tag "/stylesheets/jquery.qtip.css" %>
   <%= stylesheet_link_tag "/stylesheets/absolution.blue.css"%>
   <%= stylesheet_link_tag "/stylesheets/jquery.dataTables.css"%>
-  <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js","/javascripts/jquery.qtip.min.js", "/javascripts/jquery.dataTables.min.js" %>
+  <%= stylesheet_link_tag "/stylesheets/jquery.tagsinput.css"%>
+  <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js","/javascripts/jquery.qtip.min.js", "/javascripts/jquery.dataTables.min.js", "/javascripts/jquery.tagsinput.min.js" %>
   <%=javascript_include_tag 'rails'%>
   <%= csrf_meta_tag %>
   <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
@@ -55,7 +56,7 @@
           Sign in with <a href="/auth/twitter">Twitter</a> or <a href="/auth/facebook">Facebook</a> (<a href="#" id="question-mark">?</a>)
         <% end %>       
         <br/>
-        <%= link_to "Add new joke", add_joke_home_path, :method => :get, :remote => true, :class=>"add-joke-button" %> | <%= link_to "Leaderboards", leaderboard_path %>
+        <%= link_to "Add new joke", add_joke_home_path, :method => :get, :remote => true, :class=>"add-joke-button" %> | <%= link_to "Leaderboards", leaderboard_path %> | <%= link_to "Tags", tags_path %>
         <br/>
         <% if is_clean_mode? %>
           <span id="clean-mode" class="qtip-capable" title="We'll do our best to filter out profane and inappropriate jokes.">Clean mode is <strong><%= link_to "ON", "/clean_mode_off" %></strong></span>
@@ -77,9 +78,9 @@
 
   <div id="footer">
     <div class="left">
-    Jokels is so beta. | <%= link_to "All jokes", jokes_path %> | <%=link_to image_tag("feed.png"), feed_path %> <%= link_to "RSS", feed_path %> | <%=link_to "Privacy", privacy_policy_home_path %> <% if is_mobile_device? %> | <%= link_to "Mobile Version", "/mobile_version"%> <% end%> <br/> 
     <%= link_to "Jokels Blog", "http://blog.jokels.com" %> | Follow us! <%=link_to image_tag("twitter-logo.png", :size => "16x16"), "http://twitter.com/jokelscom", :title => "@jokelscom on Twitter" %> <%=link_to image_tag("fb-logo.png", :size => "16x16"), "https://www.facebook.com/jokelscom", :title => "Jokels on Facebook" %> <%= link_to (image_tag "github-icon.png", :size => "16x16"), "http://www.github.com/sylturner/jokels", :title => "Jokels source code on Github" %> 
-<a href="https://plus.google.com/106783736083786155127?prsrc=3" rel="publisher" style="text-decoration:none;"><img src="https://ssl.gstatic.com/images/icons/gplus-16.png" alt="" style="border:0;width:16px;height:16px;" title="Jokels on Google+"/></a> <%= link_to (image_tag "jokeler.jpg", :size => "16x16"), "http://jokeler.tumblr.com/", :title => "The Jokeler" %> 
+<a href="https://plus.google.com/106783736083786155127?prsrc=3" rel="publisher" style="text-decoration:none;"><img src="https://ssl.gstatic.com/images/icons/gplus-16.png" alt="" style="border:0;width:16px;height:16px;" title="Jokels on Google+"/></a> <%= link_to (image_tag "jokeler.jpg", :size => "16x16"), "http://jokeler.tumblr.com/", :title => "The Jokeler" %> <br/>
+Jokels is so beta. | <%= link_to "All jokes", jokes_path %> | <%=link_to image_tag("feed.png"), feed_path %> <%= link_to "RSS", feed_path %> | <%=link_to "Privacy", privacy_policy_home_path %> <% if is_mobile_device? %> | <%= link_to "Mobile Version", "/mobile_version"%> <% end%>
 
     </div>
     <div class="right" id="share-site">      

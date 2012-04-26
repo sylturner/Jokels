@@ -93,7 +93,7 @@
     $('#tags').qtip({
       show: 'click',
       hide: 'click unfocus',
-      content: '<%=escape_javascript(raw (tag_links(joke.tag_list)))%><strong><%= link_to "+ Add new tags", add_tags_joke_path(joke),:method => :get, :remote => true  %></strong>',
+      content: '<%=escape_javascript(raw (tag_links(joke.tag_list)))%><strong><%= link_to "+ Add/remove tags", add_tags_joke_path(joke),:method => :get, :remote => true  %></strong>',
       style: {
         classes: 'ui-tooltip-rounded ui-too();ltip-shadow ui-tooltip-dark'
       },    

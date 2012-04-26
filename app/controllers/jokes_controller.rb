@@ -303,7 +303,7 @@ class JokesController < ApplicationController
     return if params[:tags].nil?
 
     tags = params[:tags].split(",")
-    @joke.tag_list = @joke.tag_list | tags
+    @joke.tag_list = tags
     
     if @joke.save
       respond_to do |format|
