@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+
+  after_filter :increment_joke_hit_counter, :only => [:random_joke_mobile, :random_joke_path, :refresh_joke]
   
   def index
     
@@ -54,9 +56,17 @@ class HomeController < ApplicationController
     random_joke
     generate_title @joke.question    
   end
+
+  def increment_joke_hit_counter
+    logger.debug "Incrementing joke counter for: #{session[:joke_id]}"
+    puts "incrementing"
+    ##Joke.increment_counter :hit_counter, session[:joke_id]
+  end
   
   def privacy_policy
   end
+
+  
   
   protected
   
@@ -67,8 +77,6 @@ class HomeController < ApplicationController
 
     if @joke.bitly_url.nil?
       @joke.generate_bitly_url
-    end
-    
+    end  
   end
-  
 end

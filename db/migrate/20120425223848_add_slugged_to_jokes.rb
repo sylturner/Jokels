@@ -13,6 +13,5 @@ class AddSluggedToJokes < ActiveRecord::Migration
 
   def self.down
     remove_column :jokes, :slug
-    #remove_index :jokes, :slug
   end
 end

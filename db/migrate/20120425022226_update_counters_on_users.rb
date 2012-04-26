@@ -1,11 +1,9 @@
 class UpdateCountersOnUsers < ActiveRecord::Migration
   def self.up
-    User.all.each do |user|
-      user.alternate_punchlines_count ||= 0
-      user.favorite_jokes_count ||= 0
-      user.jokes_count ||= 0
-      user.save()
-    end
+
+    User.update_all("alternate_punchlines_count = 0", "alternate_punchlines_count is null")
+    User.update_all("favorite_jokes_count = 0", "favorite_jokes_count is null")
+    User.update_all("jokes_count = 0", "jokes_count is null")
 
   	change_column :users, :alternate_punchlines_count, :integer, :default => 0, :null => false
     change_column :users, :favorite_jokes_count, :integer, :default => 0, :null => false
