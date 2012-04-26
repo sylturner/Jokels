@@ -1,6 +1,6 @@
 <%= form_tag(save_tags_joke_path, :method => "post", :id=>"tag_form") do %>  
   <div class="field">
-    <label for="tags">Tags (comma separate each tag)
+    <label for="tags">Tag it up!</label>
     <input id="tags_input" name="tags" value="<%=@joke.tag_list %>"/>
   </div>
   <div class="actions">

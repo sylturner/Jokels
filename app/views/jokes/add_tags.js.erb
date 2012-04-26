@@ -3,9 +3,11 @@ $("#add-tags").dialog({modal: true, title: "Tag this joke!", width: 450});
 $("#add-tags").html("<%= escape_javascript(render :partial => 'jokes/add_tags_form') %>");
 $("#tags_input").tagsInput({
   'width':'97%',
+  'removeWithBackspace':false,
   'autocomplete_url':'<%= tag_search_path %>',
   'autocomplete': {
-    'minLength':2
+    'minLength':2,
+    'autoFocus':true
   }
 });
-$("#tags_input").focus();
+$("#tags_input_tag").focus();
