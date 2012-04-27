@@ -3,7 +3,7 @@ class TagsController < ApplicationController
   def show
     @tag = CGI.unescape(params[:id])
     @jokes = Joke.tagged_with(@tag)
-    generate_title "Jokes tagged with #{@tag}"
+    generate_title "Jokes about #{@tag}"
   end
 
   def index

@@ -136,14 +136,14 @@ function setupHeaderMenus()
 	    };
 
 	   if ($(this).data("clean") === false )
-	   		buttons['Filter Inappropriate Jokes'] = {
+	   		buttonsObject['Filter Inappropriate Jokes'] = {
 	   			click: function() {
 	   				window.location.href = "/clean_mode_on";
 	   			},
 	   			icon: "check"
 	   		};
 	   	else
-	   		buttons['Turn Off Content Filtering'] = {
+	   		buttonsObject['Turn Off Content Filtering'] = {
 	   			click: function() {
 	   				window.location.href = "/clean_mode_off";
 	   			},
