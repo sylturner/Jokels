@@ -1,5 +1,5 @@
 var jokeSelector = '#joke-container[data-joke-id="' + <%= @joke.id %> + '"] ';
 
-$(jokeSelector + '#alternate-punchlines-button').slideUp("fast");
+$(jokeSelector + '#alternate-punchlines-button').slideUp("fast", function(){$(jokeSelector + '#alternate-punchlines-button').remove();});
 $(jokeSelector + "#alternate_punchlines").html("<%= escape_javascript(render :partial => 'alternate_punchlines', :locals => {:min => @min}) %>");
 $(jokeSelector + "#alternate_punchlines").slideDown("fast");
