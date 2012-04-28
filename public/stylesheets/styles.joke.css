@@ -13,8 +13,8 @@ body, p, ol, ul, td {
 }
 
 .joke p {
-	width: 100%;
-	margin: 0;
+	width: 100% !important;
+	margin: 0 !important;
 	background: #EFEFEF;
 	text-align: center;
 	font-size: 24pt;
@@ -140,11 +140,11 @@ div#joke.joke p.share span.right img {
 .joke span#alternate_punchlines p.share {
 	display: block;
 	height: 23px;
-	border-top: none;
+	border-top: none !important;
 }
 
 .joke span#alternate_punchlines p.share span.right{
-	margin-top: 0;
+	margin-top: 0 !important;
 }
 
 .joke span#alternate_punchlines p.punchline {

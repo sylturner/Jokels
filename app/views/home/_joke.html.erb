@@ -4,7 +4,7 @@
 <% end %>
 
 
-<div id="joke-container">
+<div id="joke-container" data-joke-id="<%= joke.id %>">
   <% if !min %><div id="notice"><%= notice %></div><% end %>
   <div id="question-container">
       <% if !min %>
@@ -21,7 +21,7 @@
     </p>
   </div>
 
-  <p id="click-for-punchline">Click for the <strong>punchline</strong>!</p>
+  <p id="click-for-punchline" data-joke-id="<%= joke.id %>">Click for the <strong>punchline</strong>!</p>
   <p id="show-original">Show original joke</p>
   <div id="answer-container">
     <p id="answer" class="answer">

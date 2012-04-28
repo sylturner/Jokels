@@ -5,19 +5,22 @@ $(document).ready(function() {
 
 function enable_joke_stuff()
 {	
-	$('#click-for-punchline').hide();
-	$('#answer-container').slideDown('fast');
-	$('#question').css('cursor', 'default');
-	$("#share").delay(750).slideDown('fast');
-	$('#refresh-joke').delay(750).slideDown('fast');
-	$('#alternate-punchlines-button').delay(750).slideDown('fast');
-	$('.up_arrow').hover(
+	var jokeId = $(this).data("joke-id");
+	var containerSelector = '#joke-container[data-joke-id="' + jokeId + '"] ';
+
+	$(containerSelector + '#click-for-punchline').hide();
+	$(containerSelector + '#answer-container').slideDown('fast');
+	$(containerSelector + '#question').css('cursor', 'default');
+	$(containerSelector + "#share").delay(750).slideDown('fast');
+	$(containerSelector + '#refresh-joke').delay(750).slideDown('fast');
+	$(containerSelector + '#alternate-punchlines-button').delay(750).slideDown('fast');
+	$(containerSelector + '.up_arrow').hover(
 		function(){$(this).attr("src","/images/arrow_up.png")}, 
 		function(){$(this).attr("src", $(this).attr("data-orig-src"))});
-	$('.down_arrow').hover(
+	$(containerSelector + '.down_arrow').hover(
 		function(){$(this).attr("src","/images/arrow_down.png")}, 
 		function(){$(this).attr("src", $(this).attr("data-orig-src"))});
-	$('#show-original').click(function(){
+	$(containerSelector + '#show-original').click(function(){
 		$("#answer-container").slideDown("fast");
 		$("#share").slideDown("fast");
 		$(this).slideUp("fast");
