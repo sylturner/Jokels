@@ -3,7 +3,7 @@ class JokesController < ApplicationController
   # set the @joke instance variable for certain methods
   before_filter :attach_joke, :only => [:new, :show, :embed, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote, :new_sms_joke, :send_sms_joke, :is_kid_safe_toggle,  :add_tags, :save_tags]
   skip_before_filter :verify_authenticity_token, :only => [:receive_sms_request]
-  skip_before_filter :is_mobile, :only => [:embed]
+  skip_before_filter :is_mobile, :only => [:embed, :show_min]
 
   # GET /jokes
   # GET /jokes.xml
