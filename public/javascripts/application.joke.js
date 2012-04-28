@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$('#click-for-punchline, #question').click(enable_joke_stuff);
+	$('#alternate-punchline-embed').click(function() {execute_alt_punchline($(this).data("url"));});
 });
 
 function enable_joke_stuff()
@@ -21,4 +22,16 @@ function enable_joke_stuff()
 		$("#share").slideDown("fast");
 		$(this).slideUp("fast");
 	})
+}
+
+function execute_alt_punchline(url)
+{
+	if ( url )
+	{
+		$.ajax({
+			type: "GET",
+			dataType: "script",
+			url: url
+		});
+	}
 }
