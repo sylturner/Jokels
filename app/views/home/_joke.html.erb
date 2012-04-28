@@ -69,7 +69,8 @@
   <% end %>
 
   <% if joke.has_forks?(is_clean_mode?) %>
-    <p id="alternate-punchlines-button"><%= link_to raw("This joke has <strong>forked</strong>! Click to see the <strong>alternate punchlines</strong>!"), joke_alternate_punchlines_path(joke) + (min ? "?min=true" : ""), :method => :get, :remote => true %></p>
+    <% alt_punchline_path = min ? joke_alternate_punchlines_path(joke, :only_path => false, :format => :js) + "?min=true" : joke_alternate_punchlines_path(joke) %>
+    <p id="alternate-punchlines-button"><%= link_to raw("This joke has <strong>forked</strong>! Click to see the <strong>alternate punchlines</strong>!"), alt_punchline_path, :method => :get, :remote => true %></p>
     <span id="alternate_punchlines"></span>
   <% end %>
 
