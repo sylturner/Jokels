@@ -118,6 +118,17 @@ div#joke.joke p.share span.right img {
 	color: #333;
 }
 
+.joke p.alternate-punchline-embed{
+	cursor: pointer;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.joke p#alternate-punchlines-button:hover, p.alternate-punchline-embed a:hover{
+	background-color: #FFEB73;
+	color: #333;
+}
+
 .joke span#alternate_punchlines {
 	width: 100%;
 }

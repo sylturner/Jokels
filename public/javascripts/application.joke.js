@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	$('#click-for-punchline, #question').click(enable_joke_stuff);
-	$('#alternate-punchline-embed').click(function() {execute_alt_punchline($(this).data("url"));});
+	$('.alternate-punchline-embed').click(function() {execute_alt_punchline($(this).data("url"));});
 });
 
 function enable_joke_stuff()
