@@ -1,7 +1,7 @@
 class JokesController < ApplicationController
 
   # set the @joke instance variable for certain methods
-  before_filter :attach_joke, :only => [:new, :show, :show_min, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote, :new_sms_joke, :send_sms_joke, :is_kid_safe_toggle,  :add_tags, :save_tags]
+  before_filter :attach_joke, :only => [:new, :show, :embed, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote, :new_sms_joke, :send_sms_joke, :is_kid_safe_toggle,  :add_tags, :save_tags]
   skip_before_filter :verify_authenticity_token, :only => [:receive_sms_request]
 
   # GET /jokes
@@ -38,9 +38,7 @@ class JokesController < ApplicationController
     end
   end
 
-  # GET /jokes/1/showmin
-  # GET /jokes/1/showmin.xml
-  def show_min
+  def embed
     if @joke.bitly_url.nil?
       @joke.generate_bitly_url
     end

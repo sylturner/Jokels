@@ -8,6 +8,10 @@ body, p, ol, ul, td {
 	padding-top: 0px;
 }
 
+.joke-embed {
+	border: 3px solid #333;
+}
+
 .joke p {
 	width: 100%;
 	margin: 0;

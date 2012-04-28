@@ -13,7 +13,8 @@ Jokels::Application.routes.draw do
     get :add_tags, :on => :member, :action => "add_tags"
     post :save_tags, :on => :member, :action => "save_tags"
     post :is_kid_safe_toggle, :on => :member, :action => "is_kid_safe_toggle"
-    get :show_min, :on => :member, :action => "show_min"
+    get :embed, :on => :member, :action => "embed"
+    get :show_min, :on => :member, :action => "embed"
 
     resources :alternate_punchlines, :controller => "alternate_punchlines" do
       get :upvote, :on => :member, :action => "upvote"

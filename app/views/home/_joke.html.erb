@@ -83,14 +83,14 @@
   <% end %>
 
   <% if min %>
-    <p id="share" class="share" style="text-align:center; padding-top:10px; padding-bottom:10px" >
+    <p id="share-embed" class="share" style="text-align:center; padding-top:10px; padding-bottom:10px; display:block;" >
       <b><a href="<%= url_for(:action => "show", :controller => "jokes", :id => joke.slug, :only_path => false)%>">This Joke</a></b> brought to you by <b><%= link_to "Jokels.com", "http://www.jokels.com" %></b>
     </p>
   <% end %>
 </div>
 
 <% if !min %>
-  <% permalink_embed = escape_javascript( "<script src=\"" + url_for(:action => "show_min", :controller => "jokes", :id => joke.slug, :only_path => false, :format => :js) + "\"></script>") %>   
+  <% permalink_embed = escape_javascript( "<script src=\"" + url_for(:action => "embed", :controller => "jokes", :id => joke.slug, :only_path => false, :format => :js) + "\"></script>") %>   
 <script type="text/javascript">
     $(document).ready(function(){
       $('#permalink').qtip({
