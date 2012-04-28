@@ -3,11 +3,12 @@
 <head>
   <title><%=@title%></title>
   <%= stylesheet_link_tag "/stylesheets/styles.css" %>
+  <%= stylesheet_link_tag "/stylesheets/styles.joke.css" %>
   <%= stylesheet_link_tag "/stylesheets/jquery.qtip.css" %>
   <%= stylesheet_link_tag "/stylesheets/absolution.blue.css"%>
   <%= stylesheet_link_tag "/stylesheets/jquery.dataTables.css"%>
   <%= stylesheet_link_tag "/stylesheets/jquery.tagsinput.css"%>
-  <%= javascript_include_tag "/javascripts/jquery.min.js","/javascripts/jquery-ui.min.js","/javascripts/application.js","/javascripts/jquery.qtip.min.js", "/javascripts/jquery.dataTables.min.js", "/javascripts/jquery.tagsinput.min.js" %>
+  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js","//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js","/javascripts/application.js","/javascripts/application.joke.js","/javascripts/jquery.qtip.min.js", "/javascripts/jquery.dataTables.min.js", "/javascripts/jquery.tagsinput.min.js" %>
   <%=javascript_include_tag 'rails'%>
   <%= csrf_meta_tag %>
   <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>

@@ -1,0 +1,6 @@
+<%= stylesheet_link_tag "/stylesheets/styles.joke.css" %>
+<%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js","/javascripts/application.joke.js"%>
+
+<div id="joke" class="joke">
+  <%= render :partial => "home/joke", :locals => {:joke => @joke, :refresh => false, :min => true}%>
+</div>

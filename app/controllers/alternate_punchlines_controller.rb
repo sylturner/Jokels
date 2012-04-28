@@ -12,6 +12,7 @@ class AlternatePunchlinesController < JokesController
   end
 
   def index
+    @min = params[:min] == "true"
     if is_clean_mode?
       @alternate_punchlines = @joke.filtered_alternate_punchlines
     else

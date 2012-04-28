@@ -1,6 +1,6 @@
 $("#loading").remove();
 $("#joke").html("");
-$("#joke").html("<%= escape_javascript(render :partial => 'joke', :locals=>{:joke => @joke, :refresh => true}) %>");
+$("#joke").html("<%= escape_javascript(render :partial => 'joke', :locals=>{:joke => @joke, :refresh => true, :min => false}) %>");
 $("#joke").slideDown("fast");
 $("#joke").ready(function(){
 	$('#click-for-punchline, #question').click(enable_joke_stuff);

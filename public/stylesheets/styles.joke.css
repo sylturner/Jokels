@@ -1,0 +1,153 @@
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   13px;
+  line-height: 18px;
+}
+
+.joke {
+	padding-top: 0px;
+}
+
+.joke p {
+	width: 100%;
+	margin: 0;
+	background: #EFEFEF;
+	text-align: center;
+	font-size: 24pt;
+	line-height: 28pt;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.joke p#click-for-punchline, .joke p#refresh-joke {
+	background: #EFEFEF;
+	font-size: 10pt;
+	line-height: 28pt;
+	cursor: pointer;
+	color: #666;
+}
+
+.joke p#click-for-punchline:hover, .joke p#refresh-joke:hover, .joke p#refresh-joke a:hover  {
+	background: #DFDFDF;
+	color: #333;
+}
+
+.joke p.question {
+	background: #99CC99;
+	cursor: pointer;
+}
+
+.joke p.answer {	
+	background: #BBDDBB;
+}
+
+.joke div#answer-container {
+	display:none;
+}
+.joke p.share {
+	display: none;
+	border-top: 3px solid #333;
+	background: #777;
+	font-size: 10pt;
+	text-align: left;
+	color: #DDD;
+	line-height: 10pt;
+	vertical-align: middle;	
+}
+.joke p.share span.left {
+	margin-left: 10px;
+}
+
+.joke p.share span.right {
+	float: right;
+	margin-right: 10px;	
+	margin-top: -20px;
+}
+
+.joke p.share span.right span {
+	vertical-align: middle;
+}
+
+.joke p.share a {
+	color: #FFF;
+}
+
+.joke p.share iframe { 
+	vertical-align:middle; 
+	padding-bottom: 2px; 
+}
+.joke p.share iframe.twitter-share-button {
+	padding-bottom: 3px;
+}
+div#joke.joke p.share span.right img {
+	vertical-align: middle;
+}
+
+.joke p#refresh-joke {
+	display:none;
+	padding: 0;	
+}
+
+.joke p#refresh-joke a {
+	display:block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-decoration: none;
+	color: #666;
+}
+.joke p#refresh-joke a:hover {
+	color: #333;
+}
+
+.joke p#alternate-punchlines-button {
+	font-size: 12pt;
+	display: none;
+	padding: 0;
+	background-color: #FFE340;
+}
+
+.joke p#alternate-punchlines-button a {
+	display:block;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-decoration: none;
+	color: #666;
+}
+.joke p#alternate-punchlines-button a:hover {
+	background-color: #FFEB73;
+	color: #333;
+}
+
+.joke span#alternate_punchlines {
+	width: 100%;
+}
+
+.joke span#alternate_punchlines p.share {
+	display: block;
+	height: 23px;
+	border-top: none;
+}
+
+.joke span#alternate_punchlines p.share span.right{
+	margin-top: 0;
+}
+
+.joke span#alternate_punchlines p.punchline {
+	background-color: #BBCCAA;
+	border-top: 3px solid #333;
+}
+
+.joke p#show-original {
+	display:none;
+	font-size:10pt;
+	line-height:12pt;
+	display:none;
+	cursor: pointer;
+	padding: 0;
+	background-color: #FFE340;
+}
+
+.joke p#show-original:hover {
+	background-color: #FFEB73;
+	color: #333;
+}
