@@ -9,6 +9,9 @@ class Joke < ActiveRecord::Base
   has_many :categories
   has_many :favorite_jokes, :dependent => :destroy
   has_many :alternate_punchlines
+
+  has_many :subscriptions, :as => :subscribable
+  has_many :subscribers, :through => :subscriptions, :source => :user
   
   belongs_to :user, :counter_cache => true
   

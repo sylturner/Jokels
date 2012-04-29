@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   has_many :favorite_jokes, :dependent => :destroy
   has_many :alternate_punchlines
   
+  has_many :subscriptions
+  has_many :subscribers, :class_name => "User", :through => :subscriptions, :source => :user
+
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth["provider"]
