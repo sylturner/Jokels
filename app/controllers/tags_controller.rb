@@ -14,7 +14,7 @@ class TagsController < ApplicationController
   def search    
     autocomplete_tags = []
     if params[:term]
-      Joke.tag_counts.where("name like '%#{params[:term]}%'").sort_by(&:name).each{|tag| autocomplete_tags << tag.name}
+      Joke.tag_counts.where("name like ?", "%#{params[:term]}%").sort_by(&:name).each{|tag| autocomplete_tags << tag.name}
     else
       Joke.tag_counts.sort_by(&:name).each{|tag| autocomplete_tags << tag.name}
     end
