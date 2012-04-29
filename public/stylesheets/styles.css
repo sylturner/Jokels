@@ -456,3 +456,7 @@ div.user_qtip_no_avatar{
 	text-align: center;
 	font-size: 90%;
 }
+
+a img {
+	border: none;
+}
