@@ -166,3 +166,20 @@ div#joke.joke p.share span.right img {
 	background-color: #FFEB73;
 	color: #333;
 }
+
+#share-qtip-content span.left {
+	float: left;
+	display: block;
+	width: 37%;
+}
+
+#share-qtip-content span.right {
+	float: right;
+	display: block;
+}
+
+#share-qtip-content .phone{
+	vertical-align: top;
+	margin-top: 2px;
+	margin-right: 8px;
+}

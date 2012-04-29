@@ -50,9 +50,7 @@
           |      
             <% permalink = url_for(:action => "show", :controller => "jokes", :id => joke.slug, :only_path => false)%>   
             <a href="#" id="permalink">Permalink</a> 
-          | <%= link_to image_tag("mobile-phone.png", :class=>"phone", :title => "Send this joke via SMS"), sms_joke_joke_path(joke),:method => :get, :remote => true  %>
-          | <span><iframe src="http://www.facebook.com/plugins/like.php?app_id=168063983260429&amp;href=<%=CGI.escape(joke.bitly_url)%>&amp;send=false&amp;layout=button_count&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:50px; height:21px;" allowTransparency="true"></iframe></span>
-          | <span><a href="http://twitter.com/share" class="twitter-share-button" data-url="<%=joke.bitly_url%>" data-text="<%=joke.question%>" data-count="horizontal" data-via="jokelscom">Tweet</a>        
+          | <a href="#" id="share-link">Share</a>
         </span>
         <span class="share-bar-right">      
           <% if !current_user.nil? && current_user.is_admin %>
@@ -90,13 +88,22 @@
 </div>
 
 <% if !min %>
-  <% permalink_embed = escape_javascript( "<script src=\"" + url_for(:action => "embed", :controller => "jokes", :id => joke.slug, :only_path => false, :format => :js) + "\"></script>") %>   
+  <% permalink_embed = '<script src="' + url_for(:action => "embed", :controller => "jokes", :id => joke.slug, :only_path => false, :format => :js) + '"></script>' %>   
+  <!-- This div is just used by the share qtip. -->
+  <div style="display:none" >
+    <div id="share-qtip-content">
+      <div><span class="left"><%= link_to image_tag("mobile-phone.png", :class=>"phone", :title => "Send this joke via SMS"), sms_joke_joke_path(joke),:method => :get, :remote => true  %><iframe src="http://www.facebook.com/plugins/like.php?app_id=168063983260429&amp;href=<%=CGI.escape(joke.bitly_url)%>&amp;send=false&amp;layout=button_count&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:55px; height:21px;" allowTransparency="true"></iframe></span>
+      <span class="left"><a href="http://www.reddit.com/submit?title=<%= URI.escape(joke.question, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]")) %>&text=<%= URI.escape(joke.answer + "  Courtesy of Jokels.com: " + url_for(:action => "show", :controller => "jokes", :id => joke.slug, :only_path => false), Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))%>"><%= image_tag "spreddit7.png", :alt => "Submit to Reddit", :border => "0", :size => "85x18" %></a></span>
+      <span class="right"><a href="http://twitter.com/share" class="twitter-share-button" data-url="<%=joke.bitly_url%>" data-text="<%=joke.question%>" data-count="none" data-via="jokelscom">Tweet</a></span><br/></div>
+    <span style="white-space: nowrap;">Joke Embed: <input value="<%= permalink_embed %>" class="permalink-input" width="80px"/></span>
+  </div>
+</div>
 <script type="text/javascript">
     $(document).ready(function(){
       $('#permalink').qtip({
         show: 'click',
         hide: 'click unfocus',
-        content: '<div><span>Permalink:</span> <input value="<%=permalink%>" class="permalink-input"/></div><div><span>Short URL:</span> <input value="<%=joke.bitly_url%>" class="permalink-input short-url"/> <%= link_to image_tag("barcode-2d.png", :class=>"qrcode"), "#{joke.bitly_url}.qrcode", {:title => "QR Code", :target => "_blank"} %></div><div> <span>Joke Embed: </span><input value="<%= permalink_embed %>" class="permalink-input"/></div>',
+        content: '<div><span>Permalink:</span> <input value="<%=permalink%>" class="permalink-input"/></div><div><span>Short URL:</span> <input value="<%=joke.bitly_url%>" class="permalink-input short-url"/> <%= link_to image_tag("barcode-2d.png", :class=>"qrcode"), "#{joke.bitly_url}.qrcode", {:title => "QR Code", :target => "_blank"} %></div>',
     		style: {
     		  classes: 'ui-tooltip-rounded ui-too();ltip-shadow ui-tooltip-dark'
     		},		
@@ -111,6 +118,7 @@
     		  }
     		}		
     	});
+
       $('#tags').qtip({
         show: 'click',
         hide: 'click unfocus',
@@ -123,6 +131,27 @@
           at: 'bottom center',
           target: $('#tags')
         }   
+      });
+
+      $('#share-link').qtip({
+        show: 'click',
+        hide: 'click unfocus',
+        content: function() {
+          return $("#share-qtip-content");
+        },
+        style: {
+          classes: 'ui-tooltip-rounded ui-too();ltip-shadow ui-tooltip-dark'
+        },
+        position: {
+          my: 'top left',
+          at: 'bottom center',
+          target: $('#share-link')
+        },
+        events: {
+          show: function(event, api) {
+            $('.permalink-input').click(function(){$(this).select();});
+          }
+        }
       });
 
       enable_user_qtips();
