@@ -12,6 +12,7 @@
 			<th>Kid Safe?</th>
 			<th>Profane?</th>
 			<th>Random Hits</th>
+			<th>Delete</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -21,7 +22,7 @@
 			<% if joke.user.nil? %>
 				Anonymous
 			<% else %>
-				<%= user_name(joke.user) %>
+				<%= link_to user_name(joke.user), joke.user %>
 			<% end %>
 		</td>
 		<td>
@@ -31,7 +32,7 @@
 			<%= joke.created_at.strftime("%-m/%-d/%Y %H:%M")%>
 		</td>
 		<td>
-			<%= joke.question %>
+			<%= link_to(joke.question, joke) %>
 		</td>
 		<td>
 			<%= joke.answer %>
@@ -54,6 +55,9 @@
 		<td>
 			<%= joke.hit_counter %>
 		</td>
+		<td>
+			<%= link_to("Delete", joke_path(joke),:method => "delete", :confirm => "You sure?") %>
+		</td>
 	</tr>
 
 	<% joke.alternate_punchlines.each do |alt_punchline| %>
@@ -62,7 +66,7 @@
 			<% if alt_punchline.user.nil? %>
 				Anonymous
 			<% else %>
-				<%= user_name(alt_punchline.user) %>
+				<%= link_to user_name(alt_punchline.user), alt_punchline.user %>
 			<% end %>
 			</td>
 			<td>
@@ -94,6 +98,9 @@
 			</td>
 			<td>
 				-
+			</td>
+			<td>
+				<%= link_to("Delete", joke_alternate_punchline_path(alt_punchline.joke, alt_punchline),:method => "delete", :confirm => "You sure?") %> | 
 			</td>
 		</tr>
 	<% end %>

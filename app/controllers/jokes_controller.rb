@@ -149,13 +149,17 @@ class JokesController < ApplicationController
   # DELETE /jokes/1
   # DELETE /jokes/1.xml
   def destroy
-    redirect_to(@joke, :notice => "Sorry! Deleting jokes isn't allowed yet")
-    #@joke.destroy
-
-    #respond_to do |format|
-    #  format.html { redirect_to(jokes_url) }
-    #  format.xml  { head :ok }
-    #end
+    # only admins can delete jokes for now.
+    if !current_user.nil? && current_user.is_admin
+      @joke.destroy
+      respond_to do |format|
+       format.html { redirect_to(root_url) }
+       format.xml  { head :ok }
+      end
+    else
+      redirect_to(@joke, :notice => "Sorry! Deleting jokes isn't allowed yet")
+    end
+    
   end
   
   def favorite_toggle

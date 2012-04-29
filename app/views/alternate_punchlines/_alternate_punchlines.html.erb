@@ -31,6 +31,7 @@
         </span>
         <span class="right">
           <% if !current_user.nil? && current_user.is_admin %>
+            <%= link_to("Delete", joke_alternate_punchline_path(ap.joke, ap),:method => "delete", :confirm => "You sure?") %> | 
             <%= check_box_tag("alt-punchline-#{ap.id}", value = ap.is_kid_safe, checked = ap.is_kid_safe, :class => "ajax-checkbox alternate-punchline-checkbox", "data-href" => is_kid_safe_toggle_joke_alternate_punchline_path(ap.joke, ap)) %> Is Kid Safe?
           <% end %>
         </span>
