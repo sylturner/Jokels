@@ -183,3 +183,16 @@ div#joke.joke p.share span.right img {
 	margin-top: 2px;
 	margin-right: 8px;
 }
+
+.inline-joke-edit{
+	vertical-align: top;
+}
+
+.inline-joke-edit input{
+	vertical-align: top;
+	margin-top: 3px;
+}
+
+.inline-joke-edit a{
+	vertical-align: top;
+}

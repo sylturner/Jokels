@@ -53,6 +53,7 @@
           | <a href="#" id="share-link">Share</a>
         </span>
         <span class="share-bar-right">      
+          <span class="inline-joke-edit">
           <% if !current_user.nil? && current_user.is_admin %>
             <%= link_to("Delete", joke_path(joke),:method => "delete", :confirm => "You sure?") %> | 
             <%= check_box_tag("joke-#{joke.id}", value = joke.is_kid_safe, checked = joke.is_kid_safe, :class => "ajax-checkbox joke-checkbox", "data-href" => is_kid_safe_toggle_joke_path(joke)) %> Is Kid Safe?
@@ -60,6 +61,7 @@
           <% if joke.user %>
             <% if joke.user == current_user %>[<%= link_to "Edit joke", edit_joke_path(joke), :method => :get, :remote => true %>]<% end %>
           <% end %>
+        </span>
           <% if joke.jokeler_url %> <%= link_to image_tag("jokeler.jpg", :size => "23x23", :title =>"The Jokeler strikes again!"), joke.jokeler_url %> <% end %>
           <%= image_tag("info.png", :size => "16x16", :class=>"qtip-joke", "data-joke-id" => joke.id, "data-on-joke" => "true") %>
         </span>
