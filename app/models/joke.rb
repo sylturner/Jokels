@@ -141,7 +141,7 @@ class Joke < ActiveRecord::Base
     end
 
     # Today is the first day of the year, tweet last years's top Joke
-    if Date.today.beginning_of_month == Date.today
+    if Date.today.beginning_of_year == Date.today
       top_yearly_joke = top_joke_for_time_frame((Time.now-1.day).beginning_of_year, (Time.now-1.day).end_of_year)
       post_top_joke(top_monthly_joke, "Happy New Year - Top joke for #{(Time.now-1.day).strftime("%Y")}")
     end
