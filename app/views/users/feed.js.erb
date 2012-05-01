@@ -1,0 +1,8 @@
+$("#loading").remove();
+$("#joke").html("");
+$("#joke").html("<%= escape_javascript(render :partial => 'home/joke', :locals => {:joke => @joke, :refresh => false, :min => false, :sequence => true, :feed_path => feed_user_path(@user) + '?type=' + @type}) %>");
+$("#joke").slideDown("fast");
+$("#joke").ready(function(){
+	$('#click-for-punchline, #question').click(enable_joke_stuff);
+	document.title = "<%= @title %>";
+})

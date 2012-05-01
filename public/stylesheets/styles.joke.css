@@ -31,7 +31,7 @@ body, p, ol, ul, td {
 	color: #666;
 }
 
-.joke p#click-for-punchline:hover, .joke p#refresh-joke:hover, .joke p#refresh-joke a:hover  {
+.joke p#click-for-punchline:hover, .joke p#refresh-joke a:hover  {
 	background: #DFDFDF;
 	color: #333;
 }
@@ -195,4 +195,20 @@ div#joke.joke p.share span.right img {
 
 .inline-joke-edit a{
 	vertical-align: top;
+}
+
+#sequence-links a{
+	display: inline-block !important;
+	width: 24.5%;
+}
+
+#sequence-links a.disabled {
+	opacity: 0.5;
+	cursor: default;
+}
+
+#sequence-links a.disabled:hover {
+	background: #EFEFEF !important;
+	color: #666 !important;
+	cursor: default;
 }

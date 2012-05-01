@@ -43,6 +43,22 @@ class ApplicationController < ActionController::Base
       @meta_description = "Jokels is a fun place to write jokes and share them with your friends!"
     end
   end
+
+  def generate_subtitle text = nil
+    @subtitle = text 
+    generate_title text
+  end
+
+  def index_test(index, limit)
+    logger.debug("Index test. index #{index}   limit: #{limit}")
+    if ( index < 0|| index >= limit)
+      logger.debug ("Redirecting to #{user_path(@user)}")
+      redirect_to(user_path(@user), :notice => "Sorry! That joke cannot be found")
+      return true
+    end
+
+    return false
+  end
   
   # puts an @ in front of Twitter names  
   def user_name user

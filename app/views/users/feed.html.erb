@@ -1,0 +1,3 @@
+<div id="joke" class="joke">
+  <%= render :partial => "home/joke", :locals => {:joke => @joke, :refresh => false, :min => false, :sequence => true, :feed_path => feed_user_path(@user) + "?type=#{@type}"} %>
+</div>

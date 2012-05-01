@@ -46,6 +46,9 @@
       <div class="left">
         <a href="/"><h1>jokels</h1></a><%if Rails.env == "development"%> - dev <% end %><%if is_clean_mode? %> - <b>Clean</b><% end %>
       </div>
+      <div class="middle">
+        <h2><%= @subtitle %></h2>
+      </div>
       <div class="right">
         <% if current_user %>
           Welcome <%= render :partial => "shared/user_link", :locals => {:user => current_user, :include_avatar => true}%> |

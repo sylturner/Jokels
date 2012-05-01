@@ -22,6 +22,11 @@ Jokels::Application.routes.draw do
       post :is_kid_safe_toggle, :on => :member, :action => "is_kid_safe_toggle"
     end
   end
+
+  resources :users, :controller => "users" do
+    get :feed, :on => :member, :action => "feed"
+    get :show, :on => :member, :action => "show"
+  end
   
   resource :home, :controller => "home" do
     get :add_joke, :action => "add_joke"

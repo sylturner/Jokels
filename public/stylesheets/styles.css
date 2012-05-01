@@ -86,12 +86,18 @@ body {
 	background-color: #777;
 	color: #DDD;
 	border-bottom: 3px solid #333;
-	height: 80px;
-	
+	height: 80px;	
 }
 #header .left {
 	padding-left: 10%;
 	display: inline-block;
+}
+#header .middle {
+	padding-left: 5%;
+	width: 35%;
+	text-align: center;
+	display: inline-block;
+	color: #FFF;
 }
 #header .right {
 	padding-right: 10%;

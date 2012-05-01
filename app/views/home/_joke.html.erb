@@ -79,8 +79,17 @@
     <span id="alternate_punchlines"></span>
   <% end %>
 
-  <% if !min %>
+  <% if !min && !sequence %>
     <p id="refresh-joke"><%= link_to raw("See another <strong>random joke!</strong>"), refresh_joke_home_path, :method => :get, :remote => true %></p>
+  <% end %>
+
+  <% if sequence %>
+    <p id="refresh-joke">
+      <span id="sequence-links" >
+        <%= link_to raw("<strong>First</strong> Joke"), (@index <= 0 ? "" : feed_path + "&index=0"), :method => :get, :remote => true, :class => "sequence-link " + (@index <= 0 ? "disabled" : "") %> 
+    <%= link_to raw("<strong>Previous</strong> Joke"), (@index <= 0 ? "" : feed_path + "&index=#{@index - 1}"), :method => :get, :remote => true, :class => "sequence-link " + (@index <= 0 ? "disabled" : "") %> 
+  <%= link_to raw("<strong>Next</strong> Joke"), (@index >= (@limit -1) ? "" : feed_path + "&index=#{@index + 1}"), :method => :get, :remote => true , :class => "sequence-link " + (@index >= (@limit -1) ? "disabled" : "") %> 
+<%= link_to raw("<strong>Last</strong> Joke"), (@index >= (@limit - 1) ? "" : feed_path + "&index=#{@limit-1}"), :method => :get, :remote => true, :class => "sequence-link " + (@index >= (@limit -1) ? "disabled" : "") %> </p>
   <% end %>
 
   <% if min %>
@@ -162,11 +171,21 @@
       enable_checkbox();
 
     	
-      $("#refresh-joke").click(function(){
+      $("#refresh-joke a").not(".disabled").click(function(){
         $("#joke").slideUp("fast");
         $("#main").append('<div id="loading">Loading joke...</div>');
         $("#loading").delay(1000).fadeIn("slow");
-      })
-    })
+      });
+
+      // disable the disabled links
+      $(".disabled").click(function(){
+        return false;
+      });
+
+      <% if sequence %>
+      if ( history.pushState )
+        history.pushState({}, "<%= @title %>", "<%= feed_path + "&index=" + @index.to_s() %>");
+      <% end %>
+    });
   </script>
 <% end %>
