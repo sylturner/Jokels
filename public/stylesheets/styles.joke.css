@@ -139,7 +139,6 @@ div#joke.joke p.share span.right img {
 
 .joke span#alternate_punchlines p.share {
 	display: block;
-	height: 23px;
 	border-top: none !important;
 }
 
@@ -199,7 +198,7 @@ div#joke.joke p.share span.right img {
 
 #sequence-links a{
 	display: inline-block !important;
-	width: 24.5%;
+	width: 19.5%;
 }
 
 #sequence-links a.disabled {

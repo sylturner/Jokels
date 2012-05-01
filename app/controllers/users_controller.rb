@@ -38,13 +38,13 @@ class UsersController < ApplicationController
     @type ||= "authored"
     @index ||= 0
 
-    @index = @index.to_i()
-
     is_clean_clause = is_clean_mode? == 1 ? " AND is_kid_safe = 1" : ""
     if @type == "authored"
       generate_subtitle (user_name(@user) + "'s Jokes")
       
       @limit = Joke.count(:conditions => "user_id = #{@user.id} #{is_clean_clause}");
+
+      @index = generate_index(@index, @limit)
 
       if index_test(@index, @limit)
         return
@@ -55,6 +55,8 @@ class UsersController < ApplicationController
       generate_subtitle (user_name(@user) + "'s Favorite Jokes")
       @limit = FavoriteJoke.joins(:joke).count(:conditions => "favorite_jokes.user_id = #{@user.id} #{is_clean_clause}")
 
+      @index = generate_index(@index, @limit)
+
       if index_test(@index, @limit)
         return
       end
@@ -64,6 +66,8 @@ class UsersController < ApplicationController
       generate_subtitle (user_name(@user) + "'s Forked Jokes")
       is_clean_clause = is_clean_mode? == 1 ? " AND alternate_punchlines.is_kid_safe = 1 AND jokes.is_kid_safe = 1" : ""
       @limit = AlternatePunchline.joins(:joke).count(:conditions => "alternate_punchlines.user_id = #{@user.id} #{is_clean_clause}");
+
+      @index = generate_index(@index, @limit)
 
       if index_test(@index, @limit)
         return

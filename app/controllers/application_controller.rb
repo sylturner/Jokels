@@ -59,6 +59,15 @@ class ApplicationController < ActionController::Base
 
     return false
   end
+
+  # if the index is the string "random" it generates a random number using the limit
+  def generate_index(index, limit)
+    if index == "random"
+      index = rand(limit)
+    end
+
+    index.to_i()
+  end
   
   # puts an @ in front of Twitter names  
   def user_name user

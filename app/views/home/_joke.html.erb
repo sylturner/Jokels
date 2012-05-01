@@ -87,9 +87,10 @@
     <p id="refresh-joke">
       <span id="sequence-links" >
         <%= link_to raw("<strong>First</strong> Joke"), (@index <= 0 ? "" : feed_path + "&index=0"), :method => :get, :remote => true, :class => "sequence-link " + (@index <= 0 ? "disabled" : "") %> 
-    <%= link_to raw("<strong>Previous</strong> Joke"), (@index <= 0 ? "" : feed_path + "&index=#{@index - 1}"), :method => :get, :remote => true, :class => "sequence-link " + (@index <= 0 ? "disabled" : "") %> 
-  <%= link_to raw("<strong>Next</strong> Joke"), (@index >= (@limit -1) ? "" : feed_path + "&index=#{@index + 1}"), :method => :get, :remote => true , :class => "sequence-link " + (@index >= (@limit -1) ? "disabled" : "") %> 
-<%= link_to raw("<strong>Last</strong> Joke"), (@index >= (@limit - 1) ? "" : feed_path + "&index=#{@limit-1}"), :method => :get, :remote => true, :class => "sequence-link " + (@index >= (@limit -1) ? "disabled" : "") %> </p>
+        <%= link_to raw("<strong>Previous</strong> Joke"), (@index <= 0 ? "" : feed_path + "&index=#{@index - 1}"), :method => :get, :remote => true, :class => "sequence-link " + (@index <= 0 ? "disabled" : "") %> 
+        <%= link_to raw("<strong>Random</strong> Joke"), feed_path + "&index=random", :method => :get, :remote => true, :class => "sequence-link" %>
+        <%= link_to raw("<strong>Next</strong> Joke"), (@index >= (@limit -1) ? "" : feed_path + "&index=#{@index + 1}"), :method => :get, :remote => true , :class => "sequence-link " + (@index >= (@limit -1) ? "disabled" : "") %> 
+        <%= link_to raw("<strong>Last</strong> Joke"), (@index >= (@limit - 1) ? "" : feed_path + "&index=#{@limit-1}"), :method => :get, :remote => true, :class => "sequence-link " + (@index >= (@limit -1) ? "disabled" : "") %> </p>
   <% end %>
 
   <% if min %>
