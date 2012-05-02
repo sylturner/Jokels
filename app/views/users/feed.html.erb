@@ -1,3 +1,9 @@
-<div id="joke" class="joke">
-  <%= render :partial => "home/joke", :locals => {:joke => @joke, :refresh => false, :min => false, :sequence => true, :feed_path => feed_user_path(@user) + "?type=#{@type}"} %>
+<div id="joke" class="joke" data-sequence="<%= @sequence_identifier %>">
+  <%= render :partial => "home/joke", :locals => {:joke => @joke, :refresh => true, :min => false, :sequence => true, :feed_path => feed_user_path(@user) + "?type=#{@type}"} %>
 </div>
+<script type="text/javascript">
+	$('#joke[data-sequence="<%=@sequence_identifier%>"]').ready(function(){
+		$(this).find('#click-for-punchline, #question').click(enable_joke_stuff);
+			document.title = "<%= @title %>";
+	});
+</script>

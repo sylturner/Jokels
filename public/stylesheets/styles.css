@@ -310,14 +310,6 @@ body {
 	padding-left: 10px;
 	display: inline-block;
 }
-/* permalink styling */
-.ui-tooltip-content div {
-	padding-bottom: 3px;
-	padding-top: 3px;
-}
-.ui-tooltip-content input {
-	width: 150px;
-}
 
 .column {
 	width: 47%;
@@ -329,14 +321,6 @@ body {
 
 .column.right {
 	float: right;
-}
-
-.ui-tooltip-content input.short-url {
-	width: 128px;
-}
-
-.ui-tooltip-content a {
-	color: #FFF;
 }
 
 .qrcode {
@@ -464,4 +448,36 @@ div.user_qtip_no_avatar{
 
 a img {
 	border: none;
+}
+
+#user-info
+{
+	border: 1px solid #A9A9A9;
+	border-bottom: none;
+}
+
+/* permalink styling */
+.ui-tooltip-content div {
+	padding-bottom: 3px;
+	padding-top: 3px;
+}
+.ui-tooltip-content input {
+	width: 150px;
+}
+
+.ui-tooltip-content input.short-url {
+	width: 128px;
+}
+
+.ui-tooltip-content a {
+	color: #FFF;
+}
+
+.ui-widget-content {
+	background-color: white !important;
+	border: none !important;
+}
+
+.ui-widget-header {
+	border: 1px solid #A9A9A9 !important;
 }

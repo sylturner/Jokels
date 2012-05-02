@@ -76,9 +76,11 @@ class UsersController < ApplicationController
       @joke = AlternatePunchline.joins(:joke).where(["alternate_punchlines.user_id = ? #{is_clean_clause}", @user.id]).order("created_at ASC").limit(1).offset(@index)[0].joke
     end
 
+    @sequence_identifier = "user_" + @type;
+
     respond_to do |format|
-      format.html 
-      format.js 
+      format.html {render :layout => false}
+      format.js {render :layout => false}
     end
   end
 

@@ -1,7 +1,19 @@
 <script>
   $(function() {
     // jQuery UI tabs
-    $( "#tabs" ).tabs();
+      $( "#tabs" ).tabs({
+        cache: true,
+        load: function (e, ui) {
+          $(ui.panel).find("#loading").remove();
+        },
+        select: function (e, ui) {
+         var $panel = $(ui.panel);
+
+         if ($panel.is(":empty")) {
+             $panel.append("<div id='loading'>Loading Feed...</div>");
+         }
+        }
+    });
   });
 </script>
 
@@ -10,9 +22,12 @@
   
   <div id="tabs">
     <ul>
-      <li><a href="#jokes">Jokes</a></li>
-      <li><a href="#favorites">Favorites</a></li>
-      <li><a href="#forks">Forks</a></li>
+      <li><a href="#jokes">Authored Jokes List</a></li>
+      <li><a href='<%=feed_user_path(@user)+"?type=authored&index=0"%>'>Authored Jokes Feed</a></li>
+      <li><a href="#favorites">Favorites List</a></li>
+      <li><a href='<%=feed_user_path(@user)+"?type=favorite_jokes&index=0"%>'>Favorites Feed</a></li>
+      <li><a href="#forks">Forks List</a></li>
+      <li><a href='<%=feed_user_path(@user)+"?type=forked_jokes&index=0"%>'>Forks Feed</a></li>
     </ul>
     <div id="jokes">
       <%= render :partial => "users/jokes", :locals => {:user => @user, :jokes => @jokes} %>
