@@ -44,6 +44,8 @@ class UsersController < ApplicationController
       
       @limit = Joke.count(:conditions => "user_id = #{@user.id} #{is_clean_clause}");
 
+      return if limit_test(@limit, "#{user_name(@user)} hasn't written any jokes.")
+
       @index = generate_index(@index, @limit)
 
       if index_test(@index, @limit)
@@ -54,6 +56,8 @@ class UsersController < ApplicationController
     elsif @type == "favorite_jokes"
       generate_subtitle (user_name(@user) + "'s Favorite Jokes")
       @limit = FavoriteJoke.joins(:joke).count(:conditions => "favorite_jokes.user_id = #{@user.id} #{is_clean_clause}")
+
+      return if limit_test(@limit, "#{user_name(@user)} doesn't have any favorite jokes.")
 
       @index = generate_index(@index, @limit)
 
@@ -66,6 +70,8 @@ class UsersController < ApplicationController
       generate_subtitle (user_name(@user) + "'s Forked Jokes")
       is_clean_clause = is_clean_mode? == 1 ? " AND alternate_punchlines.is_kid_safe = 1 AND jokes.is_kid_safe = 1" : ""
       @limit = AlternatePunchline.joins(:joke).count(:conditions => "alternate_punchlines.user_id = #{@user.id} #{is_clean_clause}");
+
+      return if limit_test(@limit, "#{user_name(@user)} doesn't have any forked jokes.")
 
       @index = generate_index(@index, @limit)
 
@@ -82,6 +88,20 @@ class UsersController < ApplicationController
       format.html {render :layout => false}
       format.js {render :layout => false}
     end
+  end
+
+  def limit_test(limit, message)
+    if @limit <= 0
+        @no_jokes_message = message
+        #no results for this type? just return and let the view handle it
+        respond_to do |format|
+          format.html {render :layout => false}
+        end
+
+        return true
+    end
+
+    return false
   end
 
   
