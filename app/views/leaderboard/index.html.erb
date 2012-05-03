@@ -36,6 +36,16 @@
           <% end %>
       </form>
     </div>
+
+    <br/>
+    <% viewStyle = @sort_type == "user" ? "display:none" : "" %>
+    <div id="view" class="view_button" style="<%= viewStyle %>">
+      <h3> View Type: </h3>
+      <form>
+        <%= leaderboard_radio_buttons ["list", "feed"], @view, "view" %>
+      </form>
+    </div>
+
   </div>
   
   <div id="leaderboard" class="main_bar" >

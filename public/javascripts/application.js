@@ -143,6 +143,7 @@ function enrich_leaderboards()
 	$("#sort_type_radio").buttonset();
   	$("#sort").buttonset();
   	$("#time").buttonset();
+  	$("#view").buttonset();
 
   	$("input:radio").unbind("click");
 
@@ -154,8 +155,9 @@ function enrich_leaderboards()
 	  	sort_type = $('input:radio[name=sort_type]:checked').val();
 	  	sort = $('input:radio[name=sort]:checked').val();
 	  	time = $('input:radio[name=time]:checked').val();
+	  	view = $('input:radio[name=view]:checked').val();
 
-	  	var refresh_url = "?sort_type="+sort_type+"&sort="+sort+(time ? "&time="+time : "" );
+	  	var refresh_url = "?sort_type="+sort_type+"&sort="+sort+(time ? "&time="+time : "" )+"&view=" + view;
 	  	if ( history.pushState )
 	  		history.pushState({}, "Leaderboards", refresh_url);
 
