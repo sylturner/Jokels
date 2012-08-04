@@ -57,7 +57,7 @@
           <% end %>
           <%= link_to "Sign Out", signout_path %>
         <% else %>
-          Sign in with <a href="/auth/twitter">Twitter</a> or <a href="/auth/facebook">Facebook</a> (<a href="#" id="question-mark">?</a>)
+          <span id="signIn">Sign in with <a href="/auth/twitter">Twitter</a> or <a href="/auth/facebook">Facebook</a> (<a href="#" id="question-mark">?</a>)</span>
         <% end %>       
         <br/>
         <%= link_to "Add new joke", add_joke_home_path, :method => :get, :remote => true, :class=>"add-joke-button" %> | <%= link_to "Leaderboards", leaderboard_path %> | <%= link_to "Tags", tags_path %>

@@ -13,6 +13,6 @@
 		$("#<%= @up_arrow_id %>").attr("src", "/images/arrow_up_faded.png");
 		$("#<%= @vote_total_id %>").html("<%= @vote_total %>");
 	<% else %>
-		$("#notice").html("Please login to vote.");
+		showSignInQtip();
 	<% end %>
 <% end %>

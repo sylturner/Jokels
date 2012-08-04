@@ -166,3 +166,13 @@ function enrich_leaderboards()
 				});
   	});
 }
+
+function showSignInQtip()
+{
+	$("#signIn").qtip({
+		content: "Please login to vote on jokes, save your favorite jokes, get credit for your jokes and more!",
+		show: {ready: true, target: $(null)},
+		hide: {target: $("#signIn a")},
+		position: {my: 'top right', at: 'bottom left', target: $("#signIn"), viewport: $(window)}
+	});
+}
