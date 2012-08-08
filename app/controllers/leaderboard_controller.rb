@@ -81,7 +81,7 @@ class LeaderboardController < ApplicationController
         logger.debug("Putting joke_id_list in the session: " + joke_id_list.to_s())
 
         # put the id list in the session
-        session[:leanderboard_joke_list] = joke_id_list
+        session[:leaderboard_joke_list] = joke_id_list
       else
         @index = params[:index]
       end
@@ -89,10 +89,18 @@ class LeaderboardController < ApplicationController
       #otherwise it's pretty simple, just get the joke id list out of the session and use that to get the current joke
       joke_id_list = session[:leaderboard_joke_list]
       if !joke_id_list.nil? 
+        @limit = joke_id_list.length
+        @index = generate_index(@index, @limit)
+        
         joke_id = joke_id_list[@index]
 
-        @joke = Joke.find(:id => joke_id)
+        @joke = Joke.find(joke_id) unless joke_id.nil?
+      else
+        @limit = 0
       end 
+
+      logger.debug "Limit #{@limit}"
+
     end
      
      logger.debug "Sort type: " + @sort_type
