@@ -36,9 +36,19 @@
           <% end %>
       </form>
     </div>
+
+    <br/>
+    <% viewStyle = @sort_type == "user" ? "display:none" : "" %>
+    <div id="view" class="view_button" style="<%= viewStyle %>">
+      <h3> View Type: </h3>
+      <form>
+        <%= leaderboard_radio_buttons ["list", "feed"], @view, "view" %>
+      </form>
+    </div>
+
   </div>
   
   <div id="leaderboard" class="main_bar" >
-  	<%= render :partial => "leaderboard", :locals => {:sort => @sort, :sort_type => @sort_type, :time => @time, :users => @users, :jokes => @jokes, :sort_type_plural => sort_type_plural} %>
+  	<%= render :partial => "leaderboard", :locals => {:sort => @sort, :sort_type => @sort_type, :time => @time, :users => @users, :jokes => @jokes, :sort_type_plural => sort_type_plural, :view => @view} %>
   </div>
 </div>
