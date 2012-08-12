@@ -178,3 +178,45 @@ function showSignInQtip()
 		position: {my: 'top right', at: 'bottom left', target: $("#signIn"), viewport: $(window)}
 	});
 }
+
+function pausecomp(ms) {
+	ms += new Date().getTime();
+	while (new Date() < ms){}
+} 
+
+function clickAltPunchlines(delayTime)
+{
+	$("#alternate-punchlines-button a").trigger("click");
+
+	setTimeout("clickNextJoke()", delayTime);
+}
+
+function clickNextJoke()
+{
+	$("#refresh-joke a").trigger("click");
+}
+
+function clickPunchline(delayTime)
+{
+	$("#click-for-punchline").trigger("click");
+
+	if ( $("#alternate-punchlines-button").length > 0 )
+		setTimeout("clickAltPunchlines(" + delayTime + ")", delayTime);
+	else
+		setTimeout("clickNextJoke(" + delayTime + ")", delayTime);
+}
+
+function kioskModeStart()
+{
+	var delayTime = 7500;
+
+	delayTimeText = $("#kioskDelay").text();
+	delayTimeValue = parseInt(delayTimeText);
+
+	if ( delayTimeValue != NaN && delayTimeValue > 0)
+		delayTime = delayTimeValue;
+
+	$("#click-for-punchline").livequery(function(){
+		setTimeout("clickPunchline(" +delayTime + ")", delayTime);
+	});
+}

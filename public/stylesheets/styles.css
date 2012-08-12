@@ -481,3 +481,7 @@ a img {
 .ui-widget-header {
 	border: 1px solid #A9A9A9 !important;
 }
+
+#kioskDelay {
+	display: none;
+}

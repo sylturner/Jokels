@@ -7,6 +7,19 @@ class HomeController < ApplicationController
     Joke.increment_counter :hit_counter, session[:joke_id]
   end
 
+  def kiosk_mode
+      random_joke
+
+      @delayTime = params[:delay].nil? ? 7500 : params[:delay]
+      @kiosk_mode = true
+
+      generate_title
+
+      respond_to do |format|
+        format.html
+      end
+  end
+
   def index
     random_joke
     generate_title

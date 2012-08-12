@@ -1,0 +1,7 @@
+<div id="joke" class="joke">
+  <%= render :partial => "joke", :locals => {:joke => @joke, :refresh => false, :min => false, :sequence => false} %>
+</div>
+<span id="kioskDelay"><%= @delayTime %></span>
+<script>
+	setTimeout("kioskModeStart();", 10000);
+</script>
