@@ -58,12 +58,33 @@ class AlternatePunchlinesController < JokesController
     respond_to do |format|
       format.html {
         if @alternate_punchline.save
-          notice = 'Your new punchline has been added!'        
+          post_joke
         else
           notice = "Something happened and it didn't save your new punchline."
         end 
         redirect_to(joke_path(@joke.id), :notice => notice)
       }
+    end
+  end
+
+  def post_joke
+    if current_user && params[:alternate_punchline][:auto_post]
+      begin
+        post_joke_to_social
+        notice = "Your punchline was updated and sent to #{current_user.provider.capitalize}"
+      rescue => e
+        notice = "Your punchline was updated, but unable to post to  #{current_user.provider.capitalize}: " + e.to_s
+      end
+    end
+  end
+
+  def post_joke_to_social
+    if current_user.provider == "twitter"
+      # Tweet the joke            
+      client = Twitter::Client.new(:oauth_token => current_user.token, :oauth_token_secret => current_user.secret)
+      client.update("I just added a new punchline to a joke on Jokels! " + @alternate_punchline.joke.bitly_url)
+    elsif current_user.provider == "facebook"
+      FGraph.publish_feed('me', :message => "I just added a new punchline to this joke on Jokels: " + @alternate_punchline.joke.question + " " + @alternate_punchline.joke.bitly_url, :access_token => current_user.token)
     end
   end
 

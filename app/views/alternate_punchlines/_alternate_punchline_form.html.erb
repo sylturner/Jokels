@@ -22,6 +22,10 @@
     <%= f.label :punchline, "Your new punchline" %>
     <%= f.text_field :punchline %>
     <span class="qtip-capable" title="Jokels tries to filter out inappropriate and profane content for our younger users.  Please help us by flagging your own alternate punchlines as you create them."><%= f.check_box :is_kid_safe %> <%=f.label :is_kid_safe, "Is this alternate punchline safe for kids?" %></span>
+    <% if current_user && !current_user.token.nil? %>
+      <br/>
+      <%= f.check_box :auto_post %><%=f.label :auto_post, (current_user.provider == "facebook" ? "Automatically post your punchline to Facebook?" : "Automatically tweet your punchline?") %> 
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit "Add new punchline" %>

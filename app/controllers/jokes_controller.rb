@@ -81,9 +81,6 @@ class JokesController < ApplicationController
     @joke = Joke.new(params[:joke])
     if current_user
       @joke.user = current_user
-      if params[:joke][:auto_post]
-      end
-
       @joke.is_kid_safe = params[:joke][:is_kid_safe] == '1' && !(ProfanityFilter::Base.profane?(@joke.question) || ProfanityFilter::Base.profane?(@joke.answer))
 
     end
@@ -130,9 +127,9 @@ class JokesController < ApplicationController
           if current_user && params[:joke][:auto_tweet] == '1'
             begin
               tweet_joke
-              notice = 'Joke was updated and sent to Twitter'
+              notice = 'Joke was updated and sent to #{current_user.provider.capitalize}'
             rescue => e
-              notice = 'Joke was updated, but unable to send to Twitter: ' + e.to_s
+              notice = 'Joke was updated, but unable to send to #{current_user.provider.capitalize}: ' + e.to_s
             end
             
           end

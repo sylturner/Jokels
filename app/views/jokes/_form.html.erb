@@ -22,10 +22,10 @@
     <br/>
     <%= f.label :answer, "Punchline!" %>
     <%= f.text_field :answer %>
-      <span class="qtip-capable" title="Jokels tries to filter out inappropriate and profane jokes for our younger users.  Please help us by flagging your own jokes as you create them."><%= f.check_box :is_kid_safe %> <%=f.label :is_kid_safe, "Is this joke safe for kids?" %></span>
+      <span class="qtip-capable" title="Jokels tries to filter out inappropriate and profane jokes for our younger users.  Please help us by flagging your own jokes as you create them."><%= f.check_box :f %> <%=is_kid_safe.label :is_kid_safe, "Is this joke safe for kids?" %></span>
     <% if current_user && !current_user.token.nil? %>
       <br/>
-      <%= f.check_box :auto_post %> <%=f.label :auto_post, (current_user.provider == "facebook" ? "Automatically post your joke to Facebook?" : "Automatically tweet your joke?") %> 
+      <%= f.check_box :auto_post %> <%=f.label :auto_post, (current_user.provider == "facebook" ? "Automatically post your new punchline to Facebook?" : "Automatically tweet your new punchline?") %> 
     <% end %>
   </div>
   <div class="actions">
