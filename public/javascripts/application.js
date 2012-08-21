@@ -196,27 +196,78 @@ function clickNextJoke()
 	$("#refresh-joke a").trigger("click");
 }
 
-function clickPunchline(delayTime)
+function clickPunchline()
 {
+	var delayTime = getDelayTime();
+
 	$("#click-for-punchline").trigger("click");
 
 	if ( $("#alternate-punchlines-button").length > 0 )
 		setTimeout("clickAltPunchlines(" + delayTime + ")", delayTime);
 	else
-		setTimeout("clickNextJoke(" + delayTime + ")", delayTime);
+		setTimeout("clickNextJoke()", delayTime);
 }
 
 function kioskModeStart()
 {
-	var delayTime = 7500;
-
-	delayTimeText = $("#kioskDelay").text();
-	delayTimeValue = parseInt(delayTimeText);
-
-	if ( delayTimeValue != NaN && delayTimeValue > 0)
-		delayTime = delayTimeValue;
-
 	$("#click-for-punchline").livequery(function(){
-		setTimeout("clickPunchline(" +delayTime + ")", delayTime);
+		var delayTime = getDelayTime();
+
+		setTimeout("clickPunchline()", delayTime);
+	});
+}
+
+function getDelayTime()
+{
+	return $("#kiosk_delay_slider").slider("option","value");
+}
+
+function fullScreen()
+{
+	$("#header").addClass("hidden");
+	$("#footer").addClass("hidden");
+	$("#main").addClass("full");
+	$("#enterFullscreen").hide();
+	$("#exitFullscreen").show();
+	// hiding, then showing the entire wrapper seems to force the page to redraw
+	$(".wrapper").hide(10, function(){$(".wrapper").show()});
+
+
+	return false;
+}
+
+function exitFullscreen()
+{
+	$("#header").removeClass("hidden");
+	$("#footer").removeClass("hidden");
+	$("#main").removeClass("full");
+	$("#enterFullscreen").show();
+	$("#exitFullscreen").hide();
+	// hiding, then showing the entire wrapper seems to force the page to redraw
+	$(".wrapper").hide(10, function(){$(".wrapper").show()});
+
+	return false;
+}
+
+function enableKiosk(delayTime)
+{
+	$("#kiosk_footer").show();
+	$("#footer").addClass("kiosk");
+	$("#enterFullscreen a").click(fullScreen);
+	$("#exitFullscreen a").click(exitFullscreen);
+
+	fullScreen();	
+
+	$("#kioskDelay").text((Math.round(delayTime / 100.0))/10);
+
+	$( "#kiosk_delay_slider" ).slider({
+			range: "min",
+			value: delayTime,
+			min: 3000,
+			max: 60000,
+			slide: function( event, ui ) {
+				var newValue = Math.round(ui.value / 100.0) / 10;
+				$( "#kioskDelay" ).text( newValue );
+			}
 	});
 }
