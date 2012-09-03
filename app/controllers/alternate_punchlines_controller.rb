@@ -68,7 +68,7 @@ class AlternatePunchlinesController < JokesController
   end
 
   def post_joke
-    if current_user && params[:alternate_punchline][:auto_post]
+    if current_user && params[:alternate_punchline][:auto_post] == '1'
       begin
         post_joke_to_social
         notice = "Your punchline was updated and sent to #{current_user.provider.capitalize}"
