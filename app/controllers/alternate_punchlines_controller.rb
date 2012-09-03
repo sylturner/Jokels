@@ -1,7 +1,7 @@
 class AlternatePunchlinesController < JokesController
 
   before_filter :attach_joke, :only => [:index, :new, :create]  
-  before_filter :attach_alternate_punchline, :only => [:upvote, :downvote, :is_kid_safe_toggle, :destroy]
+  before_filter :attach_alternate_punchline, :only => [:upvote, :downvote, :is_kid_safe_toggle, :destroy, :reassign]
 
   def attach_joke
     @joke = Joke.find(params[:joke_id])
@@ -46,6 +46,27 @@ class AlternatePunchlinesController < JokesController
       redirect_to(@alternate_punchline, :notice => "Sorry! You can't delete that.")
     end
     
+  end
+
+  def reassign
+    @success = false
+    if !current_user.nil? && current_user.is_admin
+      id = params[:user_id]
+
+      if id.nil? || id == -1
+        @alternate_punchline.user = nil
+      else
+        user = User.find(id)
+        @alternate_punchline.user = user
+      end
+
+      @alternate_punchline.save
+      @success = true
+    end
+
+    respond_to do |format|
+      format.js {render :layout => false}
+    end
   end
 
   def create

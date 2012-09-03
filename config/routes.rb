@@ -15,11 +15,13 @@ Jokels::Application.routes.draw do
     post :is_kid_safe_toggle, :on => :member, :action => "is_kid_safe_toggle"
     get :embed, :on => :member, :action => "embed"
     get :show_min, :on => :member, :action => "embed"
+    get :reassign, :on => :member, :action => "reassign"
 
     resources :alternate_punchlines, :controller => "alternate_punchlines" do
       get :upvote, :on => :member, :action => "upvote"
       get :downvote, :on => :member, :action => "downvote"
       post :is_kid_safe_toggle, :on => :member, :action => "is_kid_safe_toggle"
+      get :reassign, :on => :member, :action => "reassign"
     end
   end
 

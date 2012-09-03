@@ -545,3 +545,7 @@ a img {
 #footer.kiosk{
 	margin-top: 0px;
 }
+
+.reassignSelect{
+	display:none;
+}

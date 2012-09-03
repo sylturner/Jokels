@@ -1,7 +1,7 @@
 class JokesController < ApplicationController
 
   # set the @joke instance variable for certain methods
-  before_filter :attach_joke, :only => [:new, :show, :embed, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote, :new_sms_joke, :send_sms_joke, :is_kid_safe_toggle,  :add_tags, :save_tags]
+  before_filter :attach_joke, :only => [:new, :show, :embed, :reassign, :edit, :destroy, :update, :favorite_toggle, :upvote, :downvote, :new_sms_joke, :send_sms_joke, :is_kid_safe_toggle,  :add_tags, :save_tags]
   skip_before_filter :verify_authenticity_token, :only => [:receive_sms_request]
   skip_before_filter :is_mobile, :only => [:embed, :show_min]
 
@@ -157,6 +157,27 @@ class JokesController < ApplicationController
       redirect_to(@joke, :notice => "Sorry! Deleting jokes isn't allowed yet")
     end
     
+  end
+
+  def reassign
+    @success = false
+    if !current_user.nil? && current_user.is_admin
+      id = params[:user_id]
+
+      if id.nil? || id == '-1'
+        @joke.user = nil
+      else
+        user = User.find(id)
+        @joke.user = user
+      end
+
+      @joke.save
+      @success = true
+    end
+
+    respond_to do |format|
+      format.js {render :layout => false}
+    end
   end
   
   def favorite_toggle

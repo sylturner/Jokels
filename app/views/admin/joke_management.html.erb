@@ -12,7 +12,8 @@
 			<th>Kid Safe?</th>
 			<th>Profane?</th>
 			<th>Random Hits</th>
-			<th>Delete</th>
+			<th>Delete</th> 
+			<th>Assign</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -31,7 +32,7 @@
 		<td>
 			<%= joke.created_at.strftime("%-m/%-d/%Y %H:%M")%>
 		</td>
-		<td>
+		<td >
 			<%= link_to(joke.question, joke) %>
 		</td>
 		<td>
@@ -55,8 +56,12 @@
 		<td>
 			<%= joke.hit_counter %>
 		</td>
-		<td>
+		<td class="deleteLink">
 			<%= link_to("Delete", joke_path(joke),:method => "delete", :confirm => "You sure?") %>
+		</td>
+		<td>
+			<a href="" class="reassignLink">Reassign Joke</a>
+			<%= select_tag("user", options_from_collection_for_select(@users, "id", "name", joke.user.nil? ? -1 : joke.user.id ), :class => "reassignSelect") %>
 		</td>
 	</tr>
 
@@ -99,8 +104,12 @@
 			<td>
 				-
 			</td>
+			<td class="deleteLink">
+				<%= link_to("Delete", joke_alternate_punchline_path(alt_punchline.joke, alt_punchline),:method => "delete", :confirm => "You sure?") %> 
+			</td>
 			<td>
-				<%= link_to("Delete", joke_alternate_punchline_path(alt_punchline.joke, alt_punchline),:method => "delete", :confirm => "You sure?") %> | 
+				<a href="" class="reassignLink">Reassign Punchline</a>
+				<%= select_tag("user", options_from_collection_for_select(@users, "id", "name", joke.user.nil? ? -1 : joke.user.id ), :class => "reassignSelect") %>
 			</td>
 		</tr>
 	<% end %>

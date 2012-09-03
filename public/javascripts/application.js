@@ -23,7 +23,7 @@ $(document).ready(function() {
 function enable_datatable() {
 	var oTable = $('#joke_datatable').dataTable({
 			"sPaginationType": "full_numbers"
-		});
+		});  
 
 		oTable.$(".ajax-checkbox").click(function() {
 			$.ajax({
@@ -33,6 +33,26 @@ function enable_datatable() {
 		  });
 
 		  return false;
+		});
+
+		oTable.$(".reassignLink").click(function(){
+			var selectBox = $(this).closest("td").find(".reassignSelect");
+
+			selectBox.show();
+			selectBox.change(function(){
+				var user_id = $(this).val();
+				var link = $(this).closest("tr").find("td.deleteLink a").attr("href");
+				var reassignUrl = link + "/reassign?user_id=" + user_id;
+
+				$.ajax({
+					url: reassignUrl,
+					dataType: "script",
+					type: "GET"
+				})
+			});
+
+			$(this).hide();
+			return false;
 		});
 }
 
