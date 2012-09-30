@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120429200751) do
+ActiveRecord::Schema.define(:version => 20120930153730) do
 
   create_table "achievements", :force => true do |t|
     t.string   "type"
@@ -68,12 +68,11 @@ ActiveRecord::Schema.define(:version => 20120429200751) do
     t.integer  "alternate_punchlines_count", :default => 0, :null => false
     t.integer  "favorite_jokes_count",       :default => 0, :null => false
     t.boolean  "is_kid_safe"
-    t.integer  "hit_counter",                :default => 0, :null => false
     t.string   "slug",                                      :null => false
+    t.integer  "hit_counter",                :default => 0, :null => false
   end
 
   add_index "jokes", ["down_votes"], :name => "index_jokes_on_down_votes"
-  add_index "jokes", ["slug"], :name => "index_jokes_on_slug", :unique => true
   add_index "jokes", ["up_votes"], :name => "index_jokes_on_up_votes"
   add_index "jokes", ["user_id"], :name => "index_jokes_on_user_id"
 
@@ -110,14 +109,17 @@ ActiveRecord::Schema.define(:version => 20120429200751) do
     t.datetime "updated_at"
     t.string   "image_url"
     t.string   "url"
-    t.integer  "up_votes",                   :default => 0, :null => false
-    t.integer  "down_votes",                 :default => 0, :null => false
+    t.integer  "up_votes",                   :default => 0,     :null => false
+    t.integer  "down_votes",                 :default => 0,     :null => false
     t.string   "token"
     t.string   "secret"
-    t.integer  "alternate_punchlines_count", :default => 0, :null => false
-    t.integer  "favorite_jokes_count",       :default => 0, :null => false
-    t.integer  "jokes_count",                :default => 0, :null => false
+    t.integer  "alternate_punchlines_count", :default => 0,     :null => false
+    t.integer  "favorite_jokes_count",       :default => 0,     :null => false
+    t.integer  "jokes_count",                :default => 0,     :null => false
     t.boolean  "is_admin"
+    t.boolean  "hide_avatar",                :default => false
+    t.boolean  "hide_url",                   :default => false
+    t.string   "display_name"
   end
 
   add_index "users", ["uid"], :name => "index_users_on_uid"

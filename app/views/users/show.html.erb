@@ -17,9 +17,15 @@
   });
 </script>
 
-<div id="user">  
-  <p id="user-info"><%= link_to image_tag(@user.image_url, :size => "48x48"), @user.url %> <strong><%=link_to user_name(@user), @user.url,  "data-user-id" => @user.id, "data-include-avatar" => "false", :class => "qtip-user"%></strong> (via <%=@user.provider.capitalize%>)</p>
-  
+<div id="user">
+  <div id="notice"><%= notice %></div>
+  <% if @user.hide_url %>
+    <p id="user-info"><%= image_tag @user.image, :size => "48x48" %> <strong><%=user_name(@user)%></strong>
+  <% else %>
+    <p id="user-info"><%= link_to image_tag(@user.image, :size => "48x48"), @user.url %> <strong><%=link_to user_name(@user), @user.url,  "data-user-id" => @user.id, "data-include-avatar" => "false", :class => "qtip-user"%></strong> (via <%=@user.provider.capitalize%>)
+  <% end %>
+  <% if current_user && current_user == @user %>[<%= link_to "Edit your profile", edit_user_path(@user) %>]<% end %>
+  </p>
   <div id="tabs">
     <ul>
       <li><a href="#jokes">Authored Jokes List</a></li>

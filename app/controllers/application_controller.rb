@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   has_mobile_fu
-  
+
   before_filter :is_mobile
-  
+
   helper_method :current_user
   helper_method :daily_word
   helper_method :generate_title
@@ -29,11 +29,11 @@ class ApplicationController < ActionController::Base
   def set_clean_mode value
     session[:clean_mode] = value
   end
-  
+
   def daily_word
     @daily_word = DailyWord.last[:word] if DailyWord.last
   end
-  
+
   def generate_title text = nil
     if text
       @title = "Jokels - #{text} - Share your jokes!"
@@ -68,22 +68,24 @@ class ApplicationController < ActionController::Base
 
     index.to_i()
   end
-  
+
   # puts an @ in front of Twitter names  
   def user_name user
     if user.nil?
       return nil
-    elsif user.provider == "twitter"
+    elsif !user.display_name.nil?
+      return user.display_name
+    elsif user.provider == "twitter" && user.display_name.nil?
       return "@"+user.name
     else
       return user.name
     end
   end
-  
+
   def is_mobile
     logger.debug "in is_mobile"
     logger.debug "is_mobile format: " + request.format
-    
+
     if (session[:mobile_view].nil? || session[:mobile_view]) && request.format != "text/javascript"
       request.format = :mobile if is_mobile_device?
     elsif request.format == "text/javascript"
@@ -92,5 +94,5 @@ class ApplicationController < ActionController::Base
       request.format = :html
     end
   end
-  
+
 end

@@ -6,7 +6,7 @@
 
 <% if @include_avatar %>
 	<div class="user_qtip">
-	  <%= image_tag(@user.image_url, :size => "60x60", :title => user_name(@user), :class=>"avatar avatar_qtip") %>
+	  <%= image_tag(@user.image, :size => "60x60", :title => user_name(@user), :class=>"avatar avatar_qtip") %>
 <% else %>
 	<div class="user_qtip_no_avatar">
 <% end %>

@@ -5,7 +5,7 @@
    <% if !min %>
      <% if index%2 == 0 %>
        <% if ap.user %>
-          <%= link_to image_tag(ap.user.image_url, :size => "48x48"), ap.user, :class=>"avatar avatar-left fork-avatar qtip-user", :title => user_name(ap.user), "data-user-id" => ap.user.id, "data-include-avatar" => "false" %>
+          <%= link_to image_tag(ap.user.image, :size => "48x48"), ap.user, :class=>"avatar avatar-left fork-avatar qtip-user", :title => user_name(ap.user), "data-user-id" => ap.user.id, "data-include-avatar" => "false" %>
         <% else %>
           <%= image_tag anon_user_icon, :size => "48x48", :class => "avatar avatar-left fork-avatar avatar-anon avatar-anon-fork", :title => "Anonymous author" %>   
         <% end %>    
@@ -17,7 +17,7 @@
       <% if index%2 == 1 %>
        <span class="bubble-fork bubble-right"></span>
        <% if ap.user %>
-          <%= link_to image_tag(ap.user.image_url, :size => "48x48"), ap.user, :class=>"avatar avatar-right fork-avatar qtip-user", :title => user_name(ap.user), "data-user-id" => ap.user.id, "data-include-avatar" => "false" %>
+          <%= link_to image_tag(ap.user.image, :size => "48x48"), ap.user, :class=>"avatar avatar-right fork-avatar qtip-user", :title => user_name(ap.user), "data-user-id" => ap.user.id, "data-include-avatar" => "false" %>
         <% else %>
           <%= image_tag anon_user_icon, :size => "48x48", :class => "avatar avatar-right fork-avatar avatar-anon avatar-anon-fork", :title => "Anonymous author" %>   
         <% end %>    

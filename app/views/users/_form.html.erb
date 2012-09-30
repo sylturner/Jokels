@@ -1,0 +1,22 @@
+<%= form_for(@user) do |f| %>
+
+  <div class="field">
+    <%= f.label :display_name, "Display Name" %>
+    <%= f.text_field :display_name %>
+    <br/>
+    <%= f.check_box :hide_avatar %>
+    <%= f.label :hide_avatar, "Hide your avatar?" %>
+    <br/>
+    <%= f.check_box :hide_url %>
+    <%= f.label :hide_url, "Hide your #{@user.provider.capitalize} profile link?" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Update user" %>
+  </div>
+  <% if !is_mobile_device? %>
+  <script type="text/javascript" >
+      if ( enable_basic_qtips != undefined )
+        enable_basic_qtips();
+  </script>
+  <% end %>
+<% end %>

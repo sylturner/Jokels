@@ -189,6 +189,9 @@ body {
 	width: 100%;
 }
 
+#user .field input {
+	width: auto;
+}
 #joke_auto_post {
 	width: 20px;
 }

@@ -1,33 +1,41 @@
 class User < ActiveRecord::Base
   make_voter
-  
+
   include Achievements
-  
+
   has_many :jokes
   has_many :favorite_jokes, :dependent => :destroy
   has_many :alternate_punchlines
-  
+
   has_many :subscriptions
   has_many :subscribers, :class_name => "User", :through => :subscriptions, :source => :user
+
+  def image
+    if self.hide_avatar
+      ApplicationController.helpers.anon_user_icon
+    else
+      self.image_url
+    end
+  end
 
   def self.create_with_omniauth(auth)
     create! do |user|
       user.provider = auth["provider"]
       user.uid = auth["uid"]
-      
-      user.name = auth["user_info"]["name"]      
-      
+
+      user.name = auth["user_info"]["name"]
+
       # use their twitter name as their name
       if auth["provider"] == "twitter"
         user.name = auth["user_info"]["nickname"]
-        user.url = auth["user_info"]["urls"]["Twitter"]        
+        user.url = auth["user_info"]["urls"]["Twitter"]
         user.token = auth["credentials"]["token"]
         user.secret = auth["credentials"]["secret"]
         user.image_url = "https://api.twitter.com/1/users/profile_image?screen_name=#{user.name}&size=normal"
       elsif auth["provider"] == "facebook"
-        user.url = auth["user_info"]["urls"]["Facebook"]        
+        user.url = auth["user_info"]["urls"]["Facebook"]
         user.image_url = auth["user_info"]["image"]
-      end      
+      end
     end
   end
 
@@ -37,18 +45,18 @@ class User < ActiveRecord::Base
       user.save
     end
   end
-  
+
   def favorited?(joke)
     logger.debug "Joke empty? " + (favorite_jokes.where(:joke_id => joke.id).empty? ? "true" : "false")
     logger.debug "Joke size: #{favorite_jokes.where(:joke_id => joke.id).size} "
-    
+
     if favorite_jokes.where(:joke_id => joke.id).empty?
       false
     else
       true
     end
   end
-  
+
   def toggle_favorite(joke)
     if favorite_jokes.where(:joke_id => joke.id).empty?
       favorite_jokes.build(:joke_id => joke.id).save
@@ -82,5 +90,5 @@ class User < ActiveRecord::Base
     end
     jokes
   end
-  
+
 end
