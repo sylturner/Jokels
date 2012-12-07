@@ -8,7 +8,7 @@ class HomeController < ApplicationController
   end
 
   def kiosk_mode
-      random_joke
+      find_random_joke
 
       @delayTime = params[:delay].nil? ? 7500 : params[:delay]
       @kiosk_mode = true
@@ -21,9 +21,8 @@ class HomeController < ApplicationController
   end
 
   def index
-    random_joke
+    find_random_joke
     generate_title
-      
     respond_to do |format|
       format.html 
       format.js {render :layout => false }
@@ -41,7 +40,7 @@ class HomeController < ApplicationController
 
     redirect_to root_url, :notice => "We'll let you see the real dirty stuff now!"
   end
-  
+
   def add_joke
     @joke = Joke.new(:is_kid_safe => true)
     respond_to do |format|
@@ -51,7 +50,11 @@ class HomeController < ApplicationController
     end
   end
 
-  def random_joke_path
+  def random_joke
+    render :json => Joke.random_joke.to_json
+  end
+
+  def random_joke_metadata
     @joke = Joke.random_joke(is_clean_mode?)
     response = {}
     response["joke-path"] = joke_path(@joke)
@@ -59,24 +62,24 @@ class HomeController < ApplicationController
 
     render :json => response
   end
-  
+
   def refresh_joke
-    random_joke
-    generate_title @joke.question    
+    find_random_joke
+    generate_title @joke.question
   end
-  
+
   def privacy_policy
-  end  
-  
+  end
+
   protected
-  
-  def random_joke
+
+  def find_random_joke
 
     @joke = Joke.random_joke(is_clean_mode?)
     session[:joke_id] = @joke.id
 
     if @joke.bitly_url.nil?
       @joke.generate_bitly_url
-    end  
+    end
   end
 end

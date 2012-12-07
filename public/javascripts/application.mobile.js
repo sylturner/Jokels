@@ -40,7 +40,7 @@ function setupPage()
 		});
 
 		$.ajax({
-			url: '/random_joke_path.json',
+			url: '/random_joke_metadata.json',
 			dataType: 'json',
 			success: function(data) {
 				$(currentPage).find("#random_joke").attr("href",data["joke-path"]);
