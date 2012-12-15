@@ -8,12 +8,12 @@ class JokesController < ApplicationController
   # GET /jokes
   # GET /jokes.xml
   def index
-    if is_clean_mode? 
+    if is_clean_mode?
       @jokes = Joke.where('is_kid_safe = 1')
     else
       @jokes = Joke.all
     end
-    
+
     generate_title "All Jokes"
     respond_to do |format|
       format.html # index.html.erb
@@ -23,15 +23,15 @@ class JokesController < ApplicationController
 
   # GET /jokes/1
   # GET /jokes/1.xml
-  def show    
+  def show
     session[:joke_id] = @joke.id
     if @joke.bitly_url.nil?
       @joke.generate_bitly_url
     end
-    
+
     @fb_url = @joke.bitly_url
     generate_title @joke.question
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @joke }
@@ -43,7 +43,7 @@ class JokesController < ApplicationController
     if @joke.bitly_url.nil?
       @joke.generate_bitly_url
     end
-    
+
     respond_to do |format|
       format.html {render :layout => false}
       format.js {render :layout => false}
@@ -87,14 +87,14 @@ class JokesController < ApplicationController
     respond_to do |format|
       if @joke.save
         notice = 'Joke was successfully created.'
-        
+
         format.html { 
           auto_post_joke
-          redirect_to(@joke, :notice => notice)          
+          redirect_to(@joke, :notice => notice)
           }
         format.mobile { 
           auto_post_joke
-          redirect_to(@joke, :notice => notice)          
+          redirect_to(@joke, :notice => notice)
           }
         format.xml  { render :xml => @joke, :status => :created, :location => @joke }
       else
@@ -131,7 +131,6 @@ class JokesController < ApplicationController
             rescue => e
               notice = 'Joke was updated, but unable to send to #{current_user.provider.capitalize}: ' + e.to_s
             end
-            
           end
           redirect_to(@joke, :notice => notice) 
           }
@@ -156,7 +155,6 @@ class JokesController < ApplicationController
     else
       redirect_to(@joke, :notice => "Sorry! Deleting jokes isn't allowed yet")
     end
-    
   end
 
   def reassign
@@ -179,11 +177,11 @@ class JokesController < ApplicationController
       format.js {render :layout => false}
     end
   end
-  
+
   def favorite_toggle
     if current_user
       current_user.toggle_favorite(@joke)
-      
+
       respond_to do |format|
         format.html
         format.js {render :layout => false}
@@ -210,7 +208,7 @@ class JokesController < ApplicationController
       end
     end
   end
-  
+
   def upvote
     if current_user
       set_voting_element_ids "joke_#{@joke.id}"      
@@ -222,7 +220,7 @@ class JokesController < ApplicationController
       end
     end
   end
-  
+
   def downvote
     if current_user
       set_voting_element_ids "joke_#{@joke.id}"
@@ -234,8 +232,8 @@ class JokesController < ApplicationController
       end
     end
   end
-  
-  def vote joke, dir          
+
+  def vote joke, dir
     begin
       if dir == "up"
         current_user.up_vote(joke)
@@ -246,7 +244,7 @@ class JokesController < ApplicationController
     rescue MakeVoteable::Exceptions::AlreadyVotedError
       redirect_to(@joke, :notice => "You already voted this way. Who are you trying to fool?")
     end
-    
+
     respond_to do |format|
       format.html 
       format.js {render :layout => false}
@@ -258,18 +256,17 @@ class JokesController < ApplicationController
     @down_arrow_id = "down_arrow_#{id}"
     @vote_total_id = "vote_total_#{id}"
   end
-  
+
   def feed
     @jokes = Joke.find(:all, :order => "id DESC", :limit => 25)
     respond_to do |format|
        format.atom
      end
-    
   end
-  
+
   def tweet_joke
     if current_user.provider == "twitter"
-      # Tweet the joke            
+      # Tweet the joke
       client = Twitter::Client.new(:oauth_token => current_user.token, :oauth_token_secret => current_user.secret)
       client.update(@joke.question + " " + @joke.bitly_url)
     elsif current_user.provider == "facebook"
@@ -296,9 +293,9 @@ class JokesController < ApplicationController
       end
     else
       #begin
-        @joke.sms_joke params[:phone]        
+        @joke.sms_joke params[:phone]
         respond_to do |format|
-          format.html { redirect_to(@joke, :notice => "Joke sent through SMS!") }          
+          format.html { redirect_to(@joke, :notice => "Joke sent through SMS!") }
         end
       # rescue => e
       #   respond_to do |format|
@@ -307,30 +304,29 @@ class JokesController < ApplicationController
       # end
     end
   end
-  
+
   def receive_sms_request
     body = params[:Body]
     number = params[:From]
-    
+
     logger.debug "Body of text: " + body
     logger.debug "From number: " + number
-    
+
     body.downcase! #to lower case
     message_sent = false
-    
+
     if (body.include? "jokel me") || (body.include? "joke me")
       joke = Joke.random_joke
       joke.sms_joke number
       message_sent = true
     end
-    
+
     respond_to do |format|
       format.html {render :layout => false, :notice => message_sent ? "Message Sent" : "Message not sent, body is probably wrong fromat."}
     end
   end
 
   def add_tags
-    
   end
 
   def save_tags
@@ -338,10 +334,10 @@ class JokesController < ApplicationController
 
     tags = params[:tags].split(",")
     @joke.tag_list = tags
-    
+
     if @joke.save
       respond_to do |format|
-        format.html { redirect_to(@joke, :notice => "Tagged that joke!") }          
+        format.html { redirect_to(@joke, :notice => "Tagged that joke!") }
       end
     else
       respond_to do |format|
@@ -349,5 +345,5 @@ class JokesController < ApplicationController
       end
     end
   end
-    
+
 end
