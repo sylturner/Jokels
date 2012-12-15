@@ -23,8 +23,6 @@ class User < ActiveRecord::Base
       user.provider = auth["provider"]
       user.uid = auth["uid"]
 
-      user.name = auth["user_info"]["name"]
-
       # use their twitter name as their name
       if auth["provider"] == "twitter"
         user.name = auth["user_info"]["nickname"]
@@ -33,8 +31,15 @@ class User < ActiveRecord::Base
         user.secret = auth["credentials"]["secret"]
         user.image_url = "https://api.twitter.com/1/users/profile_image?screen_name=#{user.name}&size=normal"
       elsif auth["provider"] == "facebook"
+        user.name = auth["user_info"]["name"]
         user.url = auth["user_info"]["urls"]["Facebook"]
         user.image_url = auth["user_info"]["image"]
+      elsif auth["provider"] == "persona"
+        user.name = "Persona User"
+        user.url = ""
+        user.hide_url = true
+        hash = Digest::MD5.hexdigest(auth["uid"])
+        user.image_url = "http://www.gravatar.com/avatar/#{hash}?d=retro"
       end
     end
   end

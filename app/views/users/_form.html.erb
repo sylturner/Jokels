@@ -7,8 +7,10 @@
     <%= f.check_box :hide_avatar %>
     <%= f.label :hide_avatar, "Hide your avatar?" %>
     <br/>
-    <%= f.check_box :hide_url %>
-    <%= f.label :hide_url, "Hide your #{@user.provider.capitalize} profile link?" %>
+    <% if @user.provider != "persona" %>
+      <%= f.check_box :hide_url %>
+      <%= f.label :hide_url, "Hide your #{@user.provider.capitalize} profile link?" %>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit "Update user" %>

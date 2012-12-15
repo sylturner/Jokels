@@ -556,3 +556,8 @@ a img {
 .fake_link{
   cursor: pointer;
 }
+
+#persona_form {
+  display:none;
+  visibility: hidden;
+}

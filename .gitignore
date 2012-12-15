@@ -15,3 +15,5 @@ tmp/restart.txt
 tmp/jokels-backup.sql
 config/initializers/airbrake.rb
 script/rails.yml
+.DS_Store
+public/.DS_Store

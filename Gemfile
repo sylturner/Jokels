@@ -8,7 +8,10 @@ gem 'rails', '3.0.3'
 
 gem 'mysql'
 gem 'jquery-rails'
-gem 'omniauth'
+gem 'omniauth', :git => "git://github.com/intridea/omniauth.git"
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'omniauth-browserid', :git => "git://github.com/intridea/omniauth-browserid.git"
 gem 'fgraph'
 gem 'make_voteable', :git => 'git://github.com/medihack/make_voteable.git'
 gem 'paths_of_glory', :git => 'git://github.com/raid5/paths_of_glory.git', :branch => 'rails3'

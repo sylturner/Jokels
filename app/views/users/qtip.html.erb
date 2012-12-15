@@ -1,7 +1,9 @@
 <% if @user.provider == "facebook" %>
 	<% image = image_tag("fb-logo.png", :size => "12x12")%>
-<% else %>
+<% elsif @user.provider == "twitter" %>
 	<% image = image_tag("twitter-logo.png", :size => "12x12")%>
+<% else %>
+  <% image = "" %>
 <% end %>
 
 <% if @include_avatar %>

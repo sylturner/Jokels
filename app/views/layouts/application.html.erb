@@ -1,51 +1,74 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title><%=@title%></title>
-  <%= stylesheet_link_tag "/stylesheets/styles.css" %>
-  <%= stylesheet_link_tag "/stylesheets/styles.joke.css" %>
-  <%= stylesheet_link_tag "/stylesheets/jquery.qtip.css" %>
-  <%= stylesheet_link_tag "/stylesheets/absolution.blue.css"%>
-  <%= stylesheet_link_tag "/stylesheets/jquery.dataTables.css"%>
-  <%= stylesheet_link_tag "/stylesheets/jquery.tagsinput.css"%>
-  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js","//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js","/javascripts/application.js","/javascripts/application.joke.js","/javascripts/jquery.qtip.min.js", "/javascripts/jquery.dataTables.min.js", "/javascripts/jquery.tagsinput.min.js",
-    "/javascripts/jquery.livequery.js" %>
-  <%=javascript_include_tag 'rails'%>
-  <%= csrf_meta_tag %>
-  <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
-  <!-- facebook crap -->
-  <meta property="og:title" content="<%= nvl(@title,"Jokels") %>" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="<%= nvl(@fb_url,"www.jokels.com") %>" />
-  <meta property="og:image" content="http://i.imgur.com/fF0zz.png" />
-  <meta property="og:site_name" content="Jokels" />
-  <meta property="fb:admins" content="75400017" />
-  <meta name="description" content="<%=@meta_description%>"/>
-  
-  <!-- social media scripts -->
-  <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-  <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+  <head>
+    <title><%=@title%></title>
+    <%= stylesheet_link_tag "/stylesheets/styles.css" %>
+    <%= stylesheet_link_tag "/stylesheets/styles.joke.css" %>
+    <%= stylesheet_link_tag "/stylesheets/jquery.qtip.css" %>
+    <%= stylesheet_link_tag "/stylesheets/absolution.blue.css"%>
+    <%= stylesheet_link_tag "/stylesheets/jquery.dataTables.css"%>
+    <%= stylesheet_link_tag "/stylesheets/jquery.tagsinput.css"%>
+    <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js",
+      "//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js",
+      "/javascripts/application.js",
+      "/javascripts/application.joke.js",
+      "/javascripts/jquery.qtip.min.js",
+      "/javascripts/jquery.dataTables.min.js",
+      "/javascripts/jquery.tagsinput.min.js",
+      "/javascripts/jquery.livequery.js" %>
+    <%=javascript_include_tag 'rails'%>
+    <%= csrf_meta_tag %>
+    <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
+    <!-- facebook crap -->
+    <meta property="og:title" content="<%= nvl(@title,"Jokels") %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<%= nvl(@fb_url,"www.jokels.com") %>" />
+    <meta property="og:image" content="http://i.imgur.com/fF0zz.png" />
+    <meta property="og:site_name" content="Jokels" />
+    <meta property="fb:admins" content="75400017" />
+    <meta name="description" content="<%=@meta_description%>"/>
 
-  <!-- SOPA protest --> 
-  <script type="text/javascript">var a=new Date,b=a.getUTCHours();if(0==a.getUTCMonth()&&2012==a.getUTCFullYear()&&((18==a.getUTCDate()&&13<=b)||(19==a.getUTCDate()&&0>=b)))window.location="http://sopastrike.com/strike";</script>
+    <!-- social media scripts -->
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
 
-  
-  <%= auto_discovery_link_tag(:atom, {:controller => "jokes", :action => "feed"}) %>
+    <!-- persona -->
+    <script src="https://login.persona.org/include.js"></script>
+    <script>
+      $(function() {
+        $('#persona_login').click(function() {
+          navigator.id.get(function(assertion) {
+            if (assertion) {
+              $('input[name=assertion]').val(assertion);
+              $('#persona_form').submit();
+              } else {
+              window.location = "#{failure_path}"
+            }
+          });
+          return false;
+        });
+      });
+    </script>
+    <%= auto_discovery_link_tag(:atom, {:controller => "jokes", :action => "feed"}) %>
 
-</head>
-<body>
-  <div id="fb-root"></div>
-  <div id="add-joke"></div>
-  <div id="add-alternate-punchline"></div>    
-  <div id="sms-joke"></div>
-  <div id="add-tags"></div>    
-  <div id="why"><p>Logging in with Twitter or Facebook will give you credit for your jokes! You can still submit your terribly embarrassing ones anonymously, if you'd like.</p><p>The Twitter and Facebook apps only require your basic account information. All we use is your name, url, and picture to give you credit for your hard work writing jokes. Jokels will not post anything to your accounts without your approval immediately prior to posting.</p></div>
-  <div class="wrapper">
+  </head>
+  <body>
+    <div id="fb-root"></div>
+    <div id="add-joke"></div>
+    <div id="add-alternate-punchline"></div>
+    <div id="sms-joke"></div>
+    <div id="add-tags"></div>
+    <div id="why">
+      <p>Logging in with Twitter or Facebook will give you credit for your jokes! You can still submit your terribly embarrassing ones anonymously, if you'd like.</p>
+      <p>The Twitter and Facebook apps only require your basic account information. All we use is your name, url, and picture to give you credit for your hard work writing jokes. Jokels <strong>will not</strong> post anything to your accounts without your approval immediately prior to posting.</p>
+      <p>If you're still concerned, use our Mozilla Persona login.</p>
+    </div>
+    <div class="wrapper">
 
-    <div id="header">
-      <div class="left">
-        <a href="/"><h1>jokels</h1></a><%if Rails.env == "development"%> - dev <% end %><%if is_clean_mode? %> - <b>Clean</b><% end %>
+      <div id="header">
+        <div class="left">
+          <a href="/"><h1>jokels</h1></a><%if Rails.env == "development"%> - dev <% end %><%if is_clean_mode? %> - <b>Clean</b><% end %>
       </div>
       <div class="middle">
         <h2><%= @subtitle %></h2>
@@ -58,8 +81,8 @@
           <% end %>
           <%= link_to "Sign Out", signout_path %>
         <% else %>
-          <span id="signIn">Sign in with <a href="/auth/twitter">Twitter</a> or <a href="/auth/facebook">Facebook</a> (<a href="#" id="question-mark">?</a>)</span>
-        <% end %>       
+          <span id="signIn">Sign in with <a href="/auth/twitter">Twitter</a>, <a href="/auth/facebook">Facebook</a>, or <a href="/auth/persona" id="persona_login">Persona</a> (<a class="fake_link" id="question-mark">?</a>)</span>
+        <% end %>
         <br/>
         <%= link_to "Add new joke", add_joke_home_path, :method => :get, :remote => true, :class=>"add-joke-button" %> | <%= link_to "Leaderboards", leaderboard_path %> | <%= link_to "Tags", tags_path %>
         <br/>
@@ -67,15 +90,15 @@
           <span id="clean-mode" class="qtip-capable" title="We'll do our best to filter out profane and inappropriate jokes.">Clean mode is <strong><%= link_to "ON", "/clean_mode_off" %></strong></span>
         <% else %>
           <span id="clean-mode" class="qtip-capable" title="There's currently no content filtering.">Clean mode is <strong><%= link_to "OFF", "/clean_mode_on" %></strong></span>
-        <% end %>        
-        <br/>    
+        <% end %>
+        <br/>
         <% if daily_word %>
           <span id="daily-inspiration" title="Let this random word/phrase/concept help inspire your jokes" style="cursor:help">Today's inspiration: <%= daily_word %></span>
-          <% end %>       
+        <% end %>
       </div>
     </div>
 
-    <div id="main">  
+    <div id="main">
       <%= yield %>
     </div>
     <div class="push"></div>
@@ -98,34 +121,38 @@
   <% end %>
   <div id="footer">
     <div class="left">
-    <%= link_to "Jokels Blog", "http://blog.jokels.com" %> | Follow us! <%=link_to image_tag("twitter-logo.png", :size => "16x16"), "http://twitter.com/jokelscom", :title => "@jokelscom on Twitter" %> <%=link_to image_tag("fb-logo.png", :size => "16x16"), "https://www.facebook.com/jokelscom", :title => "Jokels on Facebook" %> <%= link_to (image_tag "github-icon.png", :size => "16x16"), "http://www.github.com/sylturner/jokels", :title => "Jokels source code on Github" %> 
-<a href="https://plus.google.com/106783736083786155127?prsrc=3" rel="publisher" style="text-decoration:none;"><img src="https://ssl.gstatic.com/images/icons/gplus-16.png" alt="" style="border:0;width:16px;height:16px;" title="Jokels on Google+"/></a> <%= link_to (image_tag "jokeler.jpg", :size => "16x16"), "http://jokeler.tumblr.com/", :title => "The Jokeler" %> <br/>
-Jokels is so beta. | <%= link_to "All jokes", jokes_path %> | <%= link_to "Auto-Jokels", kiosk_mode_home_path(:delay => 7500) %> | <%=link_to image_tag("feed.png"), feed_path %> <%= link_to "RSS", feed_path %> | <%=link_to "Privacy", privacy_policy_home_path %> <% if is_mobile_device? %> | <%= link_to "Mobile Version", "/mobile_version"%> <% end%>
+      <%= link_to "Jokels Blog", "http://blog.jokels.com" %> | Follow us! <%=link_to image_tag("twitter-logo.png", :size => "16x16"), "http://twitter.com/jokelscom", :title => "@jokelscom on Twitter" %> <%=link_to image_tag("fb-logo.png", :size => "16x16"), "https://www.facebook.com/jokelscom", :title => "Jokels on Facebook" %> <%= link_to (image_tag "github-icon.png", :size => "16x16"), "http://www.github.com/sylturner/jokels", :title => "Jokels source code on Github" %> 
+      <a href="https://plus.google.com/106783736083786155127?prsrc=3" rel="publisher" style="text-decoration:none;"><img src="https://ssl.gstatic.com/images/icons/gplus-16.png" alt="" style="border:0;width:16px;height:16px;" title="Jokels on Google+"/></a> <%= link_to (image_tag "jokeler.jpg", :size => "16x16"), "http://jokeler.tumblr.com/", :title => "The Jokeler" %> <br/>
+      Jokels is so beta. | <%= link_to "All jokes", jokes_path %> | <%= link_to "Auto-Jokels", kiosk_mode_home_path(:delay => 7500) %> | <%=link_to image_tag("feed.png"), feed_path %> <%= link_to "RSS", feed_path %> | <%=link_to "Privacy", privacy_policy_home_path %> <% if is_mobile_device? %> | <%= link_to "Mobile Version", "/mobile_version"%> <% end%>
 
-    </div>
-    <div class="right" id="share-site">      
-      <span class="bottom-fb-button"><fb:like href="http://jokels.com" send="false" show_faces="false" layout="button_count" font=""></span>
-      <span class="bottom-tweet-button"><a href="http://twitter.com/share" class="twitter-share-button" data-url="http://jokels.com" data-text="Jokels!" data-count="horizontal" data-via="jokelscom">Tweet</a></span>
-      <span class="button-gplus-button"><g:plusone size="medium" href="http://jokels.com"></g:plusone></span>
-    </div>
   </div>
+  <div class="right" id="share-site">
+    <span class="bottom-fb-button"><fb:like href="http://jokels.com" send="false" show_faces="false" layout="button_count" font=""></span>
+    <span class="bottom-tweet-button"><a href="http://twitter.com/share" class="twitter-share-button" data-url="http://jokels.com" data-text="Jokels!" data-count="horizontal" data-via="jokelscom">Tweet</a></span>
+    <span class="button-gplus-button"><g:plusone size="medium" href="http://jokels.com"></g:plusone></span>
+  </div>
+</div>
 
   <% if Rails.env == "production" %>
-  <script type="text/javascript">
+    <script type="text/javascript">
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-2861444-5']);
-    _gaq.push(['_setDomainName', 'jokels.com']);
-    _gaq.push(['_setAllowHash', 'false']);
-    _gaq.push(['_trackPageview']);
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-2861444-5']);
+      _gaq.push(['_setDomainName', 'jokels.com']);
+      _gaq.push(['_setAllowHash', 'false']);
+      _gaq.push(['_trackPageview']);
 
-    (function() {
-      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
+      (function() {
+       var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+       ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+       })();
 
-  </script>
-<% end %>
+   </script>
+ <% end %>
+ <form id='persona_form' action='/auth/persona/callback'>
+   <input type='hidden' name='assertion'/>
+   <button type='submit'>Login with Persona</button>
+ </form>
 </body>
 </html>
