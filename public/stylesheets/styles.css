@@ -552,3 +552,7 @@ a img {
 .reassignSelect{
 	display:none;
 }
+
+.fake_link{
+  cursor: pointer;
+}

@@ -289,3 +289,13 @@ function enableKiosk(delayTime)
 			}
 	});
 }
+window.addEventListener("popstate", function(e) {
+  if(location.pathname != "/"){
+    var path = location.pathname;
+    $.ajax({
+      type: "GET",
+      url: path,
+      dataType: "script"
+    });
+  }
+});

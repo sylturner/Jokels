@@ -49,10 +49,10 @@
             <%= render :partial => "shared/votes", :locals => {:joke => joke, :upvote_path => upvote_joke_path(joke), :downvote_path => downvote_joke_path(joke), :id => "joke_#{joke.id}"} %>
         	| <%= link_to "Fork this joke", new_joke_alternate_punchline_path(joke), :method => :get, :remote => true, :title => "Create an alternate punchline", :class => "fork" %>
           |
-            <a href="#" id="tags">Tags</a>
+            <a id="tags" class="fake_link">Tags</a>
           |
-            <a href="#" id="permalink">Permalink</a> 
-          | <a href="#" id="share-link">Share</a>
+            <a id="permalink" class="fake_link">Permalink</a> 
+          | <a id="share-link" class="fake_link">Share</a>
         </span>
         <span class="share-bar-right">
           <span class="inline-joke-edit">

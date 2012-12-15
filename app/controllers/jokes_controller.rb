@@ -33,7 +33,8 @@ class JokesController < ApplicationController
     generate_title @joke.question
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
+      format.js { render :layout => false }
       format.xml  { render :xml => @joke }
       format.json { render :json => @joke }
     end
