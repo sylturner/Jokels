@@ -12,13 +12,13 @@ class Joke < ActiveRecord::Base
 
   has_many :subscriptions, :as => :subscribable
   has_many :subscribers, :through => :subscriptions, :source => :user
-  
+
   belongs_to :user, :counter_cache => true
-  
+
   validates_presence_of :question, :answer
 
   friendly_id :question, :use => :slugged
-  
+
   attr_reader :auto_post
   attr_writer :auto_post
 
@@ -51,14 +51,14 @@ class Joke < ActiveRecord::Base
   def clean!
     self.question = ProfanityFilter::Base.clean(self.question, 'vowels')
     self.answer = ProfanityFilter::Base.clean(self.answer, 'vowels')
-    
+
     self
   end
 
   def is_profane?
     ProfanityFilter::Base.profane?(self.question) || ProfanityFilter::Base.profane?(self.answer)
   end
-  
+
   def self.jokeler_update
     require 'rss/2.0'
     # scan the jokeler's RSS for new jokeler posts and associate them with jokes
@@ -71,12 +71,12 @@ class Joke < ActiveRecord::Base
       id = x.title.split('/').last
       joke = Joke.find(id)
       if !joke.jokeler_url
-        joke.jokeler_url = x.link      
+        joke.jokeler_url = x.link
         joke.save!
       end
     end
   end
-  
+
   # add bitly urls to jokes that don't have them (more of a fixerupper)
   # limit to 10 by default so we don't overload bit.ly API request limits
   def self.add_bitly_urls(count = 10)
@@ -84,7 +84,7 @@ class Joke < ActiveRecord::Base
       joke.generate_bitly_url
     end
   end
-  
+
   def generate_bitly_url
     bitly = Bitly.client
     response = bitly.shorten("http://jokels.com/jokes/#{self.slug}")
@@ -116,7 +116,6 @@ class Joke < ActiveRecord::Base
       puts "I would be tweeting: #{tweet}"
     end
   end
-  
 
   def self.top_joke_for_time_frame(begin_time, end_time)
     result = Joke.where(['created_at BETWEEN ? AND ? AND (up_votes - down_votes) >= -2 ', begin_time, end_time]).sort_by{|x| x.votes}.reverse[0]
@@ -157,24 +156,24 @@ class Joke < ActiveRecord::Base
        if top_joke.bitly_url.nil?
          top_joke.generate_bitly_url
        end
-       
+
        # Format: Jan 01 top joke: joke's question - http://jkls.co/url
        tweet = "#{joke_description}: #{top_joke.question} - #{top_joke.bitly_url}"
-       
+
        jokels_user = User.find 1 # @jokelscom
        client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
-       
+
        settings = YAML.load_file("#{RAILS_ROOT}/config/application.yml")[RAILS_ENV]
-       
+
        user = top_joke.user
        fb_post = tweet
        if user && user.provider == "twitter"
          twitter_name = "@"+user.name
-         
+
          # Format: Jan 01 top joke: joke's question - http://jkls.co/url by @twittername
          tweet_with_author = "#{tweet} by #{twitter_name}" 
          fb_post = fb_post + " by Twitter User #{twitter_name}"
-         
+
          if tweet_with_author.length <= 140
            tweet_debug(client, tweet_with_author)
          else
@@ -186,7 +185,7 @@ class Joke < ActiveRecord::Base
            # 1 = room for elipsis character
            # whatever's left is how long our question can be in the tweet
            question_length = 140-joke_description.length-22-twitter_name.length-1
-           
+
            # Format: Jan 01 top joke: joke's questi… - http://jkls.co/url by @twittername
            tweet_with_author = "#{joke_description}: #{top_joke.question[0..question_length]}… - #{top_joke.bitly_url} by #{twitter_name}"
            tweet_debug(client, tweet_with_author)
@@ -199,12 +198,12 @@ class Joke < ActiveRecord::Base
          question_length = 140-joke_description.lenght-18
          tweet = "#{joke_description}: #{top_joke.question[0..question_length]}… - #{top_joke.bitly_url}"
          tweet_debug(client, tweet)
-       end     
+       end
 
         FGraph.publish_feed('me', :message => fb_post, :access_token => settings["facebook"]["page_access_token"])
      end
    end
-   
+
    def self.random_joke ( kid_safe = false)
     if kid_safe 
       count = Joke.count(:conditions => "is_kid_safe = 1 and (up_votes - down_votes) >= -2");

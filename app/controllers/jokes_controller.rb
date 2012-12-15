@@ -62,7 +62,7 @@ class JokesController < ApplicationController
   end
 
   # GET /jokes/1/edit
-  def edit    
+  def edit
     redirect_to(@joke, :notice => "Sorry! You can't edit this joke.") unless @joke.user == current_user
   end
 
@@ -88,11 +88,11 @@ class JokesController < ApplicationController
       if @joke.save
         notice = 'Joke was successfully created.'
 
-        format.html { 
+        format.html {
           auto_post_joke
           redirect_to(@joke, :notice => notice)
           }
-        format.mobile { 
+        format.mobile {
           auto_post_joke
           redirect_to(@joke, :notice => notice)
           }
@@ -211,7 +211,7 @@ class JokesController < ApplicationController
 
   def upvote
     if current_user
-      set_voting_element_ids "joke_#{@joke.id}"      
+      set_voting_element_ids "joke_#{@joke.id}"
       vote @joke, "up"
     else
       respond_to do |format|

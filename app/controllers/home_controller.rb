@@ -24,7 +24,7 @@ class HomeController < ApplicationController
     find_random_joke
     generate_title
     respond_to do |format|
-      format.html 
+      format.html
       format.js {render :layout => false }
     end
   end

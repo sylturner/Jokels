@@ -23,7 +23,7 @@ $(document).ready(function() {
 function enable_datatable() {
 	var oTable = $('#joke_datatable').dataTable({
 			"sPaginationType": "full_numbers"
-		});  
+		});
 
 		oTable.$(".ajax-checkbox").click(function() {
 			$.ajax({
@@ -71,20 +71,19 @@ function enable_checkbox() {
 function enable_basic_qtips()
 {
 	$(".qtip-capable").each(function() {
-
 		if( $(this).qtip )
       	{
 	        $(this).qtip({
 	            style: {
 	              classes: 'ui-tooltip-rounded ui-tooltip-shadow',
 	              width: "200px"
-	            },    
+	            },
 	            position:{
 	              my: 'bottom right',
 	              at: 'top left',
 	              target: $(this),
 	              viewport: $(window)
-	            }   
+	            }
 	          });
       	}
     });
@@ -92,31 +91,30 @@ function enable_basic_qtips()
 
 function enable_joke_qtips()
 {
-	$(".qtip-joke").each(function() {
-		var id = $(this).attr("data-joke-id");
-		var on_joke = $(this).attr("data-on-joke");
+  $(".qtip-joke").each(function() {
+    var id = $(this).attr("data-joke-id");
+    var on_joke = $(this).attr("data-on-joke");
 
-		$(this).qtip({
-			style: {
-				classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
-			},
-			position:{
-				my: (on_joke === "true") ? 'top right' : 'top left',
-				at: (on_joke === "true") ? 'bottom left' : 'bottom left',
-	            viewport: $(window),
-	            effect: false
-			},
-			content:{
-				text: 'Loading joke info...<img src="/images/qtip-ajax-loader.gif"/>',
-				ajax: 
-					{
-						url: '/qtip/joke',
-			    		data: { id: id},
-			    		method: 'get'
-			    	},
-			}
-		});
-	});
+    $(this).qtip({
+      style: {
+        classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
+      },
+      position:{
+        my: (on_joke === "true") ? 'top right' : 'top left',
+        at: (on_joke === "true") ? 'bottom left' : 'bottom left',
+        viewport: $(window),
+        effect: false
+      },
+      content:{
+        text: 'Loading joke info...<img src="/images/qtip-ajax-loader.gif"/>',
+        ajax:{
+          url: '/qtip/joke',
+          data: { id: id},
+          method: 'get'
+        },
+      }
+    });
+  });
 }
 
 function enable_user_qtips()
@@ -151,8 +149,8 @@ function enable_user_qtips()
 		style: {
 			classes: 'ui-tooltip-rounded ui-tooltip-shadow ui-tooltip-dark'
 		},
-		position: {  	
-			my: 'top center', 	
+		position: {
+			my: 'top center',
 			at: 'bottom center'	
 		}
 	});
