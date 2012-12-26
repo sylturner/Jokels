@@ -1,13 +1,14 @@
 source 'http://rubygems.org'
 source 'http://gems.github.com'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql'
 gem 'jquery-rails'
+gem "rails-asset-jqueryui"
 gem 'omniauth', :git => "git://github.com/intridea/omniauth.git"
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
@@ -30,6 +31,12 @@ gem "delorean"
 gem 'acts-as-taggable-on', :git => "git://github.com/mbleigh/acts-as-taggable-on.git"
 gem "friendly_id"
 
+group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+  gem 'yui-compressor'
+end
 # Use unicorn as the web server
 # gem 'unicorn'
 

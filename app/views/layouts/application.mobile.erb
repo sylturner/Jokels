@@ -2,15 +2,12 @@
 <html>
 <head>
   <title><%=@title%></title>
-  <link rel="stylesheet" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
-  <link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog.min.css" />
-  <%= stylesheet_link_tag "/stylesheets/styles.mobile.css"%>
-  <%= javascript_include_tag "/javascripts/application.mobile.js" %>
-
-  <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-  <script src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js" > </script>
+  <%= stylesheet_link_tag "mobile/application" %>
+  <%= javascript_include_tag "mobile/application" %>
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+  <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+  <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
   <script type="text/javascript" src="http://dev.jtsage.com/cdn/simpledialog/latest/jquery.mobile.simpledialog2.min.js"></script>
-  
   <%= csrf_meta_tag %>
   <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
   <!-- facebook crap -->

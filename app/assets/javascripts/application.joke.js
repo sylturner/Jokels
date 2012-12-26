@@ -15,10 +15,10 @@ function enable_joke_stuff()
 	$(containerSelector + '#refresh-joke').delay(750).slideDown('fast');
 	$(containerSelector + '#alternate-punchlines-button').delay(750).slideDown('fast');
 	$(containerSelector + '.up_arrow').hover(
-		function(){$(this).attr("src","/images/arrow_up.png")}, 
+		function(){$(this).attr("src","/assets/arrow_up.png")}, 
 		function(){$(this).attr("src", $(this).attr("data-orig-src"))});
 	$(containerSelector + '.down_arrow').hover(
-		function(){$(this).attr("src","/images/arrow_down.png")}, 
+		function(){$(this).attr("src","/assets/arrow_down.png")}, 
 		function(){$(this).attr("src", $(this).attr("data-orig-src"))});
 	$(containerSelector + '#show-original').click(function(){
 		$("#answer-container").slideDown("fast");

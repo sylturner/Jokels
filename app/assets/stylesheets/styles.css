@@ -208,7 +208,7 @@ body {
 	display:none;
 }
 .add-joke-button {
-	background: url(add.png) no-repeat scroll transparent 0 60%;
+	background: url(/assets/add.png) no-repeat scroll transparent 0 60%;
 	padding-left: 18px;
 	padding-top: 1px;
 	padding-bottom: 2px;
@@ -288,7 +288,7 @@ body {
 	margin-right: auto;
 	text-align: center;
 	padding: 5px;
-	background: url(ajax-loader.gif) no-repeat scroll #EFEFEF 5% 60%;
+	background: url(/assets/ajax-loader.gif) no-repeat scroll #EFEFEF 5% 60%;
 }
 
 .star {
@@ -296,22 +296,22 @@ body {
 	display: inline-block;
 	width: 16px; 
 	height: 16px; 
-	background: url(not_favorited.png) no-repeat;
+	background: url(/assets/not_favorited.png) no-repeat;
 	background-color: transparent;
 }
 
 .star.favorited, .star:hover {
-	background: url(favorited.png) no-repeat;
+	background: url(/assets/favorited.png) no-repeat;
 }
 
 .fork {
 	display: inline-block;
 	padding-left: 20px;
 	height: 16px;
-	background: url(arrow_divide_down_faded.png) no-repeat;
+	background: url(/assets/arrow_divide_down_faded.png) no-repeat;
 }
 .fork:hover {
-	background: url(arrow_divide_down.png) no-repeat;
+	background: url(/assets/arrow_divide_down.png) no-repeat;
 }
 
 .disclaimer {
@@ -368,7 +368,7 @@ body {
 .bubble, .bubble-fork {
 	width: 9px;
 	height: 12px;
-	background: url('bubble-arrow-question.png') no-repeat;
+	background: url(/assets/bubble-arrow-question.png) no-repeat;
 	display: inline-block;
 	float:left;
 	margin-left: -9px;
@@ -376,10 +376,10 @@ body {
 }
 
 .bubble.bubble-fork {
-	background: url('bubble-arrow-fork1.png') no-repeat;
+	background: url(/assets/bubble-arrow-fork1.png) no-repeat;
 }
 .bubble-right.bubble-fork {
-	background: url('bubble-arrow-fork.png') no-repeat;	
+	background: url(/assets/bubble-arrow-fork.png) no-repeat;	
 }
 
 .bubble-right{
@@ -394,7 +394,7 @@ body {
 }
 
 .bubble-answer{
-	background: url('bubble-arrow-answer.png') no-repeat;
+	background: url(/assets/bubble-arrow-answer.png) no-repeat;
 }
 
 .avatar-anon {

@@ -1,0 +1,6 @@
+/*
+*= require_directory ../../../vendor/assets/stylesheets/.
+*= require smoothness
+*= require_self
+*= require_directory .
+*/

@@ -1,3 +1,9 @@
+//= require jquery
+//= require jquery_ujs
+//= require jquery-ui
+//= require_tree ../../../../vendor/assets/javascripts/.
+//= require_self
+//= require_directory .
 function setupPage()
 {
 	$( '#mobile_page' ).live( 'pageinit',function(event){

@@ -9,8 +9,8 @@
 <% else %>
 	<% if current_user %>
 		$("#<%= @down_arrow_id %>").unbind('mouseenter mouseleave');
-		$("#<%= @down_arrow_id %>").attr("src", "/images/arrow_down.png");
-		$("#<%= @up_arrow_id %>").attr("src", "/images/arrow_up_faded.png");
+		$("#<%= @down_arrow_id %>").attr("src", "/assets/arrow_down.png");
+		$("#<%= @up_arrow_id %>").attr("src", "/assets/arrow_up_faded.png");
 		$("#<%= @vote_total_id %>").html("<%= @vote_total %>");
 	<% else %>
 		showSignInQtip();

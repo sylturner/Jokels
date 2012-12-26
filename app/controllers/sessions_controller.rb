@@ -5,25 +5,25 @@ class SessionsController < ApplicationController
       auth = request.env["omniauth.auth"]
 
       if session[:admin_facebook] 
-        yaml = YAML.load_file("#{RAILS_ROOT}/config/application.yml")
+        yaml = YAML.load_file("#{Rails.root}/config/application.yml")
         session[:admin_facebook] = false
 
         pages = FGraph.me_accounts(:access_token => auth["credentials"]["token"])
 
         pages.each do |i|
-          if i["name"] == yaml[RAILS_ENV]["facebook"]["page_name"] && i["category"] == "Website" then
-            yaml[RAILS_ENV]["facebook"]["page_access_token"] = i["access_token"];
+          if i["name"] == yaml[Rails.env]["facebook"]["page_name"] && i["category"] == "Website" then
+            yaml[Rails.env]["facebook"]["page_access_token"] = i["access_token"];
 
-            output = File.new("#{RAILS_ROOT}/config/application.yml", "w")
+            output = File.new("#{Rails.root}/config/application.yml", "w")
             output.puts YAML.dump(yaml)
             output.close
 
-            render :text => (RAILS_ENV + " access token updated: " + i["access_token"])
+            render :text => (Rails.env + " access token updated: " + i["access_token"])
             return
           end
         end
 
-        render :text => "Unable to find access token for " + yaml[RAILS_ENV]["facebook"]["page_name"]
+        render :text => "Unable to find access token for " + yaml[Rails.env]["facebook"]["page_name"]
         return
       end
 

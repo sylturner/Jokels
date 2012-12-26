@@ -2,56 +2,42 @@
 <html>
   <head>
     <title><%=@title%></title>
-    <%= stylesheet_link_tag "/stylesheets/styles.css" %>
-    <%= stylesheet_link_tag "/stylesheets/styles.joke.css" %>
-    <%= stylesheet_link_tag "/stylesheets/jquery.qtip.css" %>
-    <%= stylesheet_link_tag "/stylesheets/absolution.blue.css"%>
-    <%= stylesheet_link_tag "/stylesheets/jquery.dataTables.css"%>
-    <%= stylesheet_link_tag "/stylesheets/jquery.tagsinput.css"%>
-    <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js",
-      "//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js",
-      "/javascripts/application.js",
-      "/javascripts/application.joke.js",
-      "/javascripts/jquery.qtip.min.js",
-      "/javascripts/jquery.dataTables.min.js",
-      "/javascripts/jquery.tagsinput.min.js",
-      "/javascripts/jquery.livequery.js" %>
-    <%=javascript_include_tag 'rails'%>
-    <%= csrf_meta_tag %>
-    <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
-    <!-- facebook crap -->
-    <meta property="og:title" content="<%= nvl(@title,"Jokels") %>" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="<%= nvl(@fb_url,"www.jokels.com") %>" />
-    <meta property="og:image" content="http://i.imgur.com/fF0zz.png" />
-    <meta property="og:site_name" content="Jokels" />
-    <meta property="fb:admins" content="75400017" />
-    <meta name="description" content="<%=@meta_description%>"/>
+      <%= stylesheet_link_tag "application" %>
+      <%= javascript_include_tag "application" %>
+      <%= csrf_meta_tag %>
+      <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
+      <!-- facebook crap -->
+      <meta property="og:title" content="<%= nvl(@title,"Jokels") %>" />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="<%= nvl(@fb_url,"www.jokels.com") %>" />
+      <meta property="og:image" content="http://i.imgur.com/fF0zz.png" />
+      <meta property="og:site_name" content="Jokels" />
+      <meta property="fb:admins" content="75400017" />
+      <meta name="description" content="<%=@meta_description%>"/>
 
-    <!-- social media scripts -->
-    <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
-    <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-    <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+      <!-- social media scripts -->
+      <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+      <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+      <script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
 
-    <!-- persona -->
-    <script src="https://login.persona.org/include.js"></script>
-    <script>
-      $(function() {
-        $('#persona_login').click(function() {
-          navigator.id.get(function(assertion) {
-            if (assertion) {
-              $('input[name=assertion]').val(assertion);
-              $('#persona_form').submit();
-              } else {
-              window.location = "#{failure_path}"
-            }
+      <!-- persona -->
+      <script src="https://login.persona.org/include.js"></script>
+      <script>
+        $(function() {
+          $('#persona_login').click(function() {
+            navigator.id.get(function(assertion) {
+              if (assertion) {
+                $('input[name=assertion]').val(assertion);
+                $('#persona_form').submit();
+                } else {
+                window.location = "#{failure_path}"
+              }
+            });
+            return false;
           });
-          return false;
         });
-      });
-    </script>
-    <%= auto_discovery_link_tag(:atom, {:controller => "jokes", :action => "feed"}) %>
-
+      </script>
+      <%= auto_discovery_link_tag(:atom, {:controller => "jokes", :action => "feed"}) %>
   </head>
   <body>
     <div id="fb-root"></div>

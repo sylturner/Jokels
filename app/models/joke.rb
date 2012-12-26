@@ -93,7 +93,7 @@ class Joke < ActiveRecord::Base
   end
 
   def sms_joke to
-    config = YAML.load_file("#{RAILS_ROOT}/config/application.yml")[RAILS_ENV]
+    config = YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]
     account_sid = config["twilio"]["account_sid"]
     auth_token = config["twilio"]["auth_token"]
     from = config["twilio"]["from"]
@@ -110,7 +110,7 @@ class Joke < ActiveRecord::Base
   end
 
   def self.tweet_debug(client, tweet)
-    if RAILS_ENV == "production"
+    if Rails.env == "production"
       client.update(tweet)
     else
       puts "I would be tweeting: #{tweet}"
@@ -163,7 +163,7 @@ class Joke < ActiveRecord::Base
        jokels_user = User.find 1 # @jokelscom
        client = Twitter::Client.new(:oauth_token => jokels_user.token, :oauth_token_secret => jokels_user.secret)
 
-       settings = YAML.load_file("#{RAILS_ROOT}/config/application.yml")[RAILS_ENV]
+       settings = YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]
 
        user = top_joke.user
        fb_post = tweet
@@ -232,7 +232,7 @@ class Joke < ActiveRecord::Base
 
      query = query_string
 
-     if RAILS_ENV == "development"
+     if Rails.env == "development"
       puts "I'm searching: #{query}"
      end
 
@@ -246,7 +246,7 @@ class Joke < ActiveRecord::Base
         since[:date] = tweetDate
         since[:id] = tweet["id"]
 
-        if RAILS_ENV == "development"
+        if Rails.env == "development"
           puts "Updating since: #{since}"
         end
       end
@@ -260,15 +260,15 @@ class Joke < ActiveRecord::Base
    end
 
    def self.search_twitter_users
-      yaml = YAML.load_file("#{RAILS_ROOT}/config/application.yml")
-      since_id = yaml[RAILS_ENV]["last_tweet_id"]
+      yaml = YAML.load_file("#{Rails.root}/config/application.yml")
+      since_id = yaml[Rails.env]["last_tweet_id"]
 
       since_track = {}
       since_track[:id] = since_id
       since_track[:date] = nil
 
       jokels_user = User.find 1 # @jokelscom
-      client = Twitter::Client.new(:oauth_token => yaml[RAILS_ENV]["jokelbot"]["auth_token"], :oauth_token_secret => yaml[RAILS_ENV]["jokelbot"]["secret"])
+      client = Twitter::Client.new(:oauth_token => yaml[Rails.env]["jokelbot"]["auth_token"], :oauth_token_secret => yaml[Rails.env]["jokelbot"]["secret"])
 
       perform_search since_id, since_track, "\"tell me a joke\" OR \"know a good joke\"" do |tweet|
         # don't tweet at anyone trying to talk to someone else
@@ -277,7 +277,7 @@ class Joke < ActiveRecord::Base
           user_length = user_in_need.length
           reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
 
-          if RAILS_ENV == "production" 
+          if Rails.env == "production" 
             client.update "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", :in_reply_to_status_id => tweet["id"] 
           else
             puts "I would be tweeting: @#{user_in_need} #{reply_joke.question} #{reply_joke.answer}"
@@ -290,7 +290,7 @@ class Joke < ActiveRecord::Base
         user_length = user_in_need.length
         reply_joke = Joke.find_joke_that_fits(140 - (user_length+2))
 
-        if RAILS_ENV == "production" 
+        if Rails.env == "production" 
             client.update "@#{user_in_need} #{reply_joke.question} #{reply_joke.answer}", :in_reply_to_status_id => tweet["id"] 
           else
             puts "I would be tweeting: @#{user_in_need} #{reply_joke.question} #{reply_joke.answer}"
@@ -301,7 +301,7 @@ class Joke < ActiveRecord::Base
       perform_search since_id, since_track, "\"thank you\" OR thanks OR thx to:jokelscom" do |tweet|
         polite_user = tweet["from_user"]
 
-        if RAILS_ENV == "production" 
+        if Rails.env == "production" 
             client.update "@#{polite_user} You're welcome! Anytime!", :in_reply_to_status_id => tweet["id"] 
           else
             puts "I would be tweeting: @#{polite_user} You're welcome! Anytime!"
@@ -312,19 +312,19 @@ class Joke < ActiveRecord::Base
       perform_search since_id, since_track, "\"I don't get it\" OR \"I dont get it\" TO:jokelscom" do |tweet|
         confused_user = tweet["from_user"]
 
-        if RAILS_ENV == "production" 
+        if Rails.env == "production" 
             client.update "@#{confused_user} Neither do we.", :in_reply_to_status_id => tweet["id"] 
           else
             puts "I would be tweeting: @#{confused_user} Neither do we."
         end
       end
 
-    yaml[RAILS_ENV]["last_tweet_id"] = since_track[:id]
-    if RAILS_ENV == "development"
-      puts "New since_id: #{yaml[RAILS_ENV]["last_tweet_id"]}"
+    yaml[Rails.env]["last_tweet_id"] = since_track[:id]
+    if Rails.env == "development"
+      puts "New since_id: #{yaml[Rails.env]["last_tweet_id"]}"
     end
 
-    output = File.new("#{RAILS_ROOT}/config/application.yml", "w")
+    output = File.new("#{Rails.root}/config/application.yml", "w")
     output.puts YAML.dump(yaml)
     output.close
    end

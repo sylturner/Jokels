@@ -1,5 +1,10 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+//= require jquery
+//= require jquery_ujs
+//= require jquery-ui
+//= require_tree ../../../vendor/assets/javascripts/.
+//= require_self
+//= require_directory .
+
 $(document).ready(function() {
 	$('#question-mark').click(function(){$("#why").dialog({modal: true, title: "Why login with Twitter or Facebook?", width: 450});})
 	$('#daily-inspiration').qtip({
@@ -106,7 +111,7 @@ function enable_joke_qtips()
         effect: false
       },
       content:{
-        text: 'Loading joke info...<img src="/images/qtip-ajax-loader.gif"/>',
+        text: 'Loading joke info...<img src="/assets/qtip-ajax-loader.gif"/>',
         ajax:{
           url: '/qtip/joke',
           data: { id: id},
@@ -134,7 +139,7 @@ function enable_user_qtips()
 	            effect: false
 			},
 			content:{
-				text: 'Loading user info...<img src="/images/qtip-ajax-loader.gif"/>',
+				text: 'Loading user info...<img src="/assets/qtip-ajax-loader.gif"/>',
 				ajax: 
 					{
 						url: '/qtip/user',
