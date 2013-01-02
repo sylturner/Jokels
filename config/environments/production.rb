@@ -16,6 +16,7 @@ Jokels::Application.configure do
   config.assets.css_compressor = :yui
   config.assets.js_compressor = :uglifier
 
+  config.action_controller.asset_host = "jokels.com"
   config.assets.compile = false
   config.assets.digest = true
 

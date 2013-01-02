@@ -24,5 +24,5 @@ Jokels::Application.configure do
 
   # Do not compress assets
   #config.assets.compress = false
-
+  config.action_controller.asset_host = "local.jokels.com"
 end

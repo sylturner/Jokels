@@ -1,5 +1,5 @@
-<%= stylesheet_link_tag "/stylesheets/styles.joke.css" %>
-<%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js","/javascripts/application.joke.js"%>
+<%= stylesheet_link_tag "styles.joke" %>
+<%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js","application.joke"%>
 
 <div id="joke" class="joke joke-embed">
   <%= render :partial => "home/joke", :locals => {:joke => @joke, :refresh => false, :min => true, :sequence => false}%>
