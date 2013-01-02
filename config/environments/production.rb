@@ -17,7 +17,7 @@ Jokels::Application.configure do
   config.assets.js_compressor = :uglifier
 
   config.action_controller.asset_host = "jokels.com"
-  config.assets.compile = false
+  config.assets.compile = true
   config.assets.digest = true
 
   # Specifies the header that your server uses for sending files
