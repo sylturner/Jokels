@@ -25,15 +25,15 @@ class User < ActiveRecord::Base
 
       # use their twitter name as their name
       if auth["provider"] == "twitter"
-        user.name = auth["user_info"]["nickname"]
-        user.url = auth["user_info"]["urls"]["Twitter"]
+        user.name = auth["info"]["nickname"]
+        user.url = auth["info"]["urls"]["Twitter"]
         user.token = auth["credentials"]["token"]
         user.secret = auth["credentials"]["secret"]
         user.image_url = "https://api.twitter.com/1/users/profile_image?screen_name=#{user.name}&size=normal"
       elsif auth["provider"] == "facebook"
-        user.name = auth["user_info"]["name"]
-        user.url = auth["user_info"]["urls"]["Facebook"]
-        user.image_url = auth["user_info"]["image"]
+        user.name = auth["info"]["name"]
+        user.url = auth["info"]["urls"]["Facebook"]
+        user.image_url = auth["info"]["image"]
       elsif auth["provider"] == "persona"
         user.name = "Persona User"
         user.url = ""

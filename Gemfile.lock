@@ -45,6 +45,17 @@ GIT
     paths_of_glory (0.2.0)
 
 GIT
+  remote: git://github.com/sferik/twitter.git
+  revision: 55f635e4d61c7a4477561839935cb0f41e0a5193
+  tag: v2.2.0
+  specs:
+    twitter (2.2.0)
+      activesupport (>= 2.3.9, < 4)
+      faraday (~> 0.7)
+      multi_json (~> 1.0)
+      simple_oauth (~> 0.1)
+
+GIT
   remote: git://github.com/sylturner/bitly.git
   revision: 5a66b03151b34bf050c10abf214c661b7e9a4809
   specs:
@@ -214,7 +225,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
-    simple_oauth (0.1.9)
+    simple_oauth (0.2.0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -230,11 +241,6 @@ GEM
       builder (>= 2.1.2)
       jwt (>= 0.1.2)
       multi_json (>= 1.0.3)
-    twitter (2.2.0)
-      activesupport (>= 2.3.9, < 4)
-      faraday (~> 0.7)
-      multi_json (~> 1.0)
-      simple_oauth (~> 0.1)
     tzinfo (0.3.35)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
@@ -270,7 +276,7 @@ DEPENDENCIES
   sass-rails
   sqlite3
   twilio-ruby
-  twitter
+  twitter!
   uglifier
   whenever!
   yui-compressor
