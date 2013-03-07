@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
   # set the @user variable
   before_filter :attach_user, :only => [:show, :edit, :feed, :qtip, :update]

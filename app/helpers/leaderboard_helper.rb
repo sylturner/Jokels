@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module LeaderboardHelper
 
 	def generate_leaderboard_link time, sort, sort_type

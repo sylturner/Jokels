@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class UpdateCountersOnUsers < ActiveRecord::Migration
   def self.up
 

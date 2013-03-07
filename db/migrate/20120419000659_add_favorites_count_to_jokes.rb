@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddFavoritesCountToJokes < ActiveRecord::Migration
   def self.up
     add_column :jokes, :favorite_jokes_count, :integer

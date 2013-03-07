@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddIndexesOnFavoriteJokes < ActiveRecord::Migration
   def self.up
     add_index :favorite_jokes, :user_id

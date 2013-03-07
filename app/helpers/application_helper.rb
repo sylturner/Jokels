@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module ApplicationHelper
 	def anon_user_icon
 		# make an array of all the user icons in the directory

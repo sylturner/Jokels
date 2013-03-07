@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateAlternatePunchlines < ActiveRecord::Migration
   def self.up
     create_table :alternate_punchlines do |t|

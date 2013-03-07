@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateMakeVoteableTables < ActiveRecord::Migration
    def self.up
      create_table :votings do |t|

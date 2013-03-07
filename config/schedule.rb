@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 # Use this file to easily define all of your cron jobs.
 #
 # It's helpful, but not entirely necessary to understand cron before proceeding.
@@ -21,7 +22,7 @@
 
 set :output, File.join("log", "cron.log")
 
-every 1.day, :at => "07:00am" do
+every 1.day, :at => "06:00am" do
   runner "DailyWord.set_daily_word" # sets the new daily word and tweets it
   runner "Joke.jokeler_update" # check the jokeler
 end

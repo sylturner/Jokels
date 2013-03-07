@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddImageUrlToUser < ActiveRecord::Migration
   def self.up
     add_column :users, :image_url, :string

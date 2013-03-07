@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddABunchOfIndexes < ActiveRecord::Migration
   def self.up
   	add_index :jokes, :user_id

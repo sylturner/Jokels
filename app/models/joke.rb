@@ -1,4 +1,4 @@
-# encoding: utf-8
+# -*- encoding : utf-8 -*-
 require 'twitter_search'
 
 class Joke < ActiveRecord::Base

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddDefaultValueToAlternatePunchlineVotes < ActiveRecord::Migration
   def self.up  	
   	change_column_default :alternate_punchlines, :up_votes, 0

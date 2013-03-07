@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddIsKidSafeToJokes < ActiveRecord::Migration
   def self.up
     add_column :jokes, :is_kid_safe, :boolean

@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddSomeUserPreferences < ActiveRecord::Migration
   def self.up
     add_column :users, :hide_avatar, :boolean, :default => false

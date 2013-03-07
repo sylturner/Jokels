@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class HomeController < ApplicationController
 
   after_filter :increment_joke_hit_counter, :only => [:index]

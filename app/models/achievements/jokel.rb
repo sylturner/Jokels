@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Jokel < Achievement
   
   # The required quotas to meet for each achievement level.

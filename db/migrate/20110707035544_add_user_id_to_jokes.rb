@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddUserIdToJokes < ActiveRecord::Migration
   def self.up
     add_column :jokes, :user_id, :integer

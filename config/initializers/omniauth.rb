@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Rails.application.config.middleware.use OmniAuth::Builder do
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   settings = YAML.load_file("#{Rails.root}/config/application.yml")[Rails.env]

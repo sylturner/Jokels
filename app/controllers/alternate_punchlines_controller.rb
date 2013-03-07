@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# -*- encoding : utf-8 -*-
 class AlternatePunchlinesController < JokesController
 
   before_filter :attach_joke, :only => [:index, :new, :create]

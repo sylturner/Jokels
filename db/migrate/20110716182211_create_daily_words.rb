@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateDailyWords < ActiveRecord::Migration
   def self.up
     create_table :daily_words do |t|

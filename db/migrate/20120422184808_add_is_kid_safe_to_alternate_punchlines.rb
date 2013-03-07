@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddIsKidSafeToAlternatePunchlines < ActiveRecord::Migration
   def self.up
     add_column :alternate_punchlines, :is_kid_safe, :boolean

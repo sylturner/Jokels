@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class JokesController < ApplicationController
 
   # set the @joke instance variable for certain methods

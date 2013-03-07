@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class UpdateFavoriteJokesCount < ActiveRecord::Migration
   def self.up
     Joke.all.each do |joke|

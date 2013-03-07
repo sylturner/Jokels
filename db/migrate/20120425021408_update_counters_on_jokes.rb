@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class UpdateCountersOnJokes < ActiveRecord::Migration
   def self.up
     Joke.update_all("favorite_jokes_count = 0", "favorite_jokes_count is null")

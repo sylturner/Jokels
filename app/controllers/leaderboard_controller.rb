@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class LeaderboardController < ApplicationController
   before_filter :set_cache_buster
 

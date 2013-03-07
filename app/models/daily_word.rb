@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class DailyWord < ActiveRecord::Base
 
   def self.set_daily_word

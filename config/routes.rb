@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 Jokels::Application.routes.draw do
   resources :jokes
   resources :users

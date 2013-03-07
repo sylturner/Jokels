@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class UpdateAlternatePunchlinesCountOnUser < ActiveRecord::Migration
   def self.up
     User.all.each do |user|

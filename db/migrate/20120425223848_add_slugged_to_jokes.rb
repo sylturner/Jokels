@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddSluggedToJokes < ActiveRecord::Migration
   def self.up
     add_column :jokes, :slug, :string

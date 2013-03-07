@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class AddHitCounterToJoke < ActiveRecord::Migration
   def self.up
     add_column :jokes, :hit_counter, :integer, :default => 0, :null => false
