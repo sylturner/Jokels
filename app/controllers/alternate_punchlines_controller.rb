@@ -1,6 +1,7 @@
+# encoding: UTF-8
 class AlternatePunchlinesController < JokesController
 
-  before_filter :attach_joke, :only => [:index, :new, :create]  
+  before_filter :attach_joke, :only => [:index, :new, :create]
   before_filter :attach_alternate_punchline, :only => [:upvote, :downvote, :is_kid_safe_toggle, :destroy, :reassign]
 
   def attach_joke
@@ -27,7 +28,7 @@ class AlternatePunchlinesController < JokesController
 
   def new
     @alternate_punchline = AlternatePunchline.new(:joke => @joke, :user => current_user, :is_kid_safe => true)
-    
+
     respond_to do |format|
       format.html
       format.js {render :layout => false}
@@ -45,7 +46,7 @@ class AlternatePunchlinesController < JokesController
     else
       redirect_to(@alternate_punchline, :notice => "Sorry! You can't delete that.")
     end
-    
+
   end
 
   def reassign
@@ -74,7 +75,7 @@ class AlternatePunchlinesController < JokesController
     @alternate_punchline.joke = @joke
     @alternate_punchline.user = current_user
 
-    @alternate_punchline.is_kid_safe = params[:alternate_punchline][:is_kid_safe] == '1' && !ProfanityFilter::Base.profane?(@alternate_punchline.punchline) 
+    @alternate_punchline.is_kid_safe = params[:alternate_punchline][:is_kid_safe] == '1' && !ProfanityFilter::Base.profane?(@alternate_punchline.punchline)
 
     respond_to do |format|
       format.html {
@@ -101,7 +102,7 @@ class AlternatePunchlinesController < JokesController
 
   def post_joke_to_social
     if current_user.provider == "twitter"
-      # Tweet the joke            
+      # Tweet the joke
       client = Twitter::Client.new(:oauth_token => current_user.token, :oauth_token_secret => current_user.secret)
       client.update("I just added a new punchline to a joke on Jokels! " + @alternate_punchline.joke.bitly_url)
     elsif current_user.provider == "facebook"
@@ -120,7 +121,7 @@ class AlternatePunchlinesController < JokesController
       end
     end
   end
-  
+
   def downvote
     if current_user
       set_voting_element_ids "ap_#{@alternate_punchline.id}"
