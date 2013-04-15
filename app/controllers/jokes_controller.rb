@@ -121,7 +121,7 @@ class JokesController < ApplicationController
   # PUT /jokes/1.xml
   def update
     respond_to do |format|
-      if @joke.update_attributes(params[:joke])
+      if @joke.user == current_user && @joke.update_attributes(params[:joke])
         @joke.is_kid_safe = params[:joke][:is_kid_safe] == '1' && !(ProfanityFilter::Base.profane?(@joke.question) || ProfanityFilter::Base.profane?(@joke.answer))
         @joke.save()
         format.html { 
