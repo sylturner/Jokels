@@ -25,10 +25,10 @@ class UsersController < ApplicationController
   end
 
   def edit
+    redirect_to(@user, :notice => "You can't edit this user, because you aren't this user!") unless @user == current_user
     generate_title "Editing #{user_name @user}"
     # use the user_name helper method to fill in the display name on profile form load 
     @user.display_name = user_name(@user) if @user.display_name.nil?
-    redirect_to(@user, :notice => "You can't edit this user, because you aren't this user!") unless @user == current_user
   end
 
   def update
