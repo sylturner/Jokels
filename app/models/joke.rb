@@ -6,6 +6,17 @@ class Joke < ActiveRecord::Base
   make_voteable
   acts_as_taggable
 
+  #span filtering
+  filters_spam({
+  :message_field => :question,
+  :email_field => :question,
+  :author_field => :question,
+  :other_fields => [:answer],
+  :extra_spam_words => %w()
+  })
+
+  validates_with JokesHelper::JokeSpamValidator
+
   has_many :categories
   has_many :favorite_jokes, :dependent => :destroy
   has_many :alternate_punchlines

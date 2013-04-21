@@ -30,6 +30,7 @@ gem "profanity_filter"
 gem "delorean"
 gem 'acts-as-taggable-on', :git => "git://github.com/mbleigh/acts-as-taggable-on.git"
 gem "friendly_id"
+gem 'filters_spam', '~> 0.3' #spamfiltering
 
 group :assets do
   gem 'sass-rails'
