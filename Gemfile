@@ -32,6 +32,13 @@ gem 'acts-as-taggable-on', :git => "git://github.com/mbleigh/acts-as-taggable-on
 gem "friendly_id"
 gem 'filters_spam', '~> 0.3' #spamfiltering
 
+group :development, :test do
+    gem 'rspec'
+    gem 'rspec-rails'
+    gem 'autotest'
+    gem 'autotest-standalone'
+end
+
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
