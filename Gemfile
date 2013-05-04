@@ -37,6 +37,12 @@ group :development, :test do
     gem 'rspec-rails'
     gem 'autotest'
     gem 'autotest-standalone'
+    gem "factory_girl_rails"
+    gem "shoulda-matchers"
+    gem "pry"
+    gem "pry-rails"
+    gem "database_cleaner"
+    gem "timecop"
 end
 
 group :assets do

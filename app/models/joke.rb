@@ -8,21 +8,17 @@ class Joke < ActiveRecord::Base
 
   #span filtering
   filters_spam({
-  :message_field => :question,
-  :email_field => :question,
-  :author_field => :question,
-  :other_fields => [:answer],
-  :extra_spam_words => %w()
+    :message_field => :question,
+    :email_field => :question,
+    :author_field => :question,
+    :other_fields => [:answer],
+    :extra_spam_words => %w()
   })
 
   validates_with JokesHelper::JokeSpamValidator
 
-  has_many :categories
   has_many :favorite_jokes, :dependent => :destroy
-  has_many :alternate_punchlines
-
-  has_many :subscriptions, :as => :subscribable
-  has_many :subscribers, :through => :subscriptions, :source => :user
+  has_many :alternate_punchlines, :dependent => :destroy
 
   belongs_to :user, :counter_cache => true
 
@@ -30,8 +26,7 @@ class Joke < ActiveRecord::Base
 
   friendly_id :question, :use => :slugged
 
-  attr_reader :auto_post
-  attr_writer :auto_post
+  attr_accessor :auto_post
 
   after_create :generate_bitly_url
 
@@ -43,9 +38,9 @@ class Joke < ActiveRecord::Base
     self.favorite_jokes_count
   end
 
-  def forks_count (is_clean_mode = false)
+  def forks_count(is_clean_mode = false)
     if is_clean_mode
-      filtered_alternate_punchlines.count
+      filtered_alternate_punchlines.size
     else
       self.alternate_punchlines_count
     end
@@ -55,14 +50,13 @@ class Joke < ActiveRecord::Base
     alternate_punchlines.select { |ap| ap.is_kid_safe }
   end
 
-  def has_forks? (is_clean_mode = false)
+  def has_forks?(is_clean_mode = false)
     forks_count(is_clean_mode) > 0
   end
 
   def clean!
     self.question = ProfanityFilter::Base.clean(self.question, 'vowels')
     self.answer = ProfanityFilter::Base.clean(self.answer, 'vowels')
-
     self
   end
 
@@ -129,7 +123,7 @@ class Joke < ActiveRecord::Base
   end
 
   def self.top_joke_for_time_frame(begin_time, end_time)
-    result = Joke.where(['created_at BETWEEN ? AND ? AND (up_votes - down_votes) >= -2 ', begin_time, end_time]).sort_by{|x| x.votes}.reverse[0]
+    Joke.where(['created_at BETWEEN ? AND ? AND (up_votes - down_votes) >= -2 ', begin_time, end_time]).sort_by{|x| x.votes}.reverse[0]
   end
 
   # tweet the top joke for yesterday, last week if this is the first day of the week, last month if 
@@ -153,7 +147,7 @@ class Joke < ActiveRecord::Base
     # Today is the first day of the year, tweet last years's top Joke
     if Date.today.beginning_of_year == Date.today
       top_yearly_joke = top_joke_for_time_frame((Time.now-1.day).beginning_of_year, (Time.now-1.day).end_of_year)
-      post_top_joke(top_monthly_joke, "Happy New Year - Top joke for #{(Time.now-1.day).strftime("%Y")}")
+      post_top_joke(top_yearly_joke, "Happy New Year - Top joke for #{(Time.now-1.day).strftime("%Y")}")
     end
   end
 
@@ -215,21 +209,20 @@ class Joke < ActiveRecord::Base
      end
    end
 
-   def self.random_joke ( kid_safe = false)
-    if kid_safe 
-      count = Joke.count(:conditions => "is_kid_safe = 1 and (up_votes - down_votes) >= -2");
+   def self.random_joke(kid_safe = false)
+    if kid_safe
+      count = Joke.count(:conditions => "is_kid_safe = 1 and (up_votes - down_votes) >= -2")
       offset = rand(count)
       result_joke = (Joke.where("is_kid_safe = 1 and (up_votes - down_votes) >= -2").limit(1).offset(offset))[0]
     else
-     count = Joke.count(:conditions => "(up_votes - down_votes) >= -2");
+     count = Joke.count(:conditions => "(up_votes - down_votes) >= -2")
      offset = rand(count)
      result_joke = (Joke.where("(up_votes - down_votes) >= -2").limit(1).offset(offset))[0]
     end
-
     return result_joke
    end
 
-   def self.find_joke_that_fits(limit=140, threshold=1)
+   def self.find_joke_that_fits(limit = 140, threshold = 1)
     count = Joke.count(:conditions => "(length(question) + length(answer)) < #{limit-1} and (up_votes - down_votes) >= #{threshold}")
     offset = rand(count)
     random_joke = (Joke.where("(length(question) + length(answer)) < #{limit-1} and (up_votes - down_votes) >= #{threshold}").limit(1).offset(offset))[0]
