@@ -114,4 +114,19 @@ describe Joke do
       Timecop.return
     end
   end
+
+  describe "#random_joke" do
+    let(:joke) { FactoryGirl.create(:joke) }
+    let(:dirty_joke) { FactoryGirl.create(:dirty_joke) }
+    let(:crappy_joke) { FactoryGirl.create(:joke, down_votes: 4, up_votes: 0) }
+    it "should return a random joke" do
+      [joke, dirty_joke].include?(Joke.random_joke).should == true
+    end
+    it "should return a random joke with a vote threshold greater than -2" do
+      [joke, dirty_joke].include?(Joke.random_joke).should == true
+    end
+    it "should only return a random kid safe joke" do
+      [joke].include?(Joke.random_joke(true)).should == true
+    end
+  end
 end
