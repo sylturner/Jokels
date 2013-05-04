@@ -33,8 +33,10 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      params[:user].delete :is_admin
-      if @user.update_attributes(params[:user])
+      @user.display_name = params[:user][:display_name]
+      @user.hide_avatar = params[:user][:hide_avatar]
+      @user.hide_url = params[:user][:hide_url]
+      if @user.save
         format.html { redirect_to @user, :notice => 'User was successfully updated.' }
       else
         format.html { render :action => "edit" }
