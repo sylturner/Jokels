@@ -23,6 +23,7 @@ $(document).ready(function() {
 	enable_user_qtips();
 	enrich_leaderboards();
 	enable_basic_qtips();
+	fartscroll();
 });
 
 function enable_datatable() {
