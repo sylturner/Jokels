@@ -21,7 +21,7 @@ class AlternatePunchlinesController < JokesController
     end
     @alternate_punchlines = @alternate_punchlines.sort_by{|x| x.votes}.reverse
     respond_to do |format|
-      format.html
+      format.html { redirect_to @joke }
       format.js {render :layout => false}
     end
   end

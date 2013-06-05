@@ -16,7 +16,7 @@ class AlternatePunchline < ActiveRecord::Base
 	belongs_to :user, :counter_cache => true
 
 	validates_presence_of :punchline
-	  
+
 	attr_reader :auto_post
 	attr_writer :auto_post
 

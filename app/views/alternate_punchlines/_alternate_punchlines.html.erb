@@ -2,43 +2,43 @@
   <% @alternate_punchlines.each_index do |index| %>
    <% ap = @alternate_punchlines[index] %>
     <p class="punchline">
-   <% if !min %>
+   <% if !@min %>
      <% if index%2 == 0 %>
        <% if ap.user %>
           <%= link_to image_tag(ap.user.image, :size => "48x48"), ap.user, :class=>"avatar avatar-left fork-avatar qtip-user", :title => user_name(ap.user), "data-user-id" => ap.user.id, "data-include-avatar" => "false" %>
         <% else %>
           <%= image_tag anon_user_icon, :size => "48x48", :class => "avatar avatar-left fork-avatar avatar-anon avatar-anon-fork", :title => "Anonymous author" %>   
-        <% end %>    
+        <% end %>
         <span class="bubble-fork bubble"></span>
       <% end %>
     <% end %>
       <%= ap.punchline %>
-    <% if !min %>
+    <% if !@min %>
       <% if index%2 == 1 %>
        <span class="bubble-fork bubble-right"></span>
        <% if ap.user %>
           <%= link_to image_tag(ap.user.image, :size => "48x48"), ap.user, :class=>"avatar avatar-right fork-avatar qtip-user", :title => user_name(ap.user), "data-user-id" => ap.user.id, "data-include-avatar" => "false" %>
         <% else %>
           <%= image_tag anon_user_icon, :size => "48x48", :class => "avatar avatar-right fork-avatar avatar-anon avatar-anon-fork", :title => "Anonymous author" %>   
-        <% end %>    
+        <% end %>
       <% end %>
     <% end %>
     </p>
-    <% if !min %>
-      <p class="share">  
+    <% if !@min %>
+      <p class="share">
         <span class="left">
            <%= render :partial => "shared/votes", :locals => {:joke => ap, :upvote_path => upvote_joke_alternate_punchline_path(ap.joke, ap), :downvote_path => downvote_joke_alternate_punchline_path(ap.joke, ap), :id => "ap_#{ap.id}"} %>
         </span>
         <span class="right">
           <% if !current_user.nil? && current_user.is_admin %>
-            <%= link_to("Delete", joke_alternate_punchline_path(ap.joke, ap),:method => "delete", :confirm => "You sure?") %> | 
+            <%= link_to("Delete", joke_alternate_punchline_path(ap.joke, ap),:method => "delete", :confirm => "You sure?") %> |
             <%= check_box_tag("alt-punchline-#{ap.id}", value = ap.is_kid_safe, checked = ap.is_kid_safe, :class => "ajax-checkbox alternate-punchline-checkbox", "data-href" => is_kid_safe_toggle_joke_alternate_punchline_path(ap.joke, ap)) %> Is Kid Safe?
           <% end %>
         </span>
       </p>
     <% end %>
   <% end %>
-  <% if !min %>
+  <% if !@min %>
     <script>
       enable_user_qtips();
       enable_checkbox();
