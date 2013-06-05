@@ -334,7 +334,7 @@ class JokesController < ApplicationController
   def save_tags
     return if params[:tags].nil?
 
-    tags = params[:tags].split(",")
+    tags = params[:tags].gsub(".","").split(",")
     @joke.tag_list = tags
 
     if @joke.save

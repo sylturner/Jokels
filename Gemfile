@@ -41,6 +41,7 @@ group :development, :test do
     gem "pry-rails"
     gem "database_cleaner"
     gem "timecop"
+    gem "rvm-capistrano"
 end
 
 group :assets do

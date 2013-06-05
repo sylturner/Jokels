@@ -12,7 +12,7 @@ class TagsController < ApplicationController
     generate_title "All joke tags"
   end
 
-  def search    
+  def search
     autocomplete_tags = []
     if params[:term]
       Joke.tag_counts.where("name like ?", "%#{params[:term]}%").sort_by(&:name).each{|tag| autocomplete_tags << tag.name}
@@ -22,7 +22,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       format.html {redirect_to root_path}
       format.json {render :json => autocomplete_tags.to_json}
-    end    
+    end
   end
 
 end
