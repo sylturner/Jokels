@@ -20,9 +20,7 @@ gem 'twitter', :git => 'git://github.com/sferik/twitter.git', :tag => 'v2.2.0'
 #gem 'always_verify_ssl_certificates', :git => 'git://github.com/jamesgolick/always_verify_ssl_certificates.git'
 gem "airbrake"
 gem 'whenever', :git => 'git://github.com/javan/whenever.git', :require => false
-# using my version of the gem until/unless the guy merges my changes
-#gem 'bitly', :git => 'git://github.com/philnash/bitly.git'
-gem 'bitly', :git => 'git://github.com/sylturner/bitly.git'
+gem 'bitly'
 gem 'mobile-fu'
 gem 'twilio-ruby'
 gem 'dancroak-twitter-search'

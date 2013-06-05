@@ -20,8 +20,8 @@ ActiveRecord::Schema.define(:version => 20130421150909) do
     t.string   "achievable_type"
     t.integer  "ref_id"
     t.string   "ref_type"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "alternate_punchlines", :force => true do |t|
@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(:version => 20130421150909) do
     t.integer  "user_id"
     t.integer  "up_votes",    :default => 0
     t.integer  "down_votes",  :default => 0
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "is_kid_safe"
     t.boolean  "spam"
   end
@@ -43,23 +43,23 @@ ActiveRecord::Schema.define(:version => 20130421150909) do
 
   create_table "daily_words", :force => true do |t|
     t.string   "word"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "favorite_jokes", :force => true do |t|
     t.integer  "user_id"
     t.integer  "joke_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "favorite_jokes", ["joke_id"], :name => "index_favorite_jokes_on_joke_id"
   add_index "favorite_jokes", ["user_id"], :name => "index_favorite_jokes_on_user_id"
 
   create_table "jokes", :force => true do |t|
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "question"
     t.string   "answer"
     t.integer  "user_id"
@@ -70,13 +70,12 @@ ActiveRecord::Schema.define(:version => 20130421150909) do
     t.integer  "alternate_punchlines_count", :default => 0, :null => false
     t.integer  "favorite_jokes_count",       :default => 0, :null => false
     t.boolean  "is_kid_safe"
-    t.integer  "hit_counter",                :default => 0, :null => false
     t.string   "slug",                                      :null => false
+    t.integer  "hit_counter",                :default => 0, :null => false
     t.boolean  "spam"
   end
 
   add_index "jokes", ["down_votes"], :name => "index_jokes_on_down_votes"
-  add_index "jokes", ["slug"], :name => "index_jokes_on_slug", :unique => true
   add_index "jokes", ["up_votes"], :name => "index_jokes_on_up_votes"
   add_index "jokes", ["user_id"], :name => "index_jokes_on_user_id"
 
@@ -84,8 +83,8 @@ ActiveRecord::Schema.define(:version => 20130421150909) do
     t.integer  "user_id"
     t.integer  "subscribable_id"
     t.string   "subscribable_type"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "taggings", :force => true do |t|
@@ -109,8 +108,8 @@ ActiveRecord::Schema.define(:version => 20130421150909) do
     t.string   "uid"
     t.string   "name"
     t.string   "provider"
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "image_url"
     t.string   "url"
     t.integer  "up_votes",                   :default => 0,     :null => false
@@ -134,8 +133,8 @@ ActiveRecord::Schema.define(:version => 20130421150909) do
     t.string   "voter_type"
     t.integer  "voter_id"
     t.boolean  "up_vote",       :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "votings", ["voteable_type", "voteable_id", "voter_type", "voter_id"], :name => "unique_voters", :unique => true

@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  before_filter :force_tablet_html
   has_mobile_fu
 
   before_filter :is_mobile
@@ -46,7 +47,7 @@ class ApplicationController < ActionController::Base
   end
 
   def generate_subtitle text = nil
-    @subtitle = text 
+    @subtitle = text
     generate_title text
   end
 
@@ -96,4 +97,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def force_tablet_html
+    session[:tablet_view] = false
+  end
 end
