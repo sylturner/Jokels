@@ -137,6 +137,8 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.7)
       multipart-post (~> 1.1)
+    fartscroll-rails (0.1)
+      railties (~> 3.1)
     fgraph (0.7.0)
       httparty (>= 0.5.0)
     filters_spam (0.3)
@@ -299,6 +301,7 @@ DEPENDENCIES
   database_cleaner
   delorean
   factory_girl_rails
+  fartscroll-rails
   fgraph
   filters_spam (~> 0.3)
   friendly_id

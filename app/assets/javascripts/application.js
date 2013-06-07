@@ -1,9 +1,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require fartscroll
 //= require_tree ../../../vendor/assets/javascripts/.
 //= require_self
 //= require_directory .
+
 
 $(document).ready(function() {
 	$('#question-mark').click(function(){$("#why").dialog({modal: true, title: "Why login with Twitter or Facebook?", width: 450});})

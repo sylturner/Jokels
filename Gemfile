@@ -29,6 +29,7 @@ gem "delorean"
 gem 'acts-as-taggable-on', :git => "git://github.com/mbleigh/acts-as-taggable-on.git"
 gem "friendly_id"
 gem 'filters_spam', '~> 0.3' #spamfiltering
+gem 'fartscroll-rails'
 
 group :development, :test do
     gem 'rspec'
