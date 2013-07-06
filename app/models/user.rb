@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
         user.url = auth["info"]["urls"]["Twitter"]
         user.token = auth["credentials"]["token"]
         user.secret = auth["credentials"]["secret"]
-        user.image_url = "https://api.twitter.com/1/users/profile_image?screen_name=#{user.name}&size=normal"
+        user.image_url = auth["info"]["image"]
       elsif auth["provider"] == "facebook"
         user.name = auth["info"]["name"]
         user.url = auth["info"]["urls"]["Facebook"]
@@ -47,8 +47,16 @@ class User < ActiveRecord::Base
 
   def self.update_twitter_user_profile_images
     User.where(:provider => "twitter").each do |user|
-      user.image_url = "https://api.twitter.com/1/users/profile_image?screen_name=#{user.name}&size=normal"
-      user.save
+      begin
+        # fetch the twitter user again
+        user.update_attribute(:image_url, Twitter.user(user.uid.to_i)[:profile_image_url])
+      rescue Twitter::Error::ClientError::NotFound
+        # if they're not on twitter anymore, just set it to hide avatar to use our random anon ones
+        user.update_attribute(:hide_avatar, true)
+      rescue Twitter::Error::ClientError::TooManyRequests => e
+        # if we get rate limited, then raise the exception here
+        raise e
+      end
     end
   end
 

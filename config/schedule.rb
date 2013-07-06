@@ -31,6 +31,12 @@ every 1.day, :at => "09:00am" do
   runner "Joke.post_top_jokes" #tweet yesterday's top joke
 end
 
+every 1.day, :at => "12:00am" do
+  # twitter doesn't let use just point to a service anymore, it just provides
+  # static images, so we'll need to run this to stay up-to-date
+  runner "User.update_twitter_user_profile_images"
+end
+
 #every 1.minutes do
 #   runner "Joke.search_twitter_users" # reply to anyone saying "Tell Me a Joke"
 #end
