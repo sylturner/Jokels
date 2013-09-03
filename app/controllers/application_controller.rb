@@ -14,7 +14,13 @@ class ApplicationController < ActionController::Base
 
   DEFAULT_TITLE = "Jokels - Share your jokes!"
 
+  rescue_from Exception, :with => :render_404
+
   private
+
+  def render_404
+    redirect_to root_url, :notice => "Joke not found. Try this random one instead!"
+  end
 
   def current_user
     begin
