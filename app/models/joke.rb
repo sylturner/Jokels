@@ -174,6 +174,7 @@ class Joke < ActiveRecord::Base
        fb_post = tweet
        if user && user.provider == "twitter"
          twitter_name = "@"+user.name
+         twitter_name = user.display_name if user.display_name
 
          # Format: Jan 01 top joke: joke's question - http://jkls.co/url by @twittername
          tweet_with_author = "#{tweet} by #{twitter_name}" 
@@ -182,7 +183,7 @@ class Joke < ActiveRecord::Base
          if tweet_with_author.length <= 140
            tweet_debug(client, tweet_with_author)
          else
-           # turncate the joke's question, we want the author to be shown every time
+           # truncate the joke's question, we want the author to be shown every time
            # formula:
            # 140 = max tweet length
            # 45 = the number of characters for date, 'top joke', bit.ly url, dash, and 'by' 
