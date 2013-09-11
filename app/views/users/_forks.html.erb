@@ -1,4 +1,4 @@
-<h2><%=user_name user %>'s forked jokes</h2>
+<h2><%= user.user_name %>'s forked jokes</h2>
 <% if user.forks_count > 0 %>
   <ul>
   <% forked_jokes.each do |forked_joke| %>
@@ -6,5 +6,5 @@
     <% end %>
   </ul>
 <% else %>
-  <p><%= user_name user %> doesn't have any forks.</p>
+  <p><%= user.user_name %> doesn't have any forks.</p>
 <% end %>

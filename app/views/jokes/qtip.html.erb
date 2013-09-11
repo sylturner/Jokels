@@ -4,8 +4,8 @@
   <% else %>
 	<% image = image_tag("twitter-logo.png", :size => "12x12")%>
   <% end %>
-  <%= image_tag(@joke.user.image, :size => "60x60", :title => user_name(@joke.user), :class=>"avatar avatar_qtip") %>
-  <span class="qtip_author" ><strong>By <%= user_name(@joke.user) %></strong> <%= image %><br/></span>
+  <%= image_tag(@joke.user.image, :size => "60x60", :title => @joke.user.user_name, :class=>"avatar avatar_qtip") %>
+  <span class="qtip_author" ><strong>By <%= @joke.user.user_name %></strong> <%= image %><br/></span>
 <% else %>
   <%= image_tag anon_user_icon, :size => "48x48", :class => "avatar avatar_qtip", :title => "Anonymous author" %>
   <span class="qtip_author" ><strong>Anonymous Author</strong><br/></span>

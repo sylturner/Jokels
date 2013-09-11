@@ -1,5 +1,5 @@
 <div data-role="collapsible" data-content-theme="c" data-iconpos="right" data-collapsed="false" data-icon="none" id="jokel_block" data-content-theme="d">
-   <h3><span id="jokel_title">Jokel <% if joke.user %> by <%= user_name(joke.user) %><% end %></span></h3>
+   <h3><span id="jokel_title">Jokel <% if joke.user %> by <%= joke.user.user_name %><% end %></span></h3>
    <p id="jokel_question"><%= joke.question %></p>
    <div data-role="collapsible-set" data-content-theme="c">
    	 <div data-role="collapsible" data-collapsed="true" data-content-theme="d" data-iconpos="right" id="punchline_div">
@@ -9,7 +9,7 @@
      <% joke.alternate_punchlines.each_with_index do |alt_punchline, index| %>
 		<div data-role="collapsible" data-iconpos="right" data-collapsed="true" data-content-theme="d" >
 			<h3>Alternate Punchline <% if joke.has_forks? %>#<%= index+1%><% end %></h3>
-			<p><%= alt_punchline.punchline %> <%if alt_punchline.user %> <strong><br/><br/>-by <%= user_name(alt_punchline.user)%></strong><% end %></p>
+			<p><%= alt_punchline.punchline %> <%if alt_punchline.user %> <strong><br/><br/>-by <%= alt_punchline.user.user_name%></strong><% end %></p>
 		</div>
      <% end %>
    </div>

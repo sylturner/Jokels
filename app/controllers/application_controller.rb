@@ -77,19 +77,6 @@ class ApplicationController < ActionController::Base
     index.to_i()
   end
 
-  # puts an @ in front of Twitter names  
-  def user_name user
-    if user.nil?
-      return nil
-    elsif !user.display_name.nil?
-      return user.display_name
-    elsif user.provider == "twitter" && user.display_name.nil?
-      return "@"+user.name
-    else
-      return user.name
-    end
-  end
-
   def is_mobile
     logger.debug "in is_mobile"
     logger.debug "is_mobile format: " + request.format

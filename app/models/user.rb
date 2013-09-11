@@ -105,4 +105,13 @@ class User < ActiveRecord::Base
     jokes
   end
 
+  def user_name
+    if !self.display_name.blank?
+      return self.display_name
+    elsif self.provider == "twitter" && self.display_name.blank?
+      return "@"+self.name
+    else
+      return self.name
+    end
+  end
 end

@@ -118,7 +118,7 @@ class Joke < ActiveRecord::Base
     if Rails.env == "production"
       client.update(tweet)
     else
-      puts "I would be tweeting: #{tweet}"
+      return "I would be tweeting: #{tweet}"
     end
   end
 
@@ -172,13 +172,12 @@ class Joke < ActiveRecord::Base
 
        user = top_joke.user
        fb_post = tweet
-       if user && user.provider == "twitter"
-         twitter_name = "@"+user.name
-         twitter_name = user.display_name if user.display_name
+       if user
+         user_name = user.user_name
 
          # Format: Jan 01 top joke: joke's question - http://jkls.co/url by @twittername
-         tweet_with_author = "#{tweet} by #{twitter_name}" 
-         fb_post = fb_post + " by Twitter User #{twitter_name}"
+         tweet_with_author = "#{tweet} by #{user_name}"
+         fb_post = tweet_with_author
 
          if tweet_with_author.length <= 140
            tweet_debug(client, tweet_with_author)
@@ -193,7 +192,7 @@ class Joke < ActiveRecord::Base
            question_length = 140-joke_description.length-22-twitter_name.length-1
 
            # Format: Jan 01 top joke: joke's questi… - http://jkls.co/url by @twittername
-           tweet_with_author = "#{joke_description}: #{top_joke.question[0..question_length]}… - #{top_joke.bitly_url} by #{twitter_name}"
+           tweet_with_author = "#{joke_description}: #{top_joke.question[0..question_length]}… - #{top_joke.bitly_url} by #{user_name}"
            tweet_debug(client, tweet_with_author)
          end
        elsif tweet.length <= 140

@@ -8,11 +8,11 @@
 
 <% if @include_avatar %>
 	<div class="user_qtip">
-	  <%= image_tag(@user.image, :size => "60x60", :title => user_name(@user), :class=>"avatar avatar_qtip") %>
+	  <%= image_tag(@user.image, :size => "60x60", :title => @user.user_name, :class=>"avatar avatar_qtip") %>
 <% else %>
 	<div class="user_qtip_no_avatar">
 <% end %>
-  <span class="qtip_author" ><strong><%= user_name(@user) %> <%= image %></strong><br/></span>
+  <span class="qtip_author" ><strong><%= @user.user_name %> <%= image %></strong><br/></span>
 
 <div "user_qtip_text" >
 <span class="qtip_jokes"><b>Authored Jokes: </b><%= @user.jokes_count %><br/> </span>

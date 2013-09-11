@@ -1,4 +1,4 @@
-<h2><%=user_name user %>'s jokes</h2>
+<h2><%= user.user_name %>'s jokes</h2>
 <% if user.jokes_count > 0 %>
   <ul>
   <% jokes.each do |joke| %>
@@ -6,5 +6,5 @@
   <% end %>
   </ul>
 <% else %>
-<p><%= user_name user %> doesn't have any jokes.</p>
+<p><%= user.user_name %> doesn't have any jokes.</p>
 <% end %>

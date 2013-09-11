@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     @forked_jokes = @user.forked_jokes
     @forked_jokes = @forked_jokes.select{|forked_joke| forked_joke.is_kid_safe} if is_clean_mode?
 
-    generate_title "#{user_name @user}'s jokes"
+    generate_title "#{@user.user_name}'s jokes"
 
     respond_to do |format|
       format.html
@@ -26,9 +26,9 @@ class UsersController < ApplicationController
 
   def edit
     redirect_to(@user, :notice => "You can't edit this user, because you aren't this user!") unless @user == current_user
-    generate_title "Editing #{user_name @user}"
+    generate_title "Editing #{@user.user_name}"
     # use the user_name helper method to fill in the display name on profile form load 
-    @user.display_name = user_name(@user) if @user.display_name.nil?
+    @user.display_name = @user.user_name if @user.display_name.nil?
   end
 
   def update
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
   end
 
   def qtip
-    generate_title user_name(@user)
+    generate_title @user.user_name
 
     @include_avatar = (params[:include_avatar] == "true")
 
@@ -63,11 +63,11 @@ class UsersController < ApplicationController
 
     is_clean_clause = is_clean_mode? == 1 ? " AND is_kid_safe = 1" : ""
     if @type == "authored"
-      generate_subtitle (user_name(@user) + "'s Jokes")
+      generate_subtitle("#{@user.user_name}'s Jokes")
 
       @limit = Joke.count(:conditions => "user_id = #{@user.id} #{is_clean_clause}");
 
-      return if limit_test(@limit, "#{user_name(@user)} hasn't written any jokes.")
+      return if limit_test(@limit, "#{@user.user_name} hasn't written any jokes.")
 
       @index = generate_index(@index, @limit)
 
@@ -77,10 +77,10 @@ class UsersController < ApplicationController
 
       @joke = Joke.where(["user_id = ? #{is_clean_clause}", @user.id]).order("created_at ASC").limit(1).offset(@index)[0]
     elsif @type == "favorite_jokes"
-      generate_subtitle (user_name(@user) + "'s Favorite Jokes")
+      generate_subtitle("#{@user.user_name}'s Favorite Jokes")
       @limit = FavoriteJoke.joins(:joke).count(:conditions => "favorite_jokes.user_id = #{@user.id} #{is_clean_clause}")
 
-      return if limit_test(@limit, "#{user_name(@user)} doesn't have any favorite jokes.")
+      return if limit_test(@limit, "#{@user.user_name} doesn't have any favorite jokes.")
 
       @index = generate_index(@index, @limit)
 
@@ -90,11 +90,11 @@ class UsersController < ApplicationController
 
       @joke = FavoriteJoke.joins(:joke).where(["favorite_jokes.user_id = ? #{is_clean_clause}", @user.id]).order("created_at ASC").limit(1).offset(@index)[0].joke
     else
-      generate_subtitle (user_name(@user) + "'s Forked Jokes")
+      generate_subtitle("#{@user.user_name}'s Forked Jokes")
       is_clean_clause = is_clean_mode? == 1 ? " AND alternate_punchlines.is_kid_safe = 1 AND jokes.is_kid_safe = 1" : ""
       @limit = AlternatePunchline.joins(:joke).count(:conditions => "alternate_punchlines.user_id = #{@user.id} #{is_clean_clause}");
 
-      return if limit_test(@limit, "#{user_name(@user)} doesn't have any forked jokes.")
+      return if limit_test(@limit, "#{@user.user_name} doesn't have any forked jokes.")
 
       @index = generate_index(@index, @limit)
 

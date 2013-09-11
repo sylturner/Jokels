@@ -23,7 +23,7 @@
 			<% if joke.user.nil? %>
 				Anonymous
 			<% else %>
-				<%= link_to user_name(joke.user), joke.user %>
+				<%= link_to joke.user.user_name, joke.user %>
 			<% end %>
 		</td>
 		<td>
@@ -71,7 +71,7 @@
 			<% if alt_punchline.user.nil? %>
 				Anonymous
 			<% else %>
-				<%= link_to user_name(alt_punchline.user), alt_punchline.user %>
+				<%= link_to alt_punchline.user.user_name, alt_punchline.user %>
 			<% end %>
 			</td>
 			<td>
