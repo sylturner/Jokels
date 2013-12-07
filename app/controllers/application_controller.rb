@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
   DEFAULT_TITLE = "Jokels - Share your jokes!"
 
-  rescue_from Exception, :with => :render_404
+  #rescue_from Exception, :with => :render_404
 
   private
 
