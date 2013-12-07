@@ -12,6 +12,8 @@
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
         <!--<li class="navbar-text" title="Let this random word/phrase/concept help inspire your jokes">Today's inspiration: <%= daily_word %></li> -->
+        <!-- <a type="button" class="btn navbar-btn btn-default" href="<%= tags_path %>"><span class="glyphicon glyphicon-tags"></span> Tags</a> -->
+        <!-- <li><%= link_to "Leaderboards", leaderboard_path %></li> -->
         <% if current_user %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="user-dropdown"><%= image_tag(current_user.image, size: "40x40", class: "img-circle") %> <b class="caret"></b></a>
