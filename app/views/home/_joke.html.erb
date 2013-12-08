@@ -13,14 +13,14 @@
   <p id="click-for-punchline" class="reveal-punchline jumbotron" data-joke-id="<%= joke.id %>">Click for the <strong>punchline</strong>!</p>
   <div id="answer-container">
     <p id="answer" class="answer jumbotron">
-    <%= joke.answer %>
-      <span class="bubble-right bubble bubble-answer" id="answer-avatar-bubble"></span>
-      <% if joke.user %>
-        <%= link_to image_tag(joke.user.image, size: "48x48", class: "img-circle"), joke.user, class: "avatar avatar-right qtip-user", id: "question-avatar", title: joke.user.user_name, "data-user-id" => joke.user.id, "data-include-avatar" => "false"%>
-      <% else %>
-        <%= image_tag anon_user_icon, size: "48x48", class: "img-circle avatar avatar-right avatar-anon", title: "Anonymous author" %>
-      <% end %>
+      <%= joke.answer %>
     </p>
+    <span class="bubble-right bubble bubble-answer" id="answer-avatar-bubble"></span>
+    <% if joke.user %>
+      <%= link_to image_tag(joke.user.image, size: "48x48", class: "img-circle"), joke.user, class: "avatar avatar-right qtip-user", id: "question-avatar", title: joke.user.user_name, "data-user-id" => joke.user.id, "data-include-avatar" => "false"%>
+    <% else %>
+      <%= image_tag anon_user_icon, size: "48x48", class: "img-circle avatar avatar-right avatar-anon", title: "Anonymous author" %>
+    <% end %>
   </div>
   <p id="share" class="share">
     <span class="left">
