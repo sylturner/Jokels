@@ -1,40 +1,42 @@
-<%= form_for(@joke) do |f| %>
-  <% if current_user.nil? %>
-    <div id="error_explanation" class="qtip-capable" title="Sign in to get credit for jokes and alternate punchlines written, to show up on the User leaderboards and to vote on other users' Jokes and Alternate Punchlines.">
-      You are not signed in; you will not get any credit for this joke!  
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="myModalLabel"><%= title %></h4>
     </div>
-  <% end %>
-  <% if @joke.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@joke.errors.count, "error") %> prohibited this joke from being saved:</h2>
-
-      <ul>
-      <% @joke.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+    <div class="modal-body">
+      <%= form_for(@joke) do |f| %>
+        <% if current_user.nil? %>
+          <div class="alert alert-warning">
+            You are not signed in; you will not get any credit for this joke!
+          </div>
+        <% end %>
+        <% if @joke.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@joke.errors.count, "error") %> prohibited this joke from being saved:</h2>
+            <ul>
+            <% @joke.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="field">
+          <div class="input-group input-group-lg">
+            <%= f.text_field :question, {class: "form-control", placeholder: "The setup..."} %>
+            <%= f.text_field :answer, {class: "form-control", placeholder: "Punchline!"} %>
+          </div>
+          <span class="qtip-capable" title="Jokels tries to filter out inappropriate and profane jokes for our younger users.  Please help us by flagging your own jokes as you create them."><%= f.check_box :is_kid_safe %> <%=f.label :is_kid_safe, "Is this joke safe for kids?" %></span>
+          <% if current_user && !current_user.token.nil? %>
+            <br/>
+            <%= f.check_box :auto_post %> <%=f.label :auto_post, (current_user.provider == "facebook" ? "Automatically post your new punchline to Facebook?" : "Automatically tweet your new punchline?") %> 
+          <% end %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Add joke</button>
+        </div>
       <% end %>
-      </ul>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :question, "The setup..." %>
-    <%= f.text_field :question %>
-    <br/>
-    <%= f.label :answer, "Punchline!" %>
-    <%= f.text_field :answer %>
-    <span class="qtip-capable" title="Jokels tries to filter out inappropriate and profane jokes for our younger users.  Please help us by flagging your own jokes as you create them."><%= f.check_box :is_kid_safe %> <%=f.label :is_kid_safe, "Is this joke safe for kids?" %></span>
-    <% if current_user && !current_user.token.nil? %>
-      <br/>
-      <%= f.check_box :auto_post %> <%=f.label :auto_post, (current_user.provider == "facebook" ? "Automatically post your new punchline to Facebook?" : "Automatically tweet your new punchline?") %> 
-    <% end %>
   </div>
-  <div class="actions">
-    <%= f.submit "Add joke" %>
-  </div>
-  <% if !is_mobile_device? %>
-  <script type="text/javascript" >
-      if ( enable_basic_qtips != undefined )
-        enable_basic_qtips();
-  </script>
-  <% end %>
-<% end %>
+</div>

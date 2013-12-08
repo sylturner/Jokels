@@ -11,6 +11,7 @@
     </div>
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav navbar-right">
+        <a type="button" class="navbar-btn btn btn-success navbar-left" href="<%= add_joke_home_path %>" data-toggle="modal" data-remote="true" data-target="#add-joke"><span class="glyphicon glyphicon-plus-sign"></span> Add new joke</a>
         <!--<li class="navbar-text" title="Let this random word/phrase/concept help inspire your jokes">Today's inspiration: <%= daily_word %></li> -->
         <!-- <a type="button" class="btn navbar-btn btn-default" href="<%= tags_path %>"><span class="glyphicon glyphicon-tags"></span> Tags</a> -->
         <!-- <li><%= link_to "Leaderboards", leaderboard_path %></li> -->
@@ -39,7 +40,7 @@
           </li>
         <% end %>
       </ul>
-      <a type="button" class="navbar-btn btn btn-success navbar-right" href="<%= add_joke_home_path %>"><span class="glyphicon glyphicon-plus-sign"></span> Add new joke</a>
     </div>
   </div>
 </div>
+<div class="modal fade" id="add-joke" tabindex="-1" role="dialog" aria-labelledby="addJokeLabel" aria-hidden="true"></div>

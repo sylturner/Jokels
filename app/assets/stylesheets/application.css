@@ -25,6 +25,10 @@ html, body {
   height: 100%;
 }
 
+body {
+  padding-top: 50px;
+}
+
 #wrap {
   min-height: 100%;
   height: auto;
@@ -38,5 +42,9 @@ html, body {
 }
 
 #footer .text-muted {
+  padding-top: 10px;
+}
+
+#main-container {
   padding-top: 10px;
 }

@@ -1,3 +1,1 @@
-$("#add-joke").dialog({modal: true, title: "Edit your joke", width: 450});
-$("#add-joke").html("<%= escape_javascript(render :partial => 'jokes/form') %>");
-$("#joke_question").focus();
+$("#add-joke").html("<%= escape_javascript(render :partial => 'jokes/form', locals: {title: "Edit joke"}) %>");

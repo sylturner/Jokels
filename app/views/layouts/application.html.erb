@@ -4,7 +4,6 @@
     <title><%=@title%></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "application" %>
-    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tag %>
     <link href='http://fonts.googleapis.com/css?family=Chewy&v1' rel='stylesheet' type='text/css'>
     <!-- facebook crap -->
@@ -22,10 +21,19 @@
   <body>
     <div id="wrap">
       <%= render :partial => "layouts/header" %>
-      <%= yield %>
+      <div id="main-container" class="container">
+        <% if notice %>
+          <div id="notice" class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <%= notice %>
+          </div>
+        <% end %>
+        <%= yield %>
+      </div>
     </div>
     <%= render :partial => "layouts/footer" %>
 
+    <%= javascript_include_tag "application" %>
     <% if Rails.env == "production" %>
       <script type="text/javascript">
         var _gaq = _gaq || [];
