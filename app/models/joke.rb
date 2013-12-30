@@ -15,7 +15,7 @@ class Joke < ActiveRecord::Base
     :extra_spam_words => %w()
   })
 
-  validates_with JokesHelper::JokeSpamValidator
+  validate :spam_check
 
   has_many :favorite_jokes, :dependent => :destroy
   has_many :alternate_punchlines, :dependent => :destroy
@@ -30,6 +30,11 @@ class Joke < ActiveRecord::Base
 
   after_create :generate_bitly_url
 
+  def spam_check
+    if self.spam || !self.question.include?(" ")
+      self.errors[:base] << "We think this joke is probably spam."
+    end
+  end
   def should_generate_new_friendly_id?
     new_record? || self.slug.nil?
   end

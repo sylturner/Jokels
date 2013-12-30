@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe HomeController do
+  let!(:joke) { FactoryGirl.create(:joke) }
+
   describe "GET Index" do
     it "gets the index view" do
       get "index"

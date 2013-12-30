@@ -6,6 +6,30 @@ describe Joke do
 
   it { should belong_to(:user) }
 
+  describe "spam_check" do
+    it "should be invalid if it's spammy" do
+      joke = Joke.new
+      joke.question = "viagra gambling shemale ringtones poker valeofglamorganconservatives booker"
+      joke.answer = "viagra gambling shemale ringtones poker valeofglamorganconservatives booker"
+      joke.valid?.should be_false
+    end
+
+    it "should be invalid if it only has one word in the question" do
+      joke = Joke.new
+      joke.question = "xJk8d"
+      joke.answer = "tYn0j"
+      joke.valid?.should be_false
+    end
+
+    it "should be valid if it looks enough like a joke" do
+      joke = Joke.new
+      joke.question = "Why did the horse eat a fish?"
+      joke.answer = "It was hungry"
+      joke.valid?.should be_true
+    end
+
+  end
+
   describe "#should_generate_friendly_id?" do
     it "should generate a friendly id when the joke is new and doesn't have a slug" do
       joke = FactoryGirl.build(:joke)

@@ -10,7 +10,7 @@ class AlternatePunchline < ActiveRecord::Base
 	:extra_spam_words => %w()
 	})
 
-	validates_with JokesHelper::JokeSpamValidator
+  validate :spam_check
 
 	belongs_to :joke, :counter_cache => true
 	belongs_to :user, :counter_cache => true
@@ -23,5 +23,11 @@ class AlternatePunchline < ActiveRecord::Base
 	def is_profane?
 		ProfanityFilter::Base.profane?(self.punchline)
 	end
+
+  def spam_check
+    if self.spam
+      self.errors[:base] << "This is probably spam."
+    end
+  end
 	
 end
