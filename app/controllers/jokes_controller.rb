@@ -317,7 +317,7 @@ class JokesController < ApplicationController
     body.downcase! #to lower case
     message_sent = false
 
-    if (body.include? "jokel me") || (body.include? "joke me")
+    if (body.include? "joke")
       joke = Joke.random_joke
       joke.sms_joke number
       message_sent = true
