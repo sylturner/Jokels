@@ -52,11 +52,11 @@ class HomeController < ApplicationController
   end
 
   def random_joke
-    render :json => Joke.random_joke.to_json
+    render :json => Joke.random_joke(params[:clean]).to_json
   end
 
   def random_joke_metadata
-    @joke = Joke.random_joke(is_clean_mode?)
+    @joke = Joke.random_joke(is_clean_mode? || params[:clean])
     response = {}
     response["joke-path"] = joke_path(@joke)
     response["joke-id"] = @joke.id.to_s()
